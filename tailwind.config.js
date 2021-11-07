@@ -61,6 +61,11 @@ module.exports = {
         DEFAULT: "#34252F",
       },
     },
+    fontFamily: {
+      sans: ["Source Sans Pro", "sans-serif"],
+      serif: ["Source Serif Pro", "serif"],
+      mono: ["Source Code Pro", "monospace"],
+    },
   },
   plugins: [require("@tailwindcss/typography", "@tailwindcss/forms")],
 };

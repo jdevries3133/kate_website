@@ -5,22 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jack DeVries</title>
     <link href="/styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital@0;1&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Serif+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
     <script>
-      document.write(
-        '<script src="http://' +
-          (location.host || "localhost").split(":")[0] +
-          ':35729/livereload.js?snipver=1"></' +
-          "script>"
-      );
+      if (location.host.includes("localhost")) {
+        document.write(
+          '<script src="http://' +
+            (location.host || "localhost").split(":")[0] +
+            ':35729/livereload.js?snipver=1"></' +
+            "script>"
+        );
+      }
     </script>
   </head>
   <body>
     <div class="container">
-      <h1>Hello There</h1>
-      <p>Nothing to see here yet. Please move along!</p>
+      <h1>Hi, there!</h1>
+      <div class="w-24 p-2 bg-primary-100 rounded-full shadow">
+        <img class="rounded-full" src="./static/me.jpg" />
+      </div>
+      <h2>How are you</h2>
+      <h3>I am well!</h3>
+      <h4>great!</h4>
       <p>
-        Or, take a look at my
-        <a href="https://github.com/jdevries3133">GitHub Profile</a>
+        Well, anyway, this is what it is going to look like once I get into it,
+        now, isn't it?
       </p>
     </div>
   </body>
