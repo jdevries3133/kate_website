@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-mineral-600;
-  }
-
   h1 {
     @apply text-primary-300;
     @apply font-bold;
