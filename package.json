@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
-    "build": "NODE_ENV=production tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify"
+    "dev": "tailwindcss -i ./src/styles.css -o ./src/dist.styles.css --watch",
+    "build": "NODE_ENV=production tailwindcss -i ./src/styles.css -o ./src/dist.styles.css --minify"
   },
   "repository": {
     "type": "git",

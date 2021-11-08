@@ -3,17 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    z-index: 10;
+  }
   h1 {
-    @apply text-primary-300;
-    @apply font-bold;
-    @apply text-3xl;
-    @apply font-serif;
+    @apply text-primary-300 font-bold text-3xl font-serif;
   }
 
   h2 {
-    @apply text-primary-300;
-    @apply text-2xl;
-    @apply font-serif;
+    @apply text-primary-300 text-2xl font-serif;
   }
 
   h3 {
@@ -21,11 +19,52 @@
   }
 
   h4 {
-    @apply text-clay-200 text-lg;
-    @apply font-light;
+    @apply text-clay-200 text-lg font-light;
   }
 
   p {
-    @apply text-clay;
+    @apply text-clay py-1 prose;
   }
+}
+
+.tooltip {
+  @apply relative;
+}
+
+.tooltip:focus:after,
+.tooltip:hover:after {
+  @apply bg-primary-100 text-mineral absolute p-2 rounded-md;
+  content: attr(data-tooltip);
+  top: -40px;
+  left: 20%;
+}
+
+.tooltip:focus:before,
+.tooltip:hover:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 30%;
+  width: 10px;
+  margin: auto;
+  border-left: 5px solid transparent;
+  border-top: 5px solid #ffe4b5;
+  border-right: 5px solid transparent;
+}
+
+.tooltip-left-0:focus:after,
+.tooltip-left-0:hover:after {
+  left: 0;
+}
+
+.link {
+  @apply text-primary-600 underline cursor-pointer;
+}
+
+.link:visited {
+  @apply text-primary-700;
+}
+
+.text-container > p {
+  @apply px-3;
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jack DeVries</title>
-    <link href="/styles.css" rel="stylesheet" />
+    <link href="/dist.styles.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,13 +23,15 @@
     </script>
   </head>
   <body>
-    <div class="w-screen h-screen bg-mineral-600">
-      <div>
-        <h1 class="py-20 text-center">Hello there!</h1>
-        <div class="flex flex-row items-center">
+    <!-- first section: landing page -->
+    <div class="pb-6 bg-mineral-600 flex flex-col">
+      <!-- name and greeting -->
+      <div class="flex flex-col flex-grow">
+        <h1 class="py-4 text-center flex-shrink">Hello there!</h1>
+        <div class="flex flex-row flex-grow items-center">
           <div class="px-6 text-right">
             <h3>Jack DeVries</h3>
-            <h4>Full Stack Web Developer</h4>
+            <h4 class="text-sm sm:text-xl">Web & Software Developer</h4>
           </div>
           <div class="w-24 p-2 bg-primary-100 rounded-full shadow">
             <img class="rounded-full" src="./static/me.jpg" />
@@ -37,37 +39,355 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-3 mx-3 gap-2 items-center">
-        <img class="w-24 h-24" src="./static/react.webp" />
-        <img class="w-24 h-24" src="./static/redux.svg" />
-        <img class="w-24 h-24" src="./static/django.svg" />
-        <img class="w-24 rounded-md" src="./static/drf.png" />
-        <div class="flex items-center col-span-2">
-          <svg viewBox="0 0 248 31" class="w-auto h-7 sm:h-8">
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M25.517 0C18.712 0 14.46 3.382 12.758 10.146c2.552-3.382 5.529-4.65 8.931-3.805 1.941.482 3.329 1.882 4.864 3.432 2.502 2.524 5.398 5.445 11.722 5.445 6.804 0 11.057-3.382 12.758-10.145-2.551 3.382-5.528 4.65-8.93 3.804-1.942-.482-3.33-1.882-4.865-3.431C34.736 2.92 31.841 0 25.517 0zM12.758 15.218C5.954 15.218 1.701 18.6 0 25.364c2.552-3.382 5.529-4.65 8.93-3.805 1.942.482 3.33 1.882 4.865 3.432 2.502 2.524 5.397 5.445 11.722 5.445 6.804 0 11.057-3.381 12.758-10.145-2.552 3.382-5.529 4.65-8.931 3.805-1.941-.483-3.329-1.883-4.864-3.432-2.502-2.524-5.398-5.446-11.722-5.446z"
-              fill="#06B6D4"
-            ></path>
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M76.546 12.825h-4.453v8.567c0 2.285 1.508 2.249 4.453 2.106v3.463c-5.962.714-8.332-.928-8.332-5.569v-8.567H64.91V9.112h3.304V4.318l3.879-1.143v5.937h4.453v3.713zM93.52 9.112h3.878v17.849h-3.878v-2.57c-1.365 1.891-3.484 3.034-6.285 3.034-4.884 0-8.942-4.105-8.942-9.389 0-5.318 4.058-9.388 8.942-9.388 2.801 0 4.92 1.142 6.285 2.999V9.112zm-5.674 14.636c3.232 0 5.674-2.392 5.674-5.712s-2.442-5.711-5.674-5.711-5.674 2.392-5.674 5.711c0 3.32 2.442 5.712 5.674 5.712zm16.016-17.313c-1.364 0-2.477-1.142-2.477-2.463a2.475 2.475 0 012.477-2.463 2.475 2.475 0 012.478 2.463c0 1.32-1.113 2.463-2.478 2.463zm-1.939 20.526V9.112h3.879v17.849h-3.879zm8.368 0V.9h3.878v26.06h-3.878zm29.053-17.849h4.094l-5.638 17.849h-3.807l-3.735-12.03-3.771 12.03h-3.806l-5.639-17.849h4.094l3.484 12.315 3.771-12.315h3.699l3.734 12.315 3.52-12.315zm8.906-2.677c-1.365 0-2.478-1.142-2.478-2.463a2.475 2.475 0 012.478-2.463 2.475 2.475 0 012.478 2.463c0 1.32-1.113 2.463-2.478 2.463zm-1.939 20.526V9.112h3.878v17.849h-3.878zm17.812-18.313c4.022 0 6.895 2.713 6.895 7.354V26.96h-3.878V16.394c0-2.713-1.58-4.14-4.022-4.14-2.55 0-4.561 1.499-4.561 5.14v9.567h-3.879V9.112h3.879v2.285c1.185-1.856 3.124-2.749 5.566-2.749zm25.282-6.675h3.879V26.96h-3.879v-2.57c-1.364 1.892-3.483 3.034-6.284 3.034-4.884 0-8.942-4.105-8.942-9.389 0-5.318 4.058-9.388 8.942-9.388 2.801 0 4.92 1.142 6.284 2.999V1.973zm-5.674 21.775c3.232 0 5.674-2.392 5.674-5.712s-2.442-5.711-5.674-5.711-5.674 2.392-5.674 5.711c0 3.32 2.442 5.712 5.674 5.712zm22.553 3.677c-5.423 0-9.481-4.105-9.481-9.389 0-5.318 4.058-9.388 9.481-9.388 3.519 0 6.572 1.82 8.008 4.605l-3.34 1.928c-.79-1.678-2.549-2.749-4.704-2.749-3.16 0-5.566 2.392-5.566 5.604 0 3.213 2.406 5.605 5.566 5.605 2.155 0 3.914-1.107 4.776-2.749l3.34 1.892c-1.508 2.82-4.561 4.64-8.08 4.64zm14.472-13.387c0 3.249 9.661 1.285 9.661 7.89 0 3.57-3.125 5.497-7.003 5.497-3.591 0-6.177-1.607-7.326-4.177l3.34-1.927c.574 1.606 2.011 2.57 3.986 2.57 1.724 0 3.052-.571 3.052-2 0-3.176-9.66-1.391-9.66-7.781 0-3.356 2.909-5.462 6.572-5.462 2.945 0 5.387 1.357 6.644 3.713l-3.268 1.82c-.647-1.392-1.904-2.035-3.376-2.035-1.401 0-2.622.607-2.622 1.892zm16.556 0c0 3.249 9.66 1.285 9.66 7.89 0 3.57-3.124 5.497-7.003 5.497-3.591 0-6.176-1.607-7.326-4.177l3.34-1.927c.575 1.606 2.011 2.57 3.986 2.57 1.724 0 3.053-.571 3.053-2 0-3.176-9.66-1.391-9.66-7.781 0-3.356 2.908-5.462 6.572-5.462 2.944 0 5.386 1.357 6.643 3.713l-3.268 1.82c-.646-1.392-1.903-2.035-3.375-2.035-1.401 0-2.622.607-2.622 1.892z"
-              fill="#fff"
-            ></path>
-          </svg>
+      <!-- tech icons -->
+      <div class="flex-shrink">
+        <h2 class="text-center pb-2">My Toolbox</h2>
+        <div
+          class="grid grid-cols-3 mx-3 gap-4 items-center justify-items-center"
+        >
+          <!-- react -->
+          <button data-tooltip="React" class="tooltip">
+            <img alt="react.js icon" src="./static/react.webp" />
+          </button>
+          <!-- redux -->
+          <button data-tooltip="Redux" class="tooltip">
+            <img
+              class="w-full h-full"
+              alt="redux icon"
+              src="./static/redux.svg"
+            />
+          </button>
+          <!-- django -->
+          <img alt="django icon" src="./static/django.svg" />
+          <!-- django REST framework -->
+          <img
+            class="rounded-md"
+            alt="django REST framework icon"
+            src="./static/drf.png"
+          />
+          <!-- tailwind -->
+          <img
+            alt="Tailwind CSS icon"
+            src="./static/tailwind.svg"
+            class="flex items-center col-span-2"
+          />
+          <!-- javascript -->
+          <img class="rounded-md" alt="javascript icon" src="./static/js.png" />
+          <!-- git -->
+          <div class="p-2 flex items-center bg-clay-100 rounded-md">
+            <img alt="git icon" src="./static/git.png" />
+          </div>
+          <!-- typescript -->
+          <img class="rounded-md" alt="typescript icon" src="./static/ts.jpg" />
+          <!-- python -->
+          <img class="col-span-2" alt="python icon" src="./static/python.svg" />
+          <!-- PostgreSQL -->
+          <button data-tooltip="PostgreSQL" class="tooltip-left-0 tooltip">
+            <img alt="postgreSQL icon" src="./static/psql.png" />
+          </button>
         </div>
-        <img class="w-24 rounded-md" src="./static/js.png" />
-        <div class="p-2 flex items-center w-24 h-24 bg-clay-100 rounded-md">
-          <img src="./static/git.png" />
-        </div>
-        <img class="w-24 rounded-md" src="./static/ts.jpg" />
       </div>
     </div>
 
-    <div class="container h-screen bg-secondary-600"></div>
+    <!-- second section: projects -->
+    <div class="container py-6 bg-secondary-700">
+      <h1 class="text-primary-500 text-center">My Projects</h1>
+      <div class="flex flex-col p-4 gap-4">
+        <!-- begin fast grader card -->
+        <div class="max-w-prose bg-clay-100 w-full rounded-md">
+          <div class="text-container">
+            <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
+              <div class="rounded-b-md">
+                <h3 class="text-black inline">Fast Grader</h3>
+                <h4 class="text-black inline">for Google Classroom</h4>
+              </div>
+              <video
+                muted
+                controls
+                loop
+                aria-label="demo video"
+                autoplay
+                class="border-2 border-mineral-700 border-opacity-50"
+              >
+                <source src="./static/fast_grader.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="sm:text-justify text-gray-600">
+              I was inspired by the design philosophy of <code>vim</code> to
+              create this minimal and efficient keyboard-driven tool to help
+              teachers provide grades and feedback for their google classroom
+              assignments.
+            </p>
+            <p class="sm:text-justify text-gray-600">
+              The backend stack is PostgreSQL, Django, and Django REST
+              Framework. I deployed the site to a machine running Ubuntu Server.
+              The backend utilizes the Google Drive and Google Classroom APIs to
+              fetch user data. I also used Python's
+              <a
+                class="link"
+                href="https://docs.python.org/3/library/difflib.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                >difflib</a
+              >
+              to implement a feature where teachers can view only the
+              differences between the template they provide to students, and the
+              actual student submission.
+            </p>
+            <p class="sm:text-justify text-gray-600">
+              On the frontend of this project, I used
+              <a
+                class="link"
+                href="https://tailwindcss.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Tailwind CSS
+              </a>
+              and
+              <a
+                class="link"
+                href="https://htmx.org/docs/#introduction"
+                target="_blank"
+                rel="noopener noreferrer"
+                >htmx</a
+              >
+              to facilitate rapid prototyping and, minimize code repetition.
+              This choice has also effectively me to inject UI with dynamic data
+              into the browser extension from the backend, which has been a
+              pretty neat trick if I do say so myself.
+            </p>
+          </div>
 
-    <div class="container h-screen bg-coffee"></div>
+          <div class="py-3 flex flex-row justify-center gap-10">
+            <a
+              href="https://classfast.app"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <button
+                class="
+                  text-xl
+                  bg-primary-300
+                  rounded
+                  p-1
+                  text-black text-bold
+                  hover:bg-primary-400
+                  transition
+                  shadow-md
+                  hover:shadow-none
+                "
+              >
+                Live Site
+              </button>
+            </a>
+
+            <a
+              href="https://github.com/jdevries3133/fast_grader"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <button
+                class="
+                  bg-secondary-300
+                  transition
+                  text-xl text-black text-bold
+                  hover:bg-secondary-400
+                  rounded
+                  p-1
+                  shadow-md
+                  hover:shadow-none
+                "
+              >
+                GitHub
+              </button>
+            </a>
+          </div>
+        </div>
+        <!-- end fast grader card -->
+        <!-- begin song maker card -->
+        <div class="max-w-prose bg-clay-100 w-full rounded-md">
+          <div class="text-container">
+            <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
+              <div class="rounded-b-md">
+                <h3 class="text-black">Song Maker Gallery</h3>
+              </div>
+              <video
+                muted
+                controls
+                loop
+                aria-label="demo video"
+                autoplay
+                class="border-2 border-mineral-700 border-opacity-50"
+              >
+                <source src="./static/songmaker.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="sm:text-justify text-gray-600">
+              The Song Maker Gallery is a dynamic web application used by music
+              teachers to present galleries of student compositions made in the
+              <a
+                class="link"
+                href="https://musiclab.chromeexperiments.com/Song-Maker/"
+                rel="noopener noreferrer"
+                target="_blank"
+                >Chrome Music Lab.</a
+              >
+            </p>
+            <p class="sm:text-justify text-gray-600">
+              It currently has 606 active users, 622 galleries created, and over
+              24,000 student songs uploaded! It was built with Django, Django
+              REST Framework, and MySQL on the backend, and React on the
+              frontend, plus several additional frontend and backend libraries.
+            </p>
+            <p class="sm:text-justify text-gray-600">
+              Visit the site and inspect the song thumbnails in your browser –
+              they are all dynamically generated SVG on the frontend, with the
+              backend serving representations of the song in the MIDI file
+              format! This optimization significantly reduced the application’s
+              bandwidth and storage needs.
+            </p>
+          </div>
+
+          <div class="py-3 flex flex-row justify-center gap-10">
+            <a
+              href="https://songmakergallery.com/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <button
+                class="
+                  text-xl
+                  bg-primary-300
+                  rounded
+                  p-1
+                  text-black text-bold
+                  hover:bg-primary-400
+                  transition
+                  shadow-md
+                  hover:shadow-none
+                "
+              >
+                Live Site
+              </button>
+            </a>
+
+            <a
+              href="https://github.com/jdevries3133/song_maker_gallery"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <button
+                class="
+                  bg-secondary-300
+                  transition
+                  text-xl text-black text-bold
+                  hover:bg-secondary-400
+                  rounded
+                  p-1
+                  shadow-md
+                  hover:shadow-none
+                "
+              >
+                GitHub
+              </button>
+            </a>
+          </div>
+        </div>
+        <!-- end songmaker card -->
+        <!-- end open source card -->
+        <div class="max-w-prose bg-clay-100 w-full rounded-md">
+          <div class="text-container">
+            <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
+              <div class="rounded-b-md">
+                <h3 class="text-black">Song Maker Gallery</h3>
+              </div>
+              <video
+                muted
+                controls
+                loop
+                aria-label="demo video"
+                autoplay
+                class="border-2 border-mineral-700 border-opacity-50"
+              >
+                <source src="./static/songmaker.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="sm:text-justify text-gray-600">
+              I was inspired by the design philosophy of <code>vim</code> to
+              create this minimal and efficient keyboard-driven tool to help
+              teachers provide grades and feedback for their google classroom
+              assignments.
+            </p>
+            <p class="sm:text-justify text-gray-600">
+              On the backend, it utilizes the Google Drive and Google Classroom
+              APIs to fetch user data. I also used Python's
+              <a
+                class="link"
+                href="https://docs.python.org/3/library/difflib.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                >difflib</a
+              >
+              to implement a feature where teachers can view only the
+              differences between the template they provide to students, and the
+              actual student submission.
+              <a
+                class="link"
+                href="https://htmx.org/docs/#introduction"
+                target="_blank"
+                rel="noopener noreferrer"
+                >HTMX
+              </a>
+            </p>
+          </div>
+
+          <div class="py-3 flex flex-row justify-center gap-10">
+            <a
+              href="https://classfast.app"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <button
+                class="
+                  text-xl
+                  bg-primary-300
+                  rounded
+                  p-1
+                  text-black text-bold
+                  hover:bg-primary-400
+                  transition
+                  shadow-md
+                  hover:shadow-none
+                "
+              >
+                Live Site
+              </button>
+            </a>
+
+            <a
+              href="https://github.com/jdevries3133/fast_grader"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <button
+                class="
+                  bg-secondary-300
+                  transition
+                  text-xl text-black text-bold
+                  hover:bg-secondary-400
+                  rounded
+                  p-1
+                  shadow-md
+                  hover:shadow-none
+                "
+              >
+                GitHub
+              </button>
+            </a>
+          </div>
+        </div>
+        <!-- end open source card -->
+      </div>
+    </div>
   </body>
 </html>
