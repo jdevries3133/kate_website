@@ -2,3 +2,4 @@ dist
 node_modules
 Session.vim
 src/dist.styles.css
+notes.md
