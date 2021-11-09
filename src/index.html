@@ -59,19 +59,31 @@
             />
           </button>
           <!-- django -->
-          <img alt="django icon" src="./static/django.svg" />
+          <button data-tooltip="Django" class="tooltip">
+            <img alt="django icon" src="./static/django.svg" />
+          </button>
           <!-- django REST framework -->
-          <img
-            class="rounded-md"
-            alt="django REST framework icon"
-            src="./static/drf.webp"
-          />
+          <button
+            data-tooltip="Django REST Framework"
+            class="tooltip-drf tooltip"
+          >
+            <img
+              class="rounded-md"
+              alt="django REST framework icon"
+              src="./static/drf.webp"
+            />
+          </button>
           <!-- tailwind -->
-          <img
-            alt="Tailwind CSS icon"
-            src="./static/tailwind.svg"
-            class="flex items-center col-span-2"
-          />
+          <button
+            data-tooltip="Tailwind CSS"
+            class="tooltip-wide tooltip flex items-center col-span-2"
+          >
+            <img
+              alt="Tailwind CSS icon"
+              src="./static/tailwind.svg"
+              class="w-full h-full"
+            />
+          </button>
           <!-- javascript -->
           <button data-tooltip="Javascript" class="tooltip">
             <img
@@ -81,9 +93,12 @@
             />
           </button>
           <!-- git -->
-          <div class="p-2 flex items-center bg-clay-100 rounded-md">
+          <button
+            data-tooltip="Git"
+            class="tooltip p-2 flex items-center bg-clay-100 rounded-md"
+          >
             <img alt="git icon" src="./static/git.webp" />
-          </div>
+          </button>
           <!-- typescript -->
           <button data-tooltip="Typescript" class="tooltip-left-0 tooltip">
             <img
@@ -93,7 +108,9 @@
             />
           </button>
           <!-- python -->
-          <img class="col-span-2" alt="python icon" src="./static/python.svg" />
+          <button data-tooltip="Python" class="tooltip-wide tooltip col-span-2">
+            <img alt="python icon" src="./static/python.svg" />
+          </button>
           <!-- PostgreSQL -->
           <button data-tooltip="PostgreSQL" class="tooltip-left-0 tooltip">
             <img alt="postgreSQL icon" src="./static/psql.webp" />

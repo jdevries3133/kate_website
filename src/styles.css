@@ -43,15 +43,16 @@ code:after {
 .tooltip:hover:after {
   @apply bg-primary-100 text-mineral absolute p-2 rounded-md;
   content: attr(data-tooltip);
-  top: -40px;
+  top: -45px;
   left: 20%;
 }
 
 .tooltip:focus:before,
 .tooltip:hover:before {
   content: "";
+  position: absolute;
   display: block;
-  top: 0;
+  top: -5px;
   left: 30%;
   width: 10px;
   margin: auto;
@@ -63,6 +64,16 @@ code:after {
 .tooltip-left-0:focus:after,
 .tooltip-left-0:hover:after {
   left: 0;
+}
+
+.tooltip-wide:focus:after,
+.tooltip-wide:hover:after {
+  left: 20%;
+}
+
+.tooltip-drf:focus:after,
+.tooltip-drf:hover:after {
+  width: 200%;
 }
 
 .link {
