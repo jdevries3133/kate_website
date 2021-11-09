@@ -27,6 +27,14 @@
   }
 }
 
+/* tailwind puts backticks around inline <code> tags. This removes them */
+code:before {
+  display: none;
+}
+code:after {
+  display: none;
+}
+
 .tooltip {
   @apply relative;
 }
@@ -58,13 +66,34 @@
 }
 
 .link {
-  @apply text-primary-600 underline cursor-pointer;
+  @apply text-blue-600 underline cursor-pointer;
 }
 
 .link:visited {
-  @apply text-primary-700;
+  @apply text-purple-600;
 }
 
 .text-container > p {
   @apply px-3;
+}
+
+/**
+ * the character icon section is quite repetitive, so they're just styled
+ * here
+ */
+
+.character-icons {
+  @apply grid grid-cols-3 gap-2 p-1;
+}
+
+.character-icons > div {
+  @apply bg-clay-100 rounded-md p-1 flex flex-col items-center justify-center shadow;
+}
+
+.character-icons > div > svg {
+  @apply inline w-6 h-6;
+}
+
+.character-icons > div > p {
+  @apply text-sm text-black;
 }

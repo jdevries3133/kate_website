@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital@0;1&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Serif+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/htmx.org@1.6.0"></script>
     <script>
       if (location.host.includes("localhost")) {
         document.write(
@@ -27,14 +28,14 @@
     <div class="pb-6 bg-mineral-600 flex flex-col">
       <!-- name and greeting -->
       <div class="flex flex-col flex-grow">
-        <h1 class="py-4 text-center flex-shrink">Hello there!</h1>
+        <h1 class="py-3 text-2xl text-center flex-shrink">Hello there!</h1>
         <div class="flex flex-row flex-grow items-center">
           <div class="px-6 text-right">
             <h3>Jack DeVries</h3>
             <h4 class="text-sm sm:text-xl">Web & Software Developer</h4>
           </div>
           <div class="w-24 p-2 bg-primary-100 rounded-full shadow">
-            <img class="rounded-full" src="./static/me.jpg" />
+            <img class="rounded-full" src="./static/me@400px.jpg" />
           </div>
         </div>
       </div>
@@ -43,7 +44,7 @@
       <div class="flex-shrink">
         <h2 class="text-center pb-2">My Toolbox</h2>
         <div
-          class="grid grid-cols-3 mx-3 gap-4 items-center justify-items-center"
+          class="grid grid-cols-3 mx-3 gap-2 items-center justify-items-center"
         >
           <!-- react -->
           <button data-tooltip="React" class="tooltip">
@@ -63,7 +64,7 @@
           <img
             class="rounded-md"
             alt="django REST framework icon"
-            src="./static/drf.png"
+            src="./static/drf.webp"
           />
           <!-- tailwind -->
           <img
@@ -72,18 +73,30 @@
             class="flex items-center col-span-2"
           />
           <!-- javascript -->
-          <img class="rounded-md" alt="javascript icon" src="./static/js.png" />
+          <button data-tooltip="Javascript" class="tooltip">
+            <img
+              class="rounded-md"
+              alt="javascript icon"
+              src="./static/js.webp"
+            />
+          </button>
           <!-- git -->
           <div class="p-2 flex items-center bg-clay-100 rounded-md">
-            <img alt="git icon" src="./static/git.png" />
+            <img alt="git icon" src="./static/git.webp" />
           </div>
           <!-- typescript -->
-          <img class="rounded-md" alt="typescript icon" src="./static/ts.jpg" />
+          <button data-tooltip="Typescript" class="tooltip-left-0 tooltip">
+            <img
+              class="rounded-md"
+              alt="typescript icon"
+              src="./static/ts.webp"
+            />
+          </button>
           <!-- python -->
           <img class="col-span-2" alt="python icon" src="./static/python.svg" />
           <!-- PostgreSQL -->
           <button data-tooltip="PostgreSQL" class="tooltip-left-0 tooltip">
-            <img alt="postgreSQL icon" src="./static/psql.png" />
+            <img alt="postgreSQL icon" src="./static/psql.webp" />
           </button>
         </div>
       </div>
@@ -98,8 +111,8 @@
           <div class="text-container">
             <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
               <div class="rounded-b-md">
-                <h3 class="text-black inline">Fast Grader</h3>
-                <h4 class="text-black inline">for Google Classroom</h4>
+                <h3 class="text-mineral inline">Fast Grader</h3>
+                <h4 class="text-mineral inline">for Google Classroom</h4>
               </div>
               <video
                 muted
@@ -151,10 +164,10 @@
                 rel="noopener noreferrer"
                 >htmx</a
               >
-              to facilitate rapid prototyping and, minimize code repetition.
+              to facilitate rapid prototyping, and minimize code repetition.
               This choice has also effectively me to inject UI with dynamic data
-              into the browser extension from the backend, which has been a
-              pretty neat trick if I do say so myself.
+              into the browser extension from the backend, which has been pretty
+              neat!
             </p>
           </div>
 
@@ -170,7 +183,7 @@
                   bg-primary-300
                   rounded
                   p-1
-                  text-black text-bold
+                  text-mineral text-bold
                   hover:bg-primary-400
                   transition
                   shadow-md
@@ -190,7 +203,7 @@
                 class="
                   bg-secondary-300
                   transition
-                  text-xl text-black text-bold
+                  text-xl text-mineral text-bold
                   hover:bg-secondary-400
                   rounded
                   p-1
@@ -209,7 +222,7 @@
           <div class="text-container">
             <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
               <div class="rounded-b-md">
-                <h3 class="text-black">Song Maker Gallery</h3>
+                <h3 class="text-mineral">Song Maker Gallery</h3>
               </div>
               <video
                 muted
@@ -260,7 +273,7 @@
                   bg-primary-300
                   rounded
                   p-1
-                  text-black text-bold
+                  text-mineral text-bold
                   hover:bg-primary-400
                   transition
                   shadow-md
@@ -280,7 +293,7 @@
                 class="
                   bg-secondary-300
                   transition
-                  text-xl text-black text-bold
+                  text-xl text-mineral text-bold
                   hover:bg-secondary-400
                   rounded
                   p-1
@@ -299,7 +312,10 @@
           <div class="text-container">
             <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
               <div class="rounded-b-md">
-                <h3 class="text-black">Song Maker Gallery</h3>
+                <h3 class="inline text-mineral">cpython</h3>
+                <h4 class="inline text-mineral inline">
+                  Open Source Contributing
+                </h4>
               </div>
               <video
                 muted
@@ -309,41 +325,48 @@
                 autoplay
                 class="border-2 border-mineral-700 border-opacity-50"
               >
-                <source src="./static/songmaker.mp4" type="video/mp4" />
+                <source src="./static/py_contrib.mp4" type="video/mp4" />
               </video>
             </div>
             <p class="sm:text-justify text-gray-600">
-              I was inspired by the design philosophy of <code>vim</code> to
-              create this minimal and efficient keyboard-driven tool to help
-              teachers provide grades and feedback for their google classroom
-              assignments.
+              In June, July, and August of 2021, I committed myself to
+              contributing to Cpython full-time. Cpython is the reference
+              implementation of the Python programming language, and it contains
+              the Python interpreter, standard library, and official
+              documentation.
             </p>
             <p class="sm:text-justify text-gray-600">
-              On the backend, it utilizes the Google Drive and Google Classroom
-              APIs to fetch user data. I also used Python's
+              Many of my contributions were towards documentation, the most
+              significant of which was my rewrite of the new documentation for
               <a
-                class="link"
-                href="https://docs.python.org/3/library/difflib.html"
-                target="_blank"
+                href="https://docs.python.org/3/library/__main__.html"
                 rel="noopener noreferrer"
-                >difflib</a
+                target="_blank"
+                class="link"
+                ><span class="font-mono">__main__.</span></a
               >
-              to implement a feature where teachers can view only the
-              differences between the template they provide to students, and the
-              actual student submission.
+              Eventually, I became more familiar with the huge Cpython codebase,
+              and I am extremely proud to say that my code contributions were
+              eventually merged into Python's standard libraries
+              <code>rlcompleter</code>, <code>tarfile</code>, and
+              <code>argparse</code>. I also wrote a patch in <code>C</code>,
+              which became part of the implementation of the new
+
               <a
-                class="link"
-                href="https://htmx.org/docs/#introduction"
-                target="_blank"
+                href="https://docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching"
                 rel="noopener noreferrer"
-                >HTMX
+                target="_blank"
+                class="link"
+              >
+                structural pattern matching feature
               </a>
+              in Python 3.10.
             </p>
           </div>
 
           <div class="py-3 flex flex-row justify-center gap-10">
             <a
-              href="https://classfast.app"
+              href="https://github.com/python/cpython/commits/main?author=jdevries3133"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -352,41 +375,270 @@
                   text-xl
                   bg-primary-300
                   rounded
-                  p-1
-                  text-black text-bold
+                  p-2
+                  text-mineral text-bold
                   hover:bg-primary-400
                   transition
                   shadow-md
                   hover:shadow-none
                 "
               >
-                Live Site
-              </button>
-            </a>
-
-            <a
-              href="https://github.com/jdevries3133/fast_grader"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <button
-                class="
-                  bg-secondary-300
-                  transition
-                  text-xl text-black text-bold
-                  hover:bg-secondary-400
-                  rounded
-                  p-1
-                  shadow-md
-                  hover:shadow-none
-                "
-              >
-                GitHub
+                <p class="p-0 text-mineral text-bold text-xl">
+                  View My Contributions
+                </p>
+                <p class="p-0 m-0 text-sm text-mineral">on GitHub</p>
               </button>
             </a>
           </div>
         </div>
         <!-- end open source card -->
+      </div>
+    </div>
+
+    <!-- other projects section -->
+    <div class="py-6 bg-clay-300">
+      <h1 class="text-mineral text-center">Other Projects</h1>
+
+      <div class="p-2">
+        <p class="text-mineral">
+          I have been teaching myself to develop software for over two years
+          now. The projects in the previous section are my best and brightest,
+          but there are a myriad of other smaller projects in my portfolio that
+          I have created along my learning journey.
+        </p>
+
+        <ul class="px-6 list-disc list-outside">
+          <li class="text-mineral text-sm">
+            created a variety of command line tools, including a nifty tool for
+            running parallel processes called <code>rn</code> using only the
+            Python Standard Library (<a
+              href="https://github.com/jdevries3133/shell_scripts"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              >view on GitHub</a
+            >)
+          </li>
+          <li class="text-mineral text-sm">
+            created some very elaborate web-based scavenger hunts for friends
+            (<a
+              href="https://github.com/jdevries3133/chaotic_christmas_present"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              >Chaotic Christmas Present on GitHub</a
+            >,
+            <a
+              href="https://github.com/jdevries3133/nicks_birthday_2021"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              >Birthday Present on GitHub</a
+            >)
+          </li>
+          <li class="text-mineral text-sm">
+            created a browser extension to automate tedious deletion of old
+            Google Classroom assignments (<a
+              href="https://github.com/jdevries3133/google_classroom_mass_delete"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              >view on GitHub</a
+            >)
+          </li>
+          <li class="text-mineral text-sm">
+            created a PyPi-published package for automating my work as a teacher
+            (<a
+              href="https://github.com/jdevries3133/teacher_helper"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              >view on GitHub</a
+            >
+            or
+            <a
+              href="https://pypi.org/project/teacherhelper/"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              >PyPi</a
+            >)
+          </li>
+          <li class="text-mineral text-sm">
+            created a website to publicize my school’s instrument drive (<a
+              href="https://github.com/jdevries3133/empacad_music"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              >view GitHub</a
+            >
+            or
+            <a
+              href="https://empacadmusic.org/"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              >live site</a
+            >)
+          </li>
+          <button
+            hx-get="./small_projects.html"
+            hx-swap="outerHTML"
+            class="
+              bg-primary-300
+              p-2
+              mt-2
+              hover:bg-primary-400
+              shadow-md
+              hover:shadow-none
+            "
+          >
+            See More
+          </button>
+        </ul>
+      </div>
+
+      <!-- education background -->
+      <div>
+        <h1 class="text-center mt-8 mb-4 text-mineral">My Background</h1>
+        <p class="text-mineral p-2">
+          Two years ago, my journey towards software development began. Once I
+          started learning to write code and I saw the potential of what I could
+          create, my interest and commitment to learning more never stopped.
+          Considering my background as a professional educator, the only thing
+          about this experience that hasn't surprised me was my passion and
+          dedication towards mastering this new craft.
+        </p>
+        <div id="parent" class="flex justify-center items-center">
+          <button
+            hx-get="./more_me.html"
+            hx-swap="outerHTML"
+            hx-target="#parent"
+            class="
+              bg-primary-300
+              p-2
+              mt-2
+              hover:bg-primary-400
+              shadow-md
+              hover:shadow-none
+            "
+          >
+            Read More
+          </button>
+        </div>
+        <p class="text-mineral p-2">
+          What I know for sure is that my interest in software development has
+          truly swept me away, and it's become hard for me to spend my time
+          doing anything else. I am ready to take my passion and curiosity to
+          the next level.
+        </p>
+      </div>
+    </div>
+
+    <div class="py-6 bg-gradient-to-br from-primary-100 to-clay-100">
+      <div class="py-4 flex items-center justify-center">
+        <h1 class="text-mineral bg-clay-100 p-1 rounded shadow-lg inline-block">
+          I Am
+        </h1>
+      </div>
+      <!-- styled in css file -->
+      <div class="character-icons">
+        <div>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+            />
+          </svg>
+          <p>Creative</p>
+        </div>
+
+        <div>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
+          </svg>
+          <p>Hard Working</p>
+        </div>
+        <div>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
+            />
+          </svg>
+          <p>Passionate</p>
+        </div>
+        <div>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            />
+          </svg>
+          <p>Determined</p>
+        </div>
+        <div>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+            />
+          </svg>
+          <p>Perseverant</p>
+        </div>
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
+            />
+          </svg>
+          <p>Honest</p>
+        </div>
+      </div>
+
+      <div class="bg-clay-100 shadow-md rounded-md m-1 p-1">
+        <p class="text-sm text-black">
+          Although I am new to the business, I have already spent a lot of time
+          working on software projects big and small. I know how to navigate
+          large codebases and make meaningful contributions to them. I have also
+          learned how to push projects forward and organize my work as a
+          developer. I understand the importance of agility and good development
+          practices, and I have a great understanding of the tools that I know
+          – not just languages and libraries, but my broader development
+          workflow.
+        </p>
+        <p class="text-sm text-black">
+          Overall, I am applying because I feel ready, and I hope that we can
+          meet soon so that I can show you that I am.
+        </p>
       </div>
     </div>
   </body>
