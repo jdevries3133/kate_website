@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <title>Jack DeVries</title>
     <link href="/dist.styles.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,17 +24,18 @@
     <!-- first section: landing page -->
     <div
       class="
+        min-h-screen
         pb-6
         bg-mineral-600
         flex flex-col
-        lg:grid lg:grid-cols-5 lg:justify-items-center
+        lg:flex-row lg:gap-12 lg:justify-center
       "
     >
       <!-- name and greeting -->
       <div
         class="
           flex flex-col flex-grow
-          lg:col-span-2 lg:items-center lg:justify-center lg:gap-6
+          lg:flex-grow-0 lg:justify-center lg:gap-6
         "
       >
         <h1
@@ -63,6 +70,7 @@
       <div
         class="
           flex-shrink
+          lg:flex-shrink-0
           max-w-lg
           m-auto
           lg:col-span-3
@@ -79,34 +87,31 @@
           class="grid grid-cols-3 mx-3 gap-2 items-center justify-items-center"
         >
           <!-- react -->
-          <button data-tooltip="React" class="tooltip">
+          <div data-tooltip="React" class="tooltip">
             <img alt="react.js icon" src="./static/react.webp" />
-          </button>
+          </div>
           <!-- redux -->
-          <button data-tooltip="Redux" class="tooltip">
+          <div data-tooltip="Redux" class="tooltip">
             <img
               class="w-full h-full"
               alt="redux icon"
               src="./static/redux.svg"
             />
-          </button>
+          </div>
           <!-- django -->
-          <button data-tooltip="Django" class="tooltip">
+          <div data-tooltip="Django" class="tooltip">
             <img alt="django icon" src="./static/django.svg" />
-          </button>
+          </div>
           <!-- django REST framework -->
-          <button
-            data-tooltip="Django REST Framework"
-            class="tooltip-drf tooltip"
-          >
+          <div data-tooltip="Django REST Framework" class="tooltip-drf tooltip">
             <img
               class="rounded-md"
               alt="django REST framework icon"
               src="./static/drf.webp"
             />
-          </button>
+          </div>
           <!-- tailwind -->
-          <button
+          <div
             data-tooltip="Tailwind CSS"
             class="tooltip-wide tooltip flex items-center col-span-2"
           >
@@ -115,38 +120,38 @@
               src="./static/tailwind.svg"
               class="w-full h-full"
             />
-          </button>
+          </div>
           <!-- javascript -->
-          <button data-tooltip="Javascript" class="tooltip">
+          <div data-tooltip="Javascript" class="tooltip">
             <img
               class="rounded-md"
               alt="javascript icon"
               src="./static/js.webp"
             />
-          </button>
+          </div>
           <!-- git -->
-          <button
+          <div
             data-tooltip="Git"
             class="tooltip p-2 flex items-center bg-clay-100 rounded-md"
           >
             <img alt="git icon" src="./static/git.webp" />
-          </button>
+          </div>
           <!-- typescript -->
-          <button data-tooltip="Typescript" class="tooltip-left-0 tooltip">
+          <div data-tooltip="Typescript" class="tooltip-left-0 tooltip">
             <img
               class="rounded-md"
               alt="typescript icon"
               src="./static/ts.webp"
             />
-          </button>
+          </div>
           <!-- python -->
-          <button data-tooltip="Python" class="tooltip-wide tooltip col-span-2">
+          <div data-tooltip="Python" class="tooltip-wide tooltip col-span-2">
             <img alt="python icon" src="./static/python.svg" />
-          </button>
+          </div>
           <!-- PostgreSQL -->
-          <button data-tooltip="PostgreSQL" class="tooltip-left-0 tooltip">
+          <div data-tooltip="PostgreSQL" class="tooltip-left-0 tooltip">
             <img alt="postgreSQL icon" src="./static/psql.webp" />
-          </button>
+          </div>
         </div>
       </div>
     </div>
@@ -170,7 +175,7 @@
           <div>
             <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
               <div class="rounded-b-md">
-                <h3 class="text-mineral inline">Fast Grader</h3>
+                <h3 class="text-mineral inline xl:text-3xl">Fast Grader</h3>
                 <h4 class="text-mineral inline">for Google Classroom</h4>
               </div>
               <video
@@ -281,7 +286,7 @@
           <div>
             <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
               <div class="rounded-b-md">
-                <h3 class="text-mineral">Song Maker Gallery</h3>
+                <h3 class="xl:text-3xl text-mineral">Song Maker Gallery</h3>
               </div>
               <video
                 muted
@@ -370,7 +375,7 @@
           <div>
             <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
               <div class="rounded-b-md">
-                <h3 class="inline text-mineral">cpython</h3>
+                <h3 class="xl:text-3xl inline text-mineral">cpython</h3>
                 <h4 class="inline text-mineral inline">
                   Open Source Contributing
                 </h4>
@@ -453,8 +458,18 @@
     </div>
 
     <!-- other projects section -->
-    <div class="sm:grid sm:grid-cols-2 py-6 bg-clay-300">
-      <div>
+    <div
+      class="
+        flex flex-col
+        lg:flex-row
+        items-center
+        lg:items-start
+        justify-center
+        py-6
+        bg-clay-300
+      "
+    >
+      <div class="max-w-prose">
         <h1 class="text-mineral text-center">Other Projects</h1>
 
         <div class="p-2">
@@ -544,6 +559,7 @@
               hx-swap="outerHTML"
               class="
                 bg-primary-300
+                rounded
                 p-2
                 mt-2
                 hover:bg-primary-400
@@ -556,9 +572,9 @@
           </ul>
         </div>
       </div>
-      <div>
+      <div class="max-w-prose">
         <!-- education background -->
-        <div class="p-2">
+        <div>
           <h1 class="text-center text-mineral">My Background</h1>
           <p class="text-mineral">
             Two years ago, my journey towards software development began. Once I
@@ -573,6 +589,7 @@
             hx-swap="outerHTML"
             class="
               bg-primary-300
+              rounded
               p-2
               mt-2
               hover:bg-primary-400
@@ -712,15 +729,20 @@
                 hx-get="http://localhost:8001/api/contact"
                 hx-target=".contact-form-container"
                 class="
+                  shadow
                   p-6
                   m-6
-                  text-clay-100
+                  text-clay-200
                   font-bold
                   text-lg
                   rounded-md
                   bg-gradient-to-tr
                   from-secondary-400
                   to-secondary-600
+                  hover:text-white
+                  hover:from-secondary-300
+                  hover:to-secondary-400
+                  hover:shadow-none
                 "
               >
                 Contact Me
