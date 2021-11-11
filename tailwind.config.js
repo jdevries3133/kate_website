@@ -1,6 +1,6 @@
 module.exports = {
   mode: "jit",
-  purge: ["src/**/*.html"],
+  purge: ["src/**/*.html", "api/**/*.html"],
   darkMode: false,
   theme: {
     extend: {

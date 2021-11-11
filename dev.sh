@@ -2,4 +2,5 @@
 
 # depends on `rn`, a utility for running parallel processes.
 
-rn "npm run dev,python3 -m http.server --directory src,livereload"
+source api/venv/bin/activate
+rn "npm run dev,python3 -m http.server --directory src,livereload,./api/manage.py runserver 8001"

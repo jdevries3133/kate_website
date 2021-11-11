@@ -84,10 +84,6 @@ code:after {
   @apply text-purple-600;
 }
 
-.text-container > p {
-  @apply px-3;
-}
-
 /**
  * the character icon section is quite repetitive, so they're just styled
  * here
@@ -107,4 +103,44 @@ code:after {
 
 .character-icons > div > p {
   @apply text-sm text-black;
+}
+
+/**
+ * htmx/django injects the contact forms without styles. We style them with
+ * child selectors here
+ */
+
+.contact-form-container > form {
+  @apply bg-secondary-300 p-2 m-3 rounded flex flex-col items-start;
+}
+
+.contact-form-container * > label {
+  @apply text-black block text-left pt-2 pb-1;
+}
+
+.contact-form-container * > h1 {
+  @apply w-full text-center text-black;
+}
+
+.contact-form-container * > p {
+  @apply text-black;
+}
+
+.contact-form-container * > input,
+.contact-form-container * > textarea {
+  @apply text-black bg-clay-200 rounded shadow p-1 rounded w-full;
+}
+
+.contact-form-container * > input:focus,
+.contact-form-container * > textarea:focus {
+  @apply bg-white rounded shadow;
+}
+
+.contact-form-container * > textarea {
+  @apply w-full h-24;
+}
+
+/* field errors */
+.contact-form-container * > li {
+  @apply my-1 p-1 text-sm text-clay-200 inline-block rounded bg-red-600;
 }

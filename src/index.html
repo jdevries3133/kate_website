@@ -12,16 +12,7 @@
       rel="stylesheet"
     />
     <script src="https://unpkg.com/htmx.org@1.6.0"></script>
-    <script>
-      if (location.host.includes("localhost")) {
-        document.write(
-          '<script src="http://' +
-            (location.host || "localhost").split(":")[0] +
-            ':35729/livereload.js?snipver=1"></' +
-            "script>"
-        );
-      }
-    </script>
+    <script src="./liveReloadInit.js"></script>
   </head>
   <body>
     <!-- first section: landing page -->
@@ -29,7 +20,7 @@
       <!-- name and greeting -->
       <div class="flex flex-col flex-grow">
         <h1 class="py-3 text-2xl text-center flex-shrink">Hello there!</h1>
-        <div class="flex flex-row flex-grow items-center">
+        <div class="flex flex-row flex-grow justify-center items-center">
           <div class="px-6 text-right">
             <h3>Jack DeVries</h3>
             <h4 class="text-sm sm:text-xl">Web & Software Developer</h4>
@@ -41,7 +32,7 @@
       </div>
 
       <!-- tech icons -->
-      <div class="flex-shrink">
+      <div class="flex-shrink max-w-lg m-auto">
         <h2 class="text-center pb-2">My Toolbox</h2>
         <div
           class="grid grid-cols-3 mx-3 gap-2 items-center justify-items-center"
@@ -122,71 +113,68 @@
     <!-- second section: projects -->
     <div class="container py-6 bg-secondary-700">
       <h1 class="text-primary-500 text-center">My Projects</h1>
-      <div class="flex flex-col p-4 gap-4">
+      <div class="flex flex-col items-center p-4 gap-4">
         <!-- begin fast grader card -->
         <div class="max-w-prose bg-clay-100 w-full rounded-md">
-          <div class="text-container">
-            <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
-              <div class="rounded-b-md">
-                <h3 class="text-mineral inline">Fast Grader</h3>
-                <h4 class="text-mineral inline">for Google Classroom</h4>
-              </div>
-              <video
-                muted
-                controls
-                loop
-                aria-label="demo video"
-                autoplay
-                class="border-2 border-mineral-700 border-opacity-50"
-              >
-                <source src="./static/fast_grader.mp4" type="video/mp4" />
-              </video>
+          <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
+            <div class="rounded-b-md">
+              <h3 class="text-mineral inline">Fast Grader</h3>
+              <h4 class="text-mineral inline">for Google Classroom</h4>
             </div>
-            <p class="sm:text-justify text-gray-600">
-              I was inspired by the design philosophy of <code>vim</code> to
-              create this minimal and efficient keyboard-driven tool to help
-              teachers provide grades and feedback for their google classroom
-              assignments.
-            </p>
-            <p class="sm:text-justify text-gray-600">
-              The backend stack is PostgreSQL, Django, and Django REST
-              Framework. I deployed the site to a machine running Ubuntu Server.
-              The backend utilizes the Google Drive and Google Classroom APIs to
-              fetch user data. I also used Python's
-              <a
-                class="link"
-                href="https://docs.python.org/3/library/difflib.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                >difflib</a
-              >
-              to implement a feature where teachers can view only the
-              differences between the template they provide to students, and the
-              actual student submission.
-            </p>
-            <p class="sm:text-justify text-gray-600">
-              On the frontend of this project, I used
-              <a
-                class="link"
-                href="https://tailwindcss.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Tailwind CSS
-              </a>
-              and
-              <a
-                class="link"
-                href="https://htmx.org/docs/#introduction"
-                target="_blank"
-                rel="noopener noreferrer"
-                >htmx</a
-              >
-              to facilitate rapid prototyping, and minimize code repetition.
-              This choice has also effectively me to inject UI with dynamic data
-              into the browser extension from the backend, which has been pretty
-              neat!
-            </p>
+            <video
+              muted
+              controls
+              loop
+              aria-label="demo video"
+              autoplay
+              class="border-2 border-mineral-700 border-opacity-50"
+            >
+              <source src="./static/fast_grader.mp4" type="video/mp4" />
+            </video>
           </div>
+          <p class="px-3 sm:text-justify text-gray-600">
+            I was inspired by the design philosophy of <code>vim</code> to
+            create this minimal and efficient keyboard-driven tool to help
+            teachers provide grades and feedback for their google classroom
+            assignments.
+          </p>
+          <p class="px-3 sm:text-justify text-gray-600">
+            The backend stack is PostgreSQL, Django, and Django REST Framework.
+            I deployed the site to a machine running Ubuntu Server. The backend
+            utilizes the Google Drive and Google Classroom APIs to fetch user
+            data. I also used Python's
+            <a
+              class="link"
+              href="https://docs.python.org/3/library/difflib.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              >difflib</a
+            >
+            to implement a feature where teachers can view only the differences
+            between the template they provide to students, and the actual
+            student submission.
+          </p>
+          <p class="px-3 sm:text-justify text-gray-600">
+            On the frontend of this project, I used
+            <a
+              class="link"
+              href="https://tailwindcss.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Tailwind CSS
+            </a>
+            and
+            <a
+              class="link"
+              href="https://htmx.org/docs/#introduction"
+              target="_blank"
+              rel="noopener noreferrer"
+              >htmx</a
+            >
+            to facilitate rapid prototyping, and minimize code repetition. This
+            choice has also effectively me to inject UI with dynamic data into
+            the browser extension from the backend, which has been pretty neat!
+          </p>
 
           <div class="py-3 flex flex-row justify-center gap-10">
             <a
@@ -236,47 +224,45 @@
         <!-- end fast grader card -->
         <!-- begin song maker card -->
         <div class="max-w-prose bg-clay-100 w-full rounded-md">
-          <div class="text-container">
-            <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
-              <div class="rounded-b-md">
-                <h3 class="text-mineral">Song Maker Gallery</h3>
-              </div>
-              <video
-                muted
-                controls
-                loop
-                aria-label="demo video"
-                autoplay
-                class="border-2 border-mineral-700 border-opacity-50"
-              >
-                <source src="./static/songmaker.mp4" type="video/mp4" />
-              </video>
+          <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
+            <div class="rounded-b-md">
+              <h3 class="text-mineral">Song Maker Gallery</h3>
             </div>
-            <p class="sm:text-justify text-gray-600">
-              The Song Maker Gallery is a dynamic web application used by music
-              teachers to present galleries of student compositions made in the
-              <a
-                class="link"
-                href="https://musiclab.chromeexperiments.com/Song-Maker/"
-                rel="noopener noreferrer"
-                target="_blank"
-                >Chrome Music Lab.</a
-              >
-            </p>
-            <p class="sm:text-justify text-gray-600">
-              It currently has 606 active users, 622 galleries created, and over
-              24,000 student songs uploaded! It was built with Django, Django
-              REST Framework, and MySQL on the backend, and React on the
-              frontend, plus several additional frontend and backend libraries.
-            </p>
-            <p class="sm:text-justify text-gray-600">
-              Visit the site and inspect the song thumbnails in your browser –
-              they are all dynamically generated SVG on the frontend, with the
-              backend serving representations of the song in the MIDI file
-              format! This optimization significantly reduced the application’s
-              bandwidth and storage needs.
-            </p>
+            <video
+              muted
+              controls
+              loop
+              aria-label="demo video"
+              autoplay
+              class="border-2 border-mineral-700 border-opacity-50"
+            >
+              <source src="./static/songmaker.mp4" type="video/mp4" />
+            </video>
           </div>
+          <p class="px-3 sm:text-justify text-gray-600">
+            The Song Maker Gallery is a dynamic web application used by music
+            teachers to present galleries of student compositions made in the
+            <a
+              class="link"
+              href="https://musiclab.chromeexperiments.com/Song-Maker/"
+              rel="noopener noreferrer"
+              target="_blank"
+              >Chrome Music Lab.</a
+            >
+          </p>
+          <p class="px-3 sm:text-justify text-gray-600">
+            It currently has 606 active users, 622 galleries created, and over
+            24,000 student songs uploaded! It was built with Django, Django REST
+            Framework, and MySQL on the backend, and React on the frontend, plus
+            several additional frontend and backend libraries.
+          </p>
+          <p class="px-3 sm:text-justify text-gray-600">
+            Visit the site and inspect the song thumbnails in your browser –
+            they are all dynamically generated SVG on the frontend, with the
+            backend serving representations of the song in the MIDI file format!
+            This optimization significantly reduced the application’s bandwidth
+            and storage needs.
+          </p>
 
           <div class="py-3 flex flex-row justify-center gap-10">
             <a
@@ -326,60 +312,58 @@
         <!-- end songmaker card -->
         <!-- end open source card -->
         <div class="max-w-prose bg-clay-100 w-full rounded-md">
-          <div class="text-container">
-            <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
-              <div class="rounded-b-md">
-                <h3 class="inline text-mineral">cpython</h3>
-                <h4 class="inline text-mineral inline">
-                  Open Source Contributing
-                </h4>
-              </div>
-              <video
-                muted
-                controls
-                loop
-                aria-label="demo video"
-                autoplay
-                class="border-2 border-mineral-700 border-opacity-50"
-              >
-                <source src="./static/py_contrib.mp4" type="video/mp4" />
-              </video>
+          <div class="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
+            <div class="rounded-b-md">
+              <h3 class="inline text-mineral">cpython</h3>
+              <h4 class="inline text-mineral inline">
+                Open Source Contributing
+              </h4>
             </div>
-            <p class="sm:text-justify text-gray-600">
-              In June, July, and August of 2021, I committed myself to
-              contributing to Cpython full-time. Cpython is the reference
-              implementation of the Python programming language, and it contains
-              the Python interpreter, standard library, and official
-              documentation.
-            </p>
-            <p class="sm:text-justify text-gray-600">
-              Many of my contributions were towards documentation, the most
-              significant of which was my rewrite of the new documentation for
-              <a
-                href="https://docs.python.org/3/library/__main__.html"
-                rel="noopener noreferrer"
-                target="_blank"
-                class="link"
-                ><span class="font-mono">__main__.</span></a
-              >
-              Eventually, I became more familiar with the huge Cpython codebase,
-              and I am extremely proud to say that my code contributions were
-              eventually merged into Python's standard libraries
-              <code>rlcompleter</code>, <code>tarfile</code>, and
-              <code>argparse</code>. I also wrote a patch in <code>C</code>,
-              which became part of the implementation of the new
-
-              <a
-                href="https://docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching"
-                rel="noopener noreferrer"
-                target="_blank"
-                class="link"
-              >
-                structural pattern matching feature
-              </a>
-              in Python 3.10.
-            </p>
+            <video
+              muted
+              controls
+              loop
+              aria-label="demo video"
+              autoplay
+              class="border-2 border-mineral-700 border-opacity-50"
+            >
+              <source src="./static/py_contrib.mp4" type="video/mp4" />
+            </video>
           </div>
+          <p class="px-3 sm:text-justify text-gray-600">
+            In June, July, and August of 2021, I committed myself to
+            contributing to Cpython full-time. Cpython is the reference
+            implementation of the Python programming language, and it contains
+            the Python interpreter, standard library, and official
+            documentation.
+          </p>
+          <p class="px-3 sm:text-justify text-gray-600">
+            Many of my contributions were towards documentation, the most
+            significant of which was my rewrite of the new documentation for
+            <a
+              href="https://docs.python.org/3/library/__main__.html"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+              ><span class="font-mono">__main__.</span></a
+            >
+            Eventually, I became more familiar with the huge Cpython codebase,
+            and I am extremely proud to say that my code contributions were
+            eventually merged into Python's standard libraries
+            <code>rlcompleter</code>, <code>tarfile</code>, and
+            <code>argparse</code>. I also wrote a patch in <code>C</code>, which
+            became part of the implementation of the new
+
+            <a
+              href="https://docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching"
+              rel="noopener noreferrer"
+              target="_blank"
+              class="link"
+            >
+              structural pattern matching feature
+            </a>
+            in Python 3.10.
+          </p>
 
           <div class="py-3 flex flex-row justify-center gap-10">
             <a
@@ -651,14 +635,31 @@
           my own larger projects.
         </p>
         <p class="text-sm text-black">
-          I understand the importance of agility and good development practices,
-          and I have a great understanding of the tools that I know – not just
-          languages and libraries, but my broader development workflow.
+          Overall, I feel ready, and I hope that we can meet soon so that I can
+          show you that I am.
         </p>
-        <p class="text-sm text-black">
-          Overall, I am applying because I feel ready, and I hope that we can
-          meet soon so that I can show you that I am.
-        </p>
+      </div>
+      <div class="contact-form-container">
+        <div class="flex items-center justify-center w-full">
+          <button
+            hx-get="http://localhost:8001/api/contact"
+            hx-target=".contact-form-container"
+            class="
+              p-6
+              m-6
+              text-clay-100
+              font-bold
+              text-lg
+              rounded-md
+              bg-gradient-to-tr
+              from-purple-500
+              via-blue-500
+              to-purple-600
+            "
+          >
+            Contact Me
+          </button>
+        </div>
       </div>
     </div>
   </body>

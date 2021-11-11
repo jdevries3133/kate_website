@@ -1,0 +1,14 @@
+{% load abs_url %}
+
+<form
+  hx-post="{% abs_url 'contact_form' %}"
+>
+  <h1>Contact Me</h1>
+  {% for field in form%}
+    {{ field.label_tag }}
+    {{ field.errors }}
+    {{ field }}
+  {% endfor %}
+  <button class="p-2 my-2 bg-primary-200 rounded-md text-lg"
+    >Submit</button>
+</form>
