@@ -14,8 +14,8 @@ from pathlib import Path
 import os
 
 
-from . import secret 
-    
+from . import secret
+
 SECRET_KEY = secret.SECRET_KEY
 EMAIL_HOST_PASSWORD = secret.EMAIL_HOST_PASSWORD
 
@@ -28,7 +28,7 @@ DEBUG = os.getenv('DJANGO_DEBUG')
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['jackdevries.com']
+    ALLOWED_HOSTS = ['api.jackdevries.com']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -159,6 +159,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / 'static_root'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -169,3 +170,4 @@ EMAIL_HOST_USER = 'jdevries3133@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
+
