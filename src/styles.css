@@ -84,13 +84,17 @@ code:after {
   @apply text-purple-600;
 }
 
+.text-container > p {
+  @apply px-3;
+}
+
 /**
  * the character icon section is quite repetitive, so they're just styled
  * here
  */
 
 .character-icons {
-  @apply grid grid-cols-3 gap-2 p-1;
+  @apply grid grid-cols-3 gap-2;
 }
 
 .character-icons > div {
@@ -111,24 +115,24 @@ code:after {
  */
 
 .contact-form-container > form {
-  @apply bg-secondary-300 p-2 m-3 rounded flex flex-col items-start;
+  @apply border border-coffee bg-secondary-100 p-2 m-3 rounded flex flex-col items-start;
 }
 
 .contact-form-container * > label {
-  @apply text-black block text-left pt-2 pb-1;
+  @apply text-coffee block text-left pt-2 pb-1;
 }
 
 .contact-form-container * > h1 {
-  @apply w-full text-center text-black;
+  @apply w-full text-center text-coffee;
 }
 
 .contact-form-container * > p {
-  @apply text-black;
+  @apply text-coffee;
 }
 
 .contact-form-container * > input,
 .contact-form-container * > textarea {
-  @apply text-black bg-clay-200 rounded shadow p-1 rounded w-full;
+  @apply text-coffee bg-clay-200 rounded shadow p-1 rounded w-full;
 }
 
 .contact-form-container * > input:focus,
