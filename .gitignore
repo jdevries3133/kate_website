@@ -1,5 +1,9 @@
-dist
 node_modules
-Session.vim
-src/dist.styles.css
-notes.md
+
+/.cache
+/build
+/dist
+/public/build
+app/tailwind.css
+
+db.sqlite
