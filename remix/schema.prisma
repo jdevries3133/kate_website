@@ -1,0 +1,16 @@
+datasource db {
+    provider = "sqlite"
+    url = "file:./db.sqlite"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model ContactInquiry {
+    id Int @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    name String
+    email String
+    message String
+}

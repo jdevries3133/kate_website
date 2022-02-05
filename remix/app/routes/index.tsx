@@ -12,7 +12,8 @@ import { useState } from "react";
 import { MetaFunction } from "@remix-run/react/routeModules";
 
 import { ContactForm } from "~/components/contactForm";
-import { ActionFunction, useActionData } from "remix";
+import { ActionFunction, useActionData, useTransition } from "remix";
+import prisma from "~/prisma.server";
 
 export const meta: MetaFunction = () => {
   return { title: "Jack DeVries" };
@@ -31,22 +32,20 @@ export const action: ActionFunction = async ({ request }) => {
   if (!name) errors.name = "Please enter your name";
   if (!email) errors.email = "Please enter your email";
 
-  const values = { name, email, message };
-  console.log(values);
+  const values = {
+    name: (name as string) || "",
+    email: (email as string) || "",
+    message: (message as string) || "",
+  };
 
   if (!errors.name && !errors.email) {
-    const res = await fetch("https://api.jackdevries.com/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(values),
+    await prisma.contactInquiry.create({
+      data: values,
     });
-    console.log(await res.text());
-    if (res.ok) {
-      return { status: "submitted" };
-    }
+    return {
+      values,
+      status: "submitted",
+    };
   }
 
   return {
@@ -880,8 +879,10 @@ export default function Index() {
             <div className="contact-form-container">
               <div className="flex items-center justify-center w-full">
                 {actionData?.status === "submitted" ? (
-                  <div>
-                    <h3 className="text-black font-bold">Thanks!</h3>
+                  <div className="bg-clay-100 rounded-md shadow p-2 m-2">
+                    <h3 className="text-black font-bold">
+                      Thanks, {actionData.values.name}!
+                    </h3>
                     <p>I'll get back to you soon.</p>
                   </div>
                 ) : (

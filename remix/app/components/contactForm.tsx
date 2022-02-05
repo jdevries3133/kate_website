@@ -45,8 +45,10 @@ const InnerForm = () => {
                 hover:bg-primary-400
                 shadow-md
                 hover:shadow-none
+                disabled:bg-gray-200
         "
           type="submit"
+          disabled={transition.state === "loading"}
         >
           Submit
         </button>
