@@ -8,7 +8,7 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 
-import stylesUrl from "./styles.css";
+import stylesUrl from "./tailwind.css";
 import { LinksFunction } from "@remix-run/react/routeModules";
 
 export const meta: MetaFunction = () => {

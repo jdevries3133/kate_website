@@ -12,14 +12,53 @@ import { useState } from "react";
 import { MetaFunction } from "@remix-run/react/routeModules";
 
 import { ContactForm } from "~/components/contactForm";
+import { ActionFunction, useActionData } from "remix";
 
 export const meta: MetaFunction = () => {
   return { title: "Jack DeVries" };
 };
 
+export const action: ActionFunction = async ({ request }) => {
+  const form = await request.formData();
+  const name = form.get("name");
+  const email = form.get("email");
+  const message = form.get("message");
+
+  const errors = {
+    email: "",
+    name: "",
+  };
+  if (!name) errors.name = "Please enter your name";
+  if (!email) errors.email = "Please enter your email";
+
+  const values = { name, email, message };
+  console.log(values);
+
+  if (!errors.name && !errors.email) {
+    const res = await fetch("https://api.jackdevries.com/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    console.log(await res.text());
+    if (res.ok) {
+      return { status: "submitted" };
+    }
+  }
+
+  return {
+    values: values,
+    errors,
+  };
+};
+
 export default function Index() {
   const [moreMe, setMoreMe] = useState(false);
   const [moreProjects, setMoreProjects] = useState(false);
+  const actionData = useActionData();
 
   return (
     <>
@@ -840,7 +879,14 @@ export default function Index() {
             </div>
             <div className="contact-form-container">
               <div className="flex items-center justify-center w-full">
-                <ContactForm />
+                {actionData?.status === "submitted" ? (
+                  <div>
+                    <h3 className="text-black font-bold">Thanks!</h3>
+                    <p>I'll get back to you soon.</p>
+                  </div>
+                ) : (
+                  <ContactForm />
+                )}
               </div>
             </div>
           </div>

@@ -1,10 +1,5 @@
 import { useState } from "react";
-import { Form, ActionFunction, useTransition, useActionData } from "remix";
-
-export const action: ActionFunction = async ({ request }) => {
-  const body = request.formData();
-  console.log(body);
-};
+import { Form, useTransition, useActionData } from "remix";
 
 const InnerForm = () => {
   const transition = useTransition();
@@ -15,7 +10,7 @@ const InnerForm = () => {
         <label>
           Name{" "}
           {actionData && actionData.errors.name ? (
-            <p className="text-red-500">{actionData.errors.name}</p>
+            <p>{actionData.errors.name}</p>
           ) : null}
           <input
             type="text"
@@ -26,7 +21,7 @@ const InnerForm = () => {
         <label>
           Email{" "}
           {actionData && actionData.errors.email ? (
-            <p className="text-red-500">{actionData.errors.email}</p>
+            <p>{actionData.errors.email}</p>
           ) : null}
           <input
             type="email"
@@ -34,7 +29,27 @@ const InnerForm = () => {
             defaultValue={actionData ? actionData.values.email : undefined}
           />
         </label>
-        <button type="submit">Submit</button>
+        <label>
+          Message{" "}
+          {actionData && actionData.errors.message ? (
+            <p>{actionData.errors.message}</p>
+          ) : null}
+          <textarea name="message" />
+        </label>
+        <button
+          className="
+                bg-primary-300
+                rounded
+                p-2
+                mt-2
+                hover:bg-primary-400
+                shadow-md
+                hover:shadow-none
+        "
+          type="submit"
+        >
+          Submit
+        </button>
       </Form>
     </fieldset>
   );
