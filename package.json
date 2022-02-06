@@ -4,10 +4,12 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "npm run build:tailwind && npm run build:remix",
-    "build:remix": "remix build",
-    "build:tailwind": "npx tailwindcss -i styles/tailwind.css -o app/tailwind.css",
-    "dev": "concurrently \"PORT=8000 remix dev\" \"npm run build:tailwind -- --watch\"",
+    "build": "npm run tailwind:build && remix build",
+    "tailwind:build": "npx tailwindcss -i styles/tailwind.css -o app/tailwind.css",
+    "dev": "concurrently \"PORT=8000 remix dev\" \"npm run tailwind:build -- --watch\"",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
     "postinstall": "remix setup node",
     "start": "remix-serve build"
   },
