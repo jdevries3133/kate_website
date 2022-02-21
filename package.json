@@ -4,41 +4,45 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "npm run tailwind:build && remix build",
-    "tailwind:build": "npx tailwindcss -i styles/tailwind.css -o app/tailwind.css",
-    "dev": "concurrently \"PORT=8000 remix dev\" \"npm run tailwind:build -- --watch\"",
+    "dev": "sh setup_env.sh && PORT=8000 yarn prisma:migrate && yarn serve:dev",
+    "production": "sh setup_env.sh && yarn prisma:deploy && yarn serve:prod",
+    "build:all": "yarn build:tailwind && remix build",
+    "build:tailwind": "npx tailwindcss -i styles/tailwind.css -o app/tailwind.css",
+    "serve:dev": "concurrently \"PORT=8000 remix dev\" \"yarn build:tailwind --watch\"",
+    "serve:prod": "remix-serve build",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
-    "postinstall": "remix setup node",
-    "start": "remix-serve build"
+    "postinstall": "remix setup node"
   },
   "dependencies": {
     "@prisma/client": "^3.9.1",
     "@remix-run/react": "^1.1.3",
     "@remix-run/serve": "^1.1.3",
-    "@tailwindcss/forms": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.0",
-    "concurrently": "^7.0.0",
     "dotenv": "^8.6.0",
+    "dotenv-expand": "^8.0.1",
     "fuse.js": "^3.6.1",
     "googleapis": "^85.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remix": "^1.1.3",
     "remix-auth": "^3.2.1",
-    "remix-auth-google": "^1.1.0",
-    "tailwindcss": "^3.0.17"
+    "remix-auth-google": "^1.1.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.1.3",
+    "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.0",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "concurrently": "^7.0.0",
     "prisma": "^3.9.1",
+    "tailwindcss": "^3.0.17",
     "typescript": "^4.1.2"
   },
   "engines": {
     "node": ">=14"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "version": "0.0.0"
 }
