@@ -1,19 +1,13 @@
-FROM node:17-alpine
-
-RUN apk add sqlite
+FROM node:16-alpine
 
 WORKDIR /app
 
 COPY package.json .
-COPY package-lock.json .
-RUN npm install --verbose
-
-COPY schema.prisma .
-RUN npm run prisma:generate --verbose
-RUN npm run prisma:migrate --verbose
+COPY yarn.lock .
+RUN yarn install
 
 COPY . .
 
-RUN npm run build
+RUN yarn build:all
 
-ENTRYPOINT ["npm", "run", "start"]
+ENTRYPOINT ["sh", "entrypoint_prod.sh"]

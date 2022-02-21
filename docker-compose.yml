@@ -1,0 +1,31 @@
+# FOR DEVELOPMENT PURPOSES ONLY – see hard-coded database credentials!
+
+services:
+  web:
+    build: .
+    ports:
+        # http server
+      - "8000:8000"
+        # web socket server that remix uses for development
+      - "8002:8002"
+        # prisma studio, which can be run with `docker exec` when needed
+      - "5555:5555"
+    volumes:
+      - ./app:/app/app
+      - ./styles:/app/styles
+      - ./public:/app/public
+    links:
+      - db
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: app
+      POSTGRES_HOST: db
+    # Prisma is broken on arm; see https://github.com/prisma/prisma/issues/10761
+    platform: linux/amd64
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: app

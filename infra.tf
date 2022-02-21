@@ -1,64 +1,39 @@
-variable "service_port" {
-  type = number
-}
+terraform {
 
-resource "kubernetes_namespace" "jdv" {
-  metadata {
-    name = "jackdevries"
-  }
-}
-
-resource "kubernetes_deployment" "jdv" {
-  metadata {
-    name      = "jdv-deployment"
-    namespace = kubernetes_namespace.jdv.metadata.0.name
+  backend "s3" {
+    bucket = "my-sites-terraform-remote-state"
+    key    = "jackdevries.com_state"
+    region = "us-east-2"
   }
 
-  spec {
-    // there should not be more than one replica as long as the app is using
-    // temporary in-container sqlite databases.
-    replicas = 1
-
-    selector {
-      match_labels = {
-        app = "jdv"
-      }
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.7.1"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.4.1"
     }
 
-    template {
-      metadata {
-        labels = {
-          app = "jdv"
-        }
-      }
-
-      spec {
-
-        container {
-          name  = "jdv"
-          image = "jdevries3133/jackdevries.com:0.0.2"
-
-        }
-      }
-    }
   }
 }
 
-resource "kubernetes_service" "jdv" {
-  metadata {
-    name      = "jdv-service"
-    namespace = kubernetes_namespace.jdv.metadata.0.name
-  }
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
 
-  spec {
-    selector = {
-      app = kubernetes_deployment.jdv.spec.0.template.0.metadata.0.labels.app
-    }
-    type             = "LoadBalancer"
-    session_affinity = "ClientIP"
-    port {
-      port        = var.service_port
-      target_port = 3000
-    }
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
   }
+}
+
+module "basic-deployment" {
+  source  = "jdevries3133/basic-deployment/kubernetes"
+  version = "0.0.7"
+
+  app_name  = "jdv"
+  container = "jdevries3133/jackdevries.com:0.1.5"
+  domain    = "jackdevries.com"
 }

@@ -6,7 +6,10 @@ const InnerForm = () => {
   const actionData = useActionData();
   return (
     <fieldset disabled={transition.state === "submitting"}>
-      <Form method="post">
+      <Form
+        method="post"
+        className="block rounded-lg shadow bg-secondary-300 p-2 border"
+      >
         <label>
           Name{" "}
           {actionData && actionData.errors.name ? (

@@ -8,4 +8,7 @@ app/tailwind.css
 
 db.sqlite*
 
-.terraform*
+.terraform
+terraform.tfstate*
+
+.env

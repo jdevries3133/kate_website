@@ -25,18 +25,15 @@
 DOCKER_ACCOUNT=jdevries3133
 CONTAINER_NAME=jackdevries.com
 
-TAG?=latest
+TAG?=$(shell cat VERSION)
 
 # assuming the use of Docker hub, these constants need not be changed
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 
 
-build:
-	docker buildx build --platform linux/amd64 --load -t $(CONTAINER) .
 
-
-push: clean build
-	docker push $(CONTAINER)
+push: clean
+	docker buildx build --platform linux/amd64 --push -t $(CONTAINER) .
 
 
 run:

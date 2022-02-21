@@ -5,11 +5,11 @@
   "license": "",
   "scripts": {
     "dev": "PORT=8000 yarn prisma:migrate && yarn serve:dev",
-    "production": "sh setup_env.sh && yarn prisma:deploy && yarn serve:prod",
     "build:all": "yarn build:tailwind && remix build",
     "build:tailwind": "npx tailwindcss -i styles/tailwind.css -o app/tailwind.css",
     "serve:dev": "concurrently \"PORT=8000 remix dev\" \"yarn build:tailwind --watch\"",
-    "serve:prod": "remix-serve build",
+    "serve:production": "PORT=8000 remix-serve build",
+    "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "postinstall": "remix setup node"
