@@ -1,4 +1,4 @@
-# FOR DEVELOPMENT PURPOSES ONLY – see hard-coded database credentials!
+
 
 services:
   web:

@@ -36,10 +36,6 @@ push: clean
 	docker buildx build --platform linux/amd64 --push -t $(CONTAINER) .
 
 
-run:
-	docker run -p 8000:3000 $(CONTAINER)
-
-
 # this removes *all* images containing CONTAINER_NAME, so there can be
 # destructive side-effects
 clean:
