@@ -29,11 +29,15 @@ provider "helm" {
   }
 }
 
+data "external" "git_describe" {
+  program = ["sh", "scripts/git_describe.sh"]
+}
+
 module "basic-deployment" {
   source  = "jdevries3133/basic-deployment/kubernetes"
   version = "0.0.7"
 
   app_name  = "jdv"
-  container = "jdevries3133/jackdevries.com:0.1.5"
+  container = "jdevries3133/jackdevries.com:${data.external.git_describe.result.output}"
   domain    = "jackdevries.com"
 }

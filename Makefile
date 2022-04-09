@@ -25,24 +25,18 @@
 DOCKER_ACCOUNT=jdevries3133
 CONTAINER_NAME=jackdevries.com
 
-TAG?=$(shell cat VERSION)
+TAG?=$(shell git describe --tags)
 
 # assuming the use of Docker hub, these constants need not be changed
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 
 
-
-push: clean
+.PHONY: push
+push:
 	docker buildx build --platform linux/amd64 --push -t $(CONTAINER) .
 
 
-# this removes *all* images containing CONTAINER_NAME, so there can be
-# destructive side-effects
-clean:
-	# remove application container(s)
-	docker ps --all | grep $(CONTAINER_NAME) | cut -c 1-15 | xargs docker stop
-	docker ps --all | grep $(CONTAINER_NAME) | cut -c 1-15 | xargs docker rm
+.PHONY: deploy
+deploy: push
+	terraform apply -auto-approve
 
-
-# all rules are phony
-.PHONY: clean push build
