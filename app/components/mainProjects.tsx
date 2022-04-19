@@ -14,7 +14,7 @@ export const MainProjects: React.FC = () => (
     >
       {/* begin fast grader card */}
       <div className="max-w-prose bg-clay-100 w-full rounded-md">
-        <div>
+        <div className="prose">
           <div className="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
             <div className="rounded-b-md">
               <h3 className="text-mineral inline xl:text-3xl">Fast Grader</h3>
@@ -127,7 +127,7 @@ export const MainProjects: React.FC = () => (
       {/* end fast grader card */}
       {/* begin song maker card */}
       <div className="max-w-prose bg-clay-100 w-full rounded-md">
-        <div>
+        <div className="prose">
           <div className="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
             <div className="rounded-b-md">
               <h3 className="xl:text-3xl text-mineral">Song Maker Gallery</h3>
@@ -216,7 +216,7 @@ export const MainProjects: React.FC = () => (
       {/* end songmaker card */}
       {/* end open source card */}
       <div className="max-w-prose bg-clay-100 w-full rounded-md">
-        <div>
+        <div className="prose">
           <div className="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
             <div className="rounded-b-md">
               <h3 className="xl:text-3xl inline text-mineral">cpython</h3>
