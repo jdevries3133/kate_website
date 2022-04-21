@@ -8,36 +8,41 @@ const InnerForm = () => {
     <fieldset disabled={transition.state === "submitting"}>
       <Form
         method="post"
-        className="block rounded-lg shadow bg-secondary-300 p-2 border"
+        className="border border-coffee bg-secondary-300 p-2 m-3 rounded flex flex-col items-start text-coffee"
       >
-        <label>
+        <label className="block text-left pt-2 pb-1">
           Name{" "}
           {actionData && actionData.errors.name ? (
             <p>{actionData.errors.name}</p>
           ) : null}
           <input
+            className="bg-clay-200 rounded shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
             type="text"
             name="name"
             defaultValue={actionData ? actionData.values.name : undefined}
           />
         </label>
-        <label>
+        <label className="block text-left pt-2 pb-1">
           Email{" "}
           {actionData && actionData.errors.email ? (
             <p>{actionData.errors.email}</p>
           ) : null}
           <input
+            className="bg-clay-200 rounded shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
             type="email"
             name="email"
             defaultValue={actionData ? actionData.values.email : undefined}
           />
         </label>
-        <label>
+        <label className="block text-left pt-2 pb-1">
           Message{" "}
           {actionData && actionData.errors.message ? (
             <p>{actionData.errors.message}</p>
           ) : null}
-          <textarea name="message" />
+          <textarea
+            className="w-full h-24 bg-clay-200 rounded shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
+            name="message"
+          />
         </label>
         <button
           className="

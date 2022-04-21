@@ -98,7 +98,7 @@ export const FinalSection: React.FC<{ actionData: any }> = ({ actionData }) => (
             projects.
           </p>
         </div>
-        <div className="contact-form-container">
+        <div>
           <div className="flex items-center justify-center w-full">
             {actionData?.status === "submitted" ? (
               <div className="bg-clay-100 rounded-md shadow p-2 m-2">
