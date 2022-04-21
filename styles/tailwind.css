@@ -7,23 +7,19 @@
     z-index: 10;
   }
   h1 {
-    @apply text-primary-300 font-bold text-3xl font-serif;
+    @apply font-bold text-3xl font-serif;
   }
 
   h2 {
-    @apply text-primary-300 text-2xl font-serif;
+    @apply text-2xl font-serif;
   }
 
   h3 {
-    @apply text-clay-200 text-xl;
+    @apply text-xl;
   }
 
   h4 {
-    @apply text-clay-200 text-lg font-light;
-  }
-
-  p {
-    @apply text-clay py-1 prose;
+    @apply text-lg;
   }
 }
 
@@ -31,9 +27,14 @@
 code:before {
   display: none;
 }
+
 code:after {
   display: none;
 }
+
+/**
+ * Styling for the tooltips on the "toolbox" section.
+ */
 
 .tooltip {
   @apply relative;
@@ -76,23 +77,9 @@ code:after {
   width: 200%;
 }
 
-.link {
-  @apply text-blue-600 underline cursor-pointer;
-}
-
-.link:visited {
-  @apply text-purple-600;
-}
-
-.text-container > p {
-  @apply px-3;
-}
-
 /**
- * the character icon section is quite repetitive, so they're just styled
- * here
+ * character-icons are the grid of icons above the contact form
  */
-
 .character-icons {
   @apply grid grid-cols-3 gap-2;
 }

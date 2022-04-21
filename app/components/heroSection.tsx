@@ -1,6 +1,7 @@
 export const HeroSection = () => (
   <div
     className="
+        text-clay-400 
         min-h-screen
         pb-6
         bg-mineral-600
@@ -18,6 +19,7 @@ export const HeroSection = () => (
       <h1
         className="
             py-3
+            text-primary-300
             text-2xl text-center
             flex-shrink
             lg:flex-shrink-0 lg:text-4xl
@@ -60,7 +62,9 @@ export const HeroSection = () => (
             lg:rounded
           "
       >
-        <h2 className="text-center text-xl pb-2">My Toolbox</h2>
+        <h2 className="text-center text-primary-400 text-xl pb-2">
+          My Toolbox
+        </h2>
         <div
           className="
               grid grid-cols-3

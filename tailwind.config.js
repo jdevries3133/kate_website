@@ -59,13 +59,28 @@ module.exports = {
         coffee: {
           DEFAULT: "#34252F",
         },
-        fontFamily: {
-          sans: ["Source Sans Pro", "sans-serif"],
-          serif: ["Source Serif Pro", "serif"],
-          mono: ["Source Code Pro", "monospace"],
+      },
+      fontFamily: {
+        sans: ["Source Sans Pro", "sans-serif"],
+        serif: ["Source Serif Pro", "serif"],
+        mono: ["Source Code Pro", "monospace"],
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            a: {
+              color: "#05803a", // custom color secondary-ish
+              "&:hover": {
+                color: "#65AD86", // secondary-400
+              },
+              "&:visited": {
+                color: "#8D6A02", // primary-700
+              },
+            },
+          },
         },
       },
     },
   },
-  plugins: [require("@tailwindcss/typography", "@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
 };

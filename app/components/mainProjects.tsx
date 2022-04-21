@@ -1,6 +1,6 @@
 export const MainProjects: React.FC = () => (
   <div className="py-6 bg-secondary-700">
-    <h1 className="text-primary-500 text-center">My Projects</h1>
+    <h1 className="text-primary-400 text-center">Projects</h1>
     <div
       className="
           lg:grid lg:grid-cols-3 lg:items-start
@@ -13,12 +13,14 @@ export const MainProjects: React.FC = () => (
         "
     >
       {/* begin fast grader card */}
-      <div className="max-w-prose bg-clay-100 w-full rounded-md">
-        <div className="prose">
+      <div className="prose bg-clay-100 w-full rounded-md">
+        <div>
           <div className="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
             <div className="rounded-b-md">
-              <h3 className="text-mineral inline xl:text-3xl">Fast Grader</h3>
-              <h4 className="text-mineral inline">for Google Classroom</h4>
+              <h3 className="text-mineral inline xl:text-3xl">Fast Grader</h3>{" "}
+              <h4 className="text-mineral font-light inline">
+                for Google Classroom
+              </h4>
             </div>
             <video
               muted
@@ -34,48 +36,33 @@ export const MainProjects: React.FC = () => (
           <p className="px-3 sm:text-justify text-gray-600">
             I was inspired by the design philosophy of <code>vim</code> to
             create this minimal and efficient keyboard-driven tool to help
-            teachers provide grades and feedback for their google classNameroom
+            teachers provide grades and feedback for their google classroom
             assignments.
           </p>
           <p className="px-3 sm:text-justify text-gray-600">
             The backend stack is PostgreSQL, Django, and Django REST Framework.
-            I deployed the site to a machine running Ubuntu Server. The backend
-            utilizes the Google Drive and Google Classroom APIs to fetch user
-            data. I also used Python's{" "}
-            <a
-              className="link"
-              href="https://docs.python.org/3/library/difflib.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              difflib
+            The application is deployed on a Kubernetes cluster that I created
+            and maintain in my home. It's infrastructure is defined as code
+            (IaC) using <a href="https://www.terraform.io/">Terraform.</a> It is
+            also continuously deployed to production and staging environments
+            using{" "}
+            <a href="https://github.com/jdevries3133/fast_grader/actions">
+              GitHub Actions.
             </a>{" "}
+            The backend utilizes the Google Drive and Google Classroom APIs to
+            fetch user data. I also used Python's{" "}
+            <a href="https://docs.python.org/3/library/difflib.html">difflib</a>{" "}
             to implement a feature where teachers can view only the differences
             between the template they provide to students, and the actual
             student submission.
           </p>
           <p className="px-3 sm:text-justify text-gray-600">
             On the frontend of this project, I used{" "}
-            <a
-              className="link"
-              href="https://tailwindcss.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Tailwind CSS
-            </a>{" "}
-            and{" "}
-            <a
-              className="link"
-              href="https://htmx.org/docs/#introduction"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              htmx
-            </a>{" "}
-            to facilitate rapid prototyping, and minimize code repetition. This
-            choice has also effectively me to inject UI with dynamic data into
-            the browser extension from the backend, which has been pretty neat!
+            <a href="https://tailwindcss.com/">Tailwind CSS</a> and{" "}
+            <a href="https://htmx.org/docs/#introduction">htmx</a> to facilitate
+            rapid prototyping, and minimize code repetition. This choice has
+            also effectively me to inject UI with dynamic data into the browser
+            extension from the backend, which has been pretty neat!
           </p>
         </div>
 
@@ -126,11 +113,14 @@ export const MainProjects: React.FC = () => (
       </div>
       {/* end fast grader card */}
       {/* begin song maker card */}
-      <div className="max-w-prose bg-clay-100 w-full rounded-md">
-        <div className="prose">
+      <div className="prose bg-clay-100 w-full rounded-md">
+        <div>
           <div className="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
             <div className="rounded-b-md">
-              <h3 className="xl:text-3xl text-mineral">Song Maker Gallery</h3>
+              {/* I don't know why this needs m-0 but it does... */}
+              <h3 className="m-0 xl:text-3xl text-mineral">
+                Song Maker Gallery
+              </h3>
             </div>
             <video
               muted
@@ -146,12 +136,7 @@ export const MainProjects: React.FC = () => (
           <p className="px-3 sm:text-justify text-gray-600">
             The Song Maker Gallery is a dynamic web application used by music
             teachers to present galleries of student compositions made in the{" "}
-            <a
-              className="link"
-              href="https://musiclab.chromeexperiments.com/Song-Maker/"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <a href="https://musiclab.chromeexperiments.com/Song-Maker/">
               Chrome Music Lab.
             </a>
           </p>
@@ -215,12 +200,12 @@ export const MainProjects: React.FC = () => (
       </div>
       {/* end songmaker card */}
       {/* end open source card */}
-      <div className="max-w-prose bg-clay-100 w-full rounded-md">
-        <div className="prose">
+      <div className="prose bg-clay-100 w-full rounded-md">
+        <div>
           <div className="rounded-t-md sticky p-2 bg-clay-400 top-0 shadow-xl">
             <div className="rounded-b-md">
-              <h3 className="xl:text-3xl inline text-mineral">cpython</h3>
-              <h4 className="inline text-mineral inline">
+              <h3 className="xl:text-3xl inline text-mineral">cpython</h3>{" "}
+              <h4 className="inline font-light text-mineral inline">
                 Open Source Contributing
               </h4>
             </div>
@@ -245,12 +230,7 @@ export const MainProjects: React.FC = () => (
           <p className="px-3 sm:text-justify text-gray-600">
             Many of my contributions were towards documentation, the most
             significant of which was my rewrite of the new documentation for{" "}
-            <a
-              href="https://docs.python.org/3/library/__main__.html"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="link"
-            >
+            <a href="https://docs.python.org/3/library/__main__.html">
               <span className="font-mono">__main__.</span>
             </a>{" "}
             Eventually, I became more familiar with the huge Cpython codebase,
@@ -259,12 +239,7 @@ export const MainProjects: React.FC = () => (
             <code>rlcompleter</code>, <code>tarfile</code>, and{" "}
             <code>argparse</code>. I also wrote an interpreter patch in C, which
             became part of the implementation of the new{" "}
-            <a
-              href="https://docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="link"
-            >
+            <a href="https://docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching">
               structural pattern matching feature
             </a>{" "}
             in Python 3.10.

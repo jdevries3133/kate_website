@@ -24,75 +24,30 @@ export const OtherProjectsAndBio: React.FC = () => (
         <li className="text-mineral text-sm">
           The <code>teacherhelper</code> Python library, which containes useful
           abstractions and a CLI to make teaching more scriptable.{" "}
-          <a
-            href="https://github.com/jdevries3133/teacher_helper"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
-            GitHub
-          </a>
-          ,{" "}
-          <a
-            href="https://pypi.org/project/teacherhelper/"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
-            PyPi
-          </a>
-          ,{" "}
-          <a
-            href="https://teacherhelper.jackdevries.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
-            Docs
-          </a>
+          <a href="https://github.com/jdevries3133/teacher_helper">GitHub</a>,{" "}
+          <a href="https://pypi.org/project/teacherhelper/">PyPi</a>,{" "}
+          <a href="https://teacherhelper.jackdevries.com/">Docs</a>
         </li>
         <li className="text-mineral text-sm">
           A variety of command line tools, including a nifty tool for running
           parallel processes called <code>rn</code> using only the Python
           Standard Library.{" "}
-          <a
-            href="https://github.com/jdevries3133/shell_scripts"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
-            GitHub
-          </a>
+          <a href="https://github.com/jdevries3133/shell_scripts">GitHub</a>
         </li>
         <li className="text-mineral text-sm">
           Some very elaborate web-based scavenger hunts for friends.{" "}
-          <a
-            href="https://github.com/jdevries3133/chaotic_christmas_present"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
+          <a href="https://github.com/jdevries3133/chaotic_christmas_present">
             GitHub (#1)
           </a>
           ,{" "}
-          <a
-            href="https://github.com/jdevries3133/nicks_birthday_2021"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
+          <a href="https://github.com/jdevries3133/nicks_birthday_2021">
             GitHub (#2)
           </a>
         </li>
         <li className="text-mineral text-sm">
           Classroom Mass Delete: a browser extension to automate tedious
           deletion of old Google Classroom assignments.{" "}
-          <a
-            href="https://github.com/jdevries3133/google_classNameroom_mass_delete"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
+          <a href="https://github.com/jdevries3133/google_classroom_mass_delete">
             GitHub
           </a>
         </li>
@@ -103,25 +58,11 @@ export const OtherProjectsAndBio: React.FC = () => (
             Live demo available upon request due to private student personal
             information.{" "}
           </span>
-          <a
-            href="https://github.com/jdevries3133/ea_music/"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
-            GitHub
-          </a>
+          <a href="https://github.com/jdevries3133/ea_music/">GitHub</a>
         </li>
         <li className="text-mineral text-sm">
           Bon Appétit website scraper.{" "}
-          <a
-            href="https://github.com/jdevries3133/scrape_recepies"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
-            GitHub
-          </a>
+          <a href="https://github.com/jdevries3133/scrape_recepies">GitHub</a>
         </li>
         <li className="text-mineral text-sm">
           A program to automatically create seating cards for my students’
@@ -129,36 +70,17 @@ export const OtherProjectsAndBio: React.FC = () => (
           <span className="italic">
             One of my first ever programming projects!{" "}
           </span>
-          <a
-            href="https://github.com/jdevries3133/concert_seating_cards"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
+          <a href="https://github.com/jdevries3133/concert_seating_cards">
             GitHub
           </a>
         </li>
         <li className="text-mineral text-sm">
           Simple programs to learn about the C Programming Language.{" "}
-          <a
-            href="https://github.com/jdevries3133/learning_c"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
-            GitHub
-          </a>
+          <a href="https://github.com/jdevries3133/learning_c">GitHub</a>
         </li>
         <li className="text-mineral text-sm">
           created a bot to watch for a PS5.{" "}
-          <a
-            href="https://github.com/jdevries3133/ps5_stock_check"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="link"
-          >
-            GitHub
-          </a>
+          <a href="https://github.com/jdevries3133/ps5_stock_check">GitHub</a>
         </li>
       </ul>
     </div>
