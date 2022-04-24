@@ -146,6 +146,22 @@ export const HeroSection = () => (
           <div data-tooltip="PostgreSQL" className="tooltip-left-0 tooltip">
             <img alt="postgreSQL icon" src="./static/psql.webp" />
           </div>
+          {/* python */}
+          <div data-tooltip="Python" className="tooltip-wide tooltip ">
+            <img alt="python icon" src="/static/python.svg" />
+          </div>
+          {/* Docker */}
+          <div data-tooltip="Docker" className="tooltip-left-0 tooltip">
+            <img alt="docker logo" src="/static/docker.webp" />
+          </div>
+          {/* Kubernetes */}
+          <div data-tooltip="Kubernetes" className="tooltip-left-0 tooltip">
+            <img alt="kubernetes logo" src="/static/kubernetes.webp" />
+          </div>
+          {/* Terraform */}
+          <div data-tooltip="Terraform" className="tooltip">
+            <img alt="terraform logo" src="/static/terraform.webp" />
+          </div>
         </div>
       </div>
     </div>
