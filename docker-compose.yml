@@ -9,8 +9,8 @@ services:
         # prisma studio, which can be run with `docker exec` when needed
       - "5555:5555"
     entrypoint:
-      - sh
-      - scripts/entrypoint_dev.sh
+      - yarn
+      - dev
     volumes:
       - ./app:/app/app
       - ./styles:/app/styles
@@ -18,10 +18,7 @@ services:
     links:
       - db
     environment:
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: app
-      POSTGRES_DB: app
-      POSTGRES_HOST: db
+      DATABASE_URL: postgresql://app:app@db/app
     # Prisma is broken on arm; see https://github.com/prisma/prisma/issues/10761
     platform: linux/amd64
   db:
