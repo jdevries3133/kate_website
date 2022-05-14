@@ -41,11 +41,12 @@ export const MainProjects: React.FC = () => (
           </p>
           <p className="px-3 sm:text-justify text-gray-600">
             The backend stack is PostgreSQL, Django, and Django REST Framework.
-            The application is deployed on a Kubernetes cluster that I created
-            and maintain in my home. It's infrastructure is defined as code
-            (IaC) using <a href="https://www.terraform.io/">Terraform.</a> It is
-            also continuously deployed to production and staging environments
-            using{" "}
+            The application is deployed on a{" "}
+            <a href="https://kubernetes.io/">Kubernetes cluster</a> that I
+            created and maintain in my home. It's infrastructure is defined as
+            code (IaC) using <a href="https://www.terraform.io/">Terraform.</a>{" "}
+            It is also continuously deployed to production and staging
+            environments using{" "}
             <a href="https://github.com/jdevries3133/fast_grader/actions">
               GitHub Actions.
             </a>{" "}
@@ -53,16 +54,16 @@ export const MainProjects: React.FC = () => (
             fetch user data. I also used Python's{" "}
             <a href="https://docs.python.org/3/library/difflib.html">difflib</a>{" "}
             to implement a feature where teachers can view only the differences
-            between the template they provide to students, and the actual
+            between the template they provided to students, and the actual
             student submission.
           </p>
           <p className="px-3 sm:text-justify text-gray-600">
             On the frontend of this project, I used{" "}
             <a href="https://tailwindcss.com/">Tailwind CSS</a> and{" "}
             <a href="https://htmx.org/docs/#introduction">htmx</a> to facilitate
-            rapid prototyping, and minimize code repetition. This choice has
-            also effectively me to inject UI with dynamic data into the browser
-            extension from the backend, which has been pretty neat!
+            rapid prototyping, and minimize code repetition. This choice also
+            allowed me to dynamically inject UI browser extension from the
+            backend, which has been pretty neat!
           </p>
         </div>
 
@@ -142,15 +143,21 @@ export const MainProjects: React.FC = () => (
           </p>
           <p className="px-3 sm:text-justify text-gray-600">
             It currently has 708 active users, 729 galleries created, and over
-            34,000 student songs uploaded! It was built with Django, Django REST
-            Framework, and PostgreSQL on the backend, and React on the frontend.
+            34,000 student songs uploaded! It was built with{" "}
+            <a href="https://www.djangoproject.com/">Django</a>,{" "}
+            <a href="https://www.django-rest-framework.org/">
+              Django REST Framework
+            </a>
+            , and <a href="https://www.postgresql.org/">PostgreSQL</a> on the
+            backend, and <a href="https://reactjs.org/">React</a> on the
+            frontend.
           </p>
           <p className="px-3 sm:text-justify text-gray-600">
             Visit the site and inspect the song thumbnails in your browser –
             they are all dynamically generated SVG on the frontend, with the
             backend serving representations of the song in the MIDI file format!
-            This optimization significantly reduced the application’s bandwidth
-            and storage needs.
+            The application uses roughly 20 times less storage and bandwith as a
+            result of this optimization.
           </p>
         </div>
         <div className="py-3 flex flex-row justify-center gap-10">
@@ -222,7 +229,9 @@ export const MainProjects: React.FC = () => (
           </div>
           <p className="px-3 sm:text-justify text-gray-600">
             In June, July, and August of 2021, I committed myself to
-            contributing to Cpython full-time. Cpython is the reference
+            contributing to{" "}
+            <a href="https://github.com/python/cpython">CPython</a> full-time.
+            CPython is the reference implementation and most commonly used
             implementation of the Python programming language, and it contains
             the Python interpreter, standard library, and official
             documentation.
@@ -233,16 +242,18 @@ export const MainProjects: React.FC = () => (
             <a href="https://docs.python.org/3/library/__main__.html">
               <span className="font-mono">__main__.</span>
             </a>{" "}
-            Eventually, I became more familiar with the huge Cpython codebase,
+          </p>
+          <p className="px-3 sm:text-justify text-gray-600">
+            Eventually, I became more familiar with the huge CPython codebase,
             and I am extremely proud to say that my code contributions were
             eventually merged into Python standard library modules, including{" "}
             <code>rlcompleter</code>, <code>tarfile</code>, and{" "}
-            <code>argparse</code>. I also wrote an interpreter patch in C, which
-            became part of the implementation of the new{" "}
+            <code>argparse</code>. I also wrote an interpreter patch in{" "}
+            <code>C</code>, which became part of the implementation of the{" "}
             <a href="https://docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching">
               structural pattern matching feature
             </a>{" "}
-            in Python 3.10.
+            introduced in Python 3.10.
           </p>
         </div>
         <div className="py-3 flex flex-row justify-center gap-10">

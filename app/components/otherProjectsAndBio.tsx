@@ -29,6 +29,17 @@ export const OtherProjectsAndBio: React.FC = () => (
           <a href="https://teacherhelper.jackdevries.com/">Docs</a>
         </li>
         <li className="text-mineral text-sm">
+          Terraform modules to factor repetitive config out of my projects that
+          use Terraform for Infrastructure as Code (IaC).{" "}
+          <a href="https://registry.terraform.io/modules/jdevries3133/basic-deployment/kubernetes/latest">
+            basic-deployment
+          </a>
+          ,{" "}
+          <a href="https://registry.terraform.io/modules/jdevries3133/container-deployment/kubernetes/latest">
+            container-deployment
+          </a>
+        </li>
+        <li className="text-mineral text-sm">
           A variety of command line tools, including a nifty tool for running
           parallel processes called <code>rn</code> using only the Python
           Standard Library.{" "}
@@ -79,7 +90,7 @@ export const OtherProjectsAndBio: React.FC = () => (
           <a href="https://github.com/jdevries3133/learning_c">GitHub</a>
         </li>
         <li className="text-mineral text-sm">
-          created a bot to watch for a PS5.{" "}
+          Created a bot to watch for a PS5.{" "}
           <a href="https://github.com/jdevries3133/ps5_stock_check">GitHub</a>
         </li>
       </ul>
