@@ -12,6 +12,7 @@ services:
       - yarn
       - dev
     volumes:
+      - ./schema.prisma:/app/schema.prisma
       - ./app:/app/app
       - ./styles:/app/styles
       - ./public:/app/public

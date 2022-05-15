@@ -4,13 +4,36 @@ datasource db {
 }
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
+// landing page contact form submissions
+
 model ContactInquiry {
-    id Int @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    name String
-    email String
-    message String
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String
+  email     String
+  message   String
+}
+
+// blog app
+
+model Vote {
+  id        Int     @id @default(autoincrement())
+  commentId Int
+  Comment   Comment @relation(fields: [commentId], references: [id])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  content   String
+  Votes     Vote[]
+
+  // a replyTo field stores the parent comment that a given comment replied
+  // to. This is nullable, and is null for root comments
+  replyTo Int?
+  Replies Comment[] @relation("CommentReply")
+  Comment Comment?  @relation("CommentReply", fields: [replyTo], references: [id])
 }

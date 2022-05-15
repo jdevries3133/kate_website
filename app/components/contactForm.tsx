@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, useTransition, useActionData } from "remix";
+import { PrimaryButton } from "./buttons";
 
 const InnerForm = () => {
   const transition = useTransition();
@@ -71,26 +72,6 @@ export const ContactForm = () => {
   if (showForm) return <InnerForm />;
 
   return (
-    <button
-      onClick={() => setShowForm(true)}
-      className="
-                  shadow
-                  p-6
-                  m-6
-                  text-clay-200
-                  font-bold
-                  text-lg
-                  rounded-md
-                  bg-gradient-to-tr
-                  from-secondary-400
-                  to-secondary-600
-                  hover:text-white
-                  hover:from-secondary-300
-                  hover:to-secondary-400
-                  hover:shadow-none
-                "
-    >
-      Contact Me
-    </button>
+    <PrimaryButton onClick={() => setShowForm(true)}>Contact Me</PrimaryButton>
   );
 };

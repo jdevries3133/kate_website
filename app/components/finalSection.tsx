@@ -1,4 +1,6 @@
+import { Link } from "remix";
 import { ContactForm } from "~/components/contactForm";
+import { SecondaryButton } from "./buttons";
 
 export const FinalSection: React.FC<{ actionData: any }> = ({ actionData }) => (
   <div className="py-6 bg-gradient-to-br from-primary-100 to-clay-100">
@@ -111,6 +113,9 @@ export const FinalSection: React.FC<{ actionData: any }> = ({ actionData }) => (
               <ContactForm />
             )}
           </div>
+          <Link className="block text-center" to="/blog/list">
+            <SecondaryButton>Visit Blog</SecondaryButton>
+          </Link>
         </div>
       </div>
     </div>
