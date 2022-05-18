@@ -1,5 +1,4 @@
 import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
-import { useLocales } from "~/providers/localeProvider";
 import { postMetadata } from "~/mdx/postCollections";
 import { parseAcceptLanguage } from "intl-parse-accept-language";
 

@@ -4,15 +4,24 @@ import {
   Link,
   LoaderFunction,
   useCatch,
+  useLoaderData,
   useParams,
 } from "remix";
 import { action as commentFormAction } from "~/components/commentForm";
+import { getLocale } from "~/services/getLocale";
 import { getPost, validateSlug } from "~/services/post";
 
-export const loader: LoaderFunction = ({ params }) => {
+export const loader: LoaderFunction = ({ request, params }) => {
   // will throw not found for invalid post
-  validateSlug(params.post);
-  return null;
+  const slug = validateSlug(params.post);
+
+  // render the dates to strings on the server to avoid normalization issues
+  const locale = getLocale(request);
+  const post = getPost(slug);
+  return {
+    created: post.attributes.created?.toLocaleDateString(locale),
+    lastUpdated: post.attributes.lastUpdated?.toLocaleDateString(locale),
+  };
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -22,8 +31,10 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Post() {
+  const { created, lastUpdated } = useLoaderData();
   const { post: postSlug } = useParams();
   if (!postSlug) throw new Error("missing post slug");
+
   const Post = getPost(postSlug);
   if (Post === null) {
     return <p className="text-clay-300">Post matching {postSlug} not found</p>;
@@ -43,6 +54,18 @@ export default function Post() {
           md:border-primary-200
         "
       >
+        <div className="not-prose">
+          {created && (
+            <p>
+              Created: {created}
+              {lastUpdated && (
+                <span className="italic text-mineral-600">
+                  ; Last Updated {lastUpdated}
+                </span>
+              )}
+            </p>
+          )}
+        </div>
         <Post.default />
       </div>
       {/* <CommentSection /> will go here when finished */}
