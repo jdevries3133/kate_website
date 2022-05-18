@@ -1721,6 +1721,11 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
+intl-parse-accept-language@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/intl-parse-accept-language/-/intl-parse-accept-language-1.0.0.tgz#204d1bc0b13c5baea7775f5eeb95bef2b795675c"
+  integrity sha512-YFMSV91JNBOSjw1cOfw2tup6hDP7mkz+2AUV7W1L1AM6ntgI75qC1ZeFpjPGMrWp+upmBRTX2fJWQ8c7jsUWpA==
+
 ipaddr.js@1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"

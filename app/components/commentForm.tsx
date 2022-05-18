@@ -4,6 +4,7 @@ export const actionId = "submit comment";
 
 export const action = (data: FormData) => {
   const content = data.get("content");
+  console.error("not implemented");
 };
 
 export const CommentForm: React.FC = () => {

@@ -1,4 +1,3 @@
-import { MDXModule } from "mdx/types";
 import {
   ActionFunction,
   ErrorBoundaryComponent,
@@ -7,16 +6,12 @@ import {
   useCatch,
   useParams,
 } from "remix";
-import { CommentSection } from "~/components/commentSection";
 import { action as commentFormAction } from "~/components/commentForm";
-import { allPosts, postNames } from "~/mdx";
-import { getPost } from "~/services/getPost";
+import { getPost, validateSlug } from "~/services/post";
 
 export const loader: LoaderFunction = ({ params }) => {
-  const { post } = params;
-  if (!(post && postNames.includes(post))) {
-    throw new Response("Not Found", { status: 404 });
-  }
+  // will throw not found for invalid post
+  validateSlug(params.post);
   return null;
 };
 
@@ -50,7 +45,7 @@ export default function Post() {
       >
         <Post.default />
       </div>
-      {/* <CommentSection /> */}
+      {/* <CommentSection /> will go here when finished */}
     </>
   );
 }
