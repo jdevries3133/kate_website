@@ -28,7 +28,9 @@ model Vote {
 model Comment {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
+  author    String?
   content   String
+  postSlug  String
   Votes     Vote[]
 
   // a replyTo field stores the parent comment that a given comment replied

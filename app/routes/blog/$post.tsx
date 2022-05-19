@@ -7,27 +7,37 @@ import {
   useLoaderData,
   useParams,
 } from "remix";
+import prisma from "~/prisma.server";
 import { action as commentFormAction } from "~/components/commentForm";
-import { getLocale } from "~/services/getLocale";
+import { CommentSection } from "~/components/commentSection";
 import { getPost, validateSlug } from "~/services/post";
 
-export const loader: LoaderFunction = ({ request, params }) => {
+export const loader: LoaderFunction = async ({ params }) => {
   // will throw not found for invalid post
   const slug = validateSlug(params.post);
 
-  // render the dates to strings on the server to avoid normalization issues
-  const locale = getLocale(request);
+  const rawComments = await prisma.comment.findMany({
+    where: {
+      postSlug: slug,
+    },
+  });
+  const comments = rawComments.map((c) => ({
+    ...c,
+    // convert date to string server-side
+    createdAt: `${c.createdAt.toLocaleTimeString()} on ${c.createdAt.toLocaleDateString()}`,
+  }));
+
   const post = getPost(slug);
   return {
-    created: post.attributes.created?.toLocaleDateString(locale),
-    lastUpdated: post.attributes.lastUpdated?.toLocaleDateString(locale),
+    comments,
+    // convert date to string server-side
+    created: post.attributes.created?.toLocaleDateString(),
+    lastUpdated: post.attributes.lastUpdated?.toLocaleDateString(),
   };
 };
 
-export const action: ActionFunction = async ({ request }) => {
-  const data = await request.formData();
-  commentFormAction(data);
-  return null;
+export const action: ActionFunction = async (args) => {
+  return commentFormAction(args);
 };
 
 export default function Post() {
@@ -41,34 +51,36 @@ export default function Post() {
   }
   return (
     <>
-      <div
-        className="
+      <div className="prose break-words">
+        <div
+          className="
           p-2
           bg-clay-200
           shadow-xl
           rounded-t
-          prose
-          break-words
           md:p-4
           md:border-2
           md:border-primary-200
         "
-      >
-        <div className="not-prose">
-          {created && (
-            <p>
-              Created: {created}
-              {lastUpdated && (
-                <span className="italic text-mineral-600">
-                  ; Last Updated {lastUpdated}
-                </span>
-              )}
-            </p>
-          )}
+        >
+          <div className="not-prose">
+            {created && (
+              <p>
+                Created: {created}
+                {lastUpdated && (
+                  <span className="italic text-mineral-600">
+                    ; Last Updated {lastUpdated}
+                  </span>
+                )}
+              </p>
+            )}
+          </div>
+          <Post.default />
         </div>
-        <Post.default />
+        <div className="not-prose">
+          <CommentSection />
+        </div>
       </div>
-      {/* <CommentSection /> will go here when finished */}
     </>
   );
 }

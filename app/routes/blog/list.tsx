@@ -1,6 +1,5 @@
 import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import { postMetadata } from "~/mdx/postCollections";
-import { parseAcceptLanguage } from "intl-parse-accept-language";
 
 export const meta: MetaFunction = () => {
   return {
@@ -17,19 +16,16 @@ type LoaderData = {
   lastUpdated?: string;
 };
 
-export const loader: LoaderFunction = ({ request }) => {
+export const loader: LoaderFunction = () => {
   // convert created and lastUpdated (if present) to strings on the server to
   // avoid client-server mismatches. We don't need to be super precise with the
   // dates.
-  const locales = parseAcceptLanguage(request.headers.get("accept-language"), {
-    validate: Intl.DateTimeFormat.supportedLocalesOf,
-  });
   const data: LoaderData[] = postMetadata.map((post) => ({
     slug: post.slug,
     title: typeof post.title === "string" ? post.title : "Untitled",
     description: post.description,
-    created: post?.created?.toLocaleDateString(locales),
-    lastUpdated: post?.lastUpdated?.toLocaleDateString(locales),
+    created: post?.created?.toLocaleDateString(),
+    lastUpdated: post?.lastUpdated?.toLocaleDateString(),
   }));
   return data;
 };
