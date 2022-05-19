@@ -10,14 +10,18 @@ export const CommentSection = () => {
       <h2 className="text-lg text-inherit">your thoughts?</h2>
       <CommentForm />
 
-      <div className="my-4 h-[1px] bg-black"></div>
+      {comments.length && (
+        <>
+          <div className="my-4 h-[1px] bg-black"></div>
 
-      <h2 className="text-lg text-inherit">
-        thoughts of others (enter if you dare)
-      </h2>
-      {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
-      ))}
+          <h2 className="text-lg text-inherit">
+            thoughts of others (enter if you dare)
+          </h2>
+          {comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
+          ))}
+        </>
+      )}
     </div>
   );
 };
