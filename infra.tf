@@ -29,6 +29,11 @@ provider "helm" {
   }
 }
 
+resource "random_password" "contact_inquiry_secret" {
+  length  = 48
+  special = false
+}
+
 data "external" "git_describe" {
   program = ["sh", "scripts/git_describe.sh"]
 }
@@ -40,4 +45,8 @@ module "basic-deployment" {
   app_name  = "jdv"
   container = "jdevries3133/jackdevries.com:${data.external.git_describe.result.output}"
   domain    = "jackdevries.com"
+
+  extra_env = {
+    CONTACT_INQUIRY_PASSWORD = random_password.contact_inquiry_secret.result
+  }
 }
