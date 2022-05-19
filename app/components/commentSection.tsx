@@ -10,7 +10,7 @@ export const CommentSection = () => {
       <h2 className="text-lg text-inherit">your thoughts?</h2>
       <CommentForm />
 
-      {comments.length && (
+      {comments.length > 0 && (
         <>
           <div className="my-4 h-[1px] bg-black"></div>
 
