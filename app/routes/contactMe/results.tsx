@@ -16,7 +16,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Results() {
   const data = useLoaderData<ContactInquiry[]>();
-  console.log(data);
   return (
     <div className="prose m-4">
       <h1>Contact Inquiries</h1>

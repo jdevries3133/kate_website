@@ -9,9 +9,7 @@ const { getSession, commitSession, destroySession } =
 
       // all of these are optional
       domain:
-        process.env.NODE_ENV === "production"
-          ? "empacadmusic.org"
-          : "localhost",
+        process.env.NODE_ENV === "production" ? "jackdevries.com" : "localhost",
       expires: new Date(Date.now() + 60_000),
       httpOnly: true,
       maxAge: 600,
