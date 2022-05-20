@@ -5,5 +5,8 @@
 import * as myCluster from "./myCluster.mdx";
 import * as developingClusterApps from "./developingClusterApps.mdx";
 
-// TODO: I don't know why all this type casting is necessary...
-export const allPosts = [myCluster as any as typeof import("*.mdx")];
+export const allPosts = [
+  // TODO: I don't know why all this type casting is necessary...
+  developingClusterApps as any as typeof import("*.mdx"),
+  myCluster as any as typeof import("*.mdx"),
+];
