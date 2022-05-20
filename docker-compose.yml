@@ -23,6 +23,8 @@ services:
     platform: linux/amd64
   db:
     image: postgres:14
+    volumes:
+      - pg_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: app
@@ -30,3 +32,4 @@ services:
 
 volumes:
   node_modules:
+  pg_data:
