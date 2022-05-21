@@ -3,6 +3,7 @@ import {
   ErrorBoundaryComponent,
   Link,
   LoaderFunction,
+  MetaFunction,
   useCatch,
   useLoaderData,
   useParams,
@@ -10,7 +11,21 @@ import {
 import prisma from "~/prisma.server";
 import { action as commentFormAction } from "~/components/commentForm";
 import { CommentSection } from "~/components/commentSection";
-import { getPost, validateSlug } from "~/services/post";
+import { getPost, postFromModule, validateSlug } from "~/services/post";
+import { BASE_URL } from "~/config";
+
+export const meta: MetaFunction = ({ params }) => {
+  const slug = validateSlug(params.post);
+  const post = postFromModule(getPost(slug));
+  const validateString = (s: any): string | null =>
+    typeof s === "string" ? s : null;
+  const ret = {
+    title: validateString(post.title) || "Blog Post",
+    description: validateString(post.description) || "Click to read",
+    "og:image": BASE_URL + validateString(post.thumbnail) || "",
+  };
+  return ret;
+};
 
 export const loader: LoaderFunction = async ({ params }) => {
   // will throw not found for invalid post
