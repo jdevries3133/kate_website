@@ -6,6 +6,8 @@ node_modules
 /public/build
 app/tailwind.css
 
+*.log
+
 db.sqlite*
 
 .terraform
