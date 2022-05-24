@@ -2,7 +2,7 @@ services:
   web:
     build: .
     ports:
-        # http server
+      # http server
       - "8000:8000"
         # web socket server that remix uses for development
       - "8002:8002"
