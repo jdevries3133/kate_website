@@ -1,4 +1,4 @@
-import { postMetadata } from "~/mdx/postCollections";
+import { postMetadata } from "~/services/post";
 
 export const loader = () => {
   const blogPosts = postMetadata.map((post) => {

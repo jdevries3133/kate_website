@@ -1,5 +1,5 @@
 import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
-import { postMetadata } from "~/mdx/postCollections";
+import { postMetadata } from "~/services/post";
 
 export const meta: MetaFunction = () => {
   return {
