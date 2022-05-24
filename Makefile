@@ -8,13 +8,22 @@ CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 
 
 .PHONY: deploy
-deploy: push
-ifdef CI
-	terraform init -input=false
-endif
+deploy:
 	terraform apply -auto-approve
 
 
 .PHONY: push
 push:
 	docker buildx build --platform linux/amd64 --push -t $(CONTAINER) .
+
+
+.PHONY: check
+check:
+	yarn typecheck
+	yarn test run
+
+
+.PHONY: setup
+setup:
+	terraform init -input=false
+	yarn install
