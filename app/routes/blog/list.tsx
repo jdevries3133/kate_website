@@ -4,7 +4,7 @@ import { postMetadata } from "~/services/post";
 export const meta: MetaFunction = () => {
   return {
     title: "Blog Posts",
-    description: "List of all blog posts",
+    description: "List of all my blog posts",
   };
 };
 
