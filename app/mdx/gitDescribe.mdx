@@ -1,0 +1,33 @@
+---
+title: Git Describe in Terraform
+description: Call git describe --tags and other shell commands from Terraform
+created: 2022-05-27
+---
+
+# `git tag` in Terraform
+
+It's really easy to get the output of `git describe --tags` using Terraform's
+native [external
+provider](https://registry.terraform.io/providers/hashicorp/external/latest/docs).
+
+The external provider allows you to run shell commands for the underlying
+system. Terraform will let you use the output as long as the output is valid
+JSON. Therefore, you can get the git-tag-derived version inside Terraform with
+a simple wrapper script:
+
+```bash
+#!/bin/sh
+
+# git_describe.sh
+# terraform programs must output valid JSON
+
+echo '{"output": "'"$(git describe --tags)"'"}'
+```
+
+And you can define it in Terraform like this:
+
+```hcl
+data "external" "git_describe" {
+  program = ["sh", "scripts/git_describe.sh"]
+}
+```

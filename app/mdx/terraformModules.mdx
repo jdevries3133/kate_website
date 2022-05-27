@@ -1,0 +1,154 @@
+---
+title: Summarize Infrastructure with Terraform Modules
+description: |
+    Terraform modules are a great tool for factoring repetitive IaC
+    out of projects and providing a clear interface for app developers to
+    consume infrastructure.
+created: 2022-05-27
+---
+
+import { CodeSample } from '../components/codeSample';
+
+# Summarize Infrastructure with Terraform Modules
+
+Terraform modules can significantly simplify the IaC that lives in your
+projects, particularly when you have common or repetitive use cases.
+
+## What is Terraform
+
+Terraform is an open source Infrastructure as Code tool. Terraform has the
+ability to observe the current state of a system, compare it to the desired
+state defined in your source code, create a plan of action to migrate between
+states, and execute that plan of action. Terraform doesn't do much on its own,
+but [providers](https://www.terraform.io/language/providers) create an adapter
+layer between Terraform and the APIs for infrastructure platforms. Hashicorp
+(the company behind Terraform), maintains first-class providers for AWS, Azure,
+Google Cloud Platform, and Kubernetes.
+
+## Perks of Terraform Modules
+
+[Terraform's documentation](https://www.terraform.io/language/modules/develop)
+is extremely clear and thorough, but in no particular order, these are some
+things I find particularly useful about Terraform modules:
+
+- the Terraform registry watches GitHub, and automatically deploys new module
+  versions from git tags
+- the Terraform registry generates clear and useful documentation since module
+  inputs and outputs are defined as HCL
+- Terraform modules allow you to get the most out of HCL, which is the [best
+  configuration language in my opinion](./hclIsGreat)
+- IaC for projects can be extremely tiny
+- many projects that share IaC can be updated simultaneously through module
+
+## Example 1: Pod Deployment
+
+My [container deployment
+module](https://registry.terraform.io/modules/jdevries3133/container-deployment/kubernetes/latest)
+is used to deploy a single container into a Kubernetes cluster. It takes care
+of replication, service load balancing, ingress, and TLS certificate
+generation. Despite the module doing all that, it's extremely simple to use in
+a project:
+
+```hcl
+module "container-deployment" {
+  source  = "jdevries3133/container-deployment/kubernetes"
+  version = "0.3.0"
+
+  app_name = "danart"
+  container = "jdevries3133/danart:1.0.1"
+  domain = "danart.us"
+}
+```
+
+The desire to throw a container into my cluster and expose it on a domain is
+really common. I use it for simple static sites like my mom's [cute little art
+site](https://danart.us/), or [documentation
+sites](https://teacherhelper.jackdevries.com/) for my software packages.
+
+### `extra_env`
+
+The module support an `extra_env` argument, whose values populate a `ConfigMap`
+and are then injected into the pod environment. So, you can extend the
+configuration for apps that use a 3rd API, for example:
+
+```hcl
+module "container-deployment" {
+  ...
+  extra_env = {
+    API_SECRET = "password!"
+  }
+}
+```
+
+With HCL, this type of dynamic configuration is much better supported than with
+YAML.
+
+## Example 2: Full-Stack Deployment
+
+To take things a step further, my [basic
+deployment](https://registry.terraform.io/modules/jdevries3133/basic-deployment/kubernetes/latest)
+module provides everything a fledgling full-stack web app needs to grow. It
+does everything the pod deployment does, but it also creates a PostgreSQL
+database using Bitnami's helm chart. It provides database connection
+information as environment variables, and also supports an `extra_env` argument
+for any other credential your app might need.
+
+## Example Usage: [classfast.app](https://classfast.app)
+
+The end of the road with all this modularization is very clean and simple IaC.
+[classfast.app](https://classfast.app) is my most recent full-stack project,
+and its IaC looks like this
+
+<CodeSample>
+```hcl
+
+# ... terraform state and provider initialization boilerplate is omitted
+
+variable "google_client_secret" {
+  type      = string
+  sensitive = true
+}
+
+data "external" "git_describe" {
+  program = ["sh", "scripts/git_describe.sh"]
+}
+
+resource "random_password" "django_secret" {
+  length  = 48
+  special = true
+}
+
+module "basic-deployment" {
+  source  = "jdevries3133/basic-deployment/kubernetes"
+  version = "0.1.2"
+
+  app_name  = terraform.workspace == "production" ? "fast-grader" : "fast-grader-beta"
+  container = "jdevries3133/fast_grader_django:${data.external.git_describe.result.output}"
+  domain    = terraform.workspace == "production" ? "classfast.app" : "beta.classfast.app"
+
+  extra_env = {
+    DJANGO_SECRET          = random_password.django_secret.result
+    DJANGO_SETTINGS_MODULE = "fast_grader.settings.production"
+    GOOGLE_CLIENT_ID       = "850669494212-rbi5f45edqpnru9a7gs1avgb480kr92b.apps.googleusercontent.com"
+    GOOGLE_CLIENT_SECRET   = var.google_client_secret
+    IS_PRODUCTION          = terraform.workspace == "production" ? "true" : "false"
+  }
+}
+
+```
+</CodeSample>
+
+This IaC yields:
+
+- parallel production and staging environment (see
+  [beta.classfast.app](https://beta.classfast.app))
+- automated TLS certificates
+- a PostgreSQL database
+- replicated application containers
+- management of api secrets
+- GitOps-esque workflow, working with git tags
+
+That's a lot of bang for your buck for only 33 lines of infrastructure code if
+you ask me!
+
+<a href="./gitDescribe" className="text-sm italic">By the way, click here to learn about that git_describe.sh script</a>
