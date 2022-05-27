@@ -3,7 +3,7 @@ import { validateMdxModule } from "./validateMdxModule";
 
 vi.mock("~/mdx");
 
-const makeModule = (removeAttr?: string): typeof import("*.mdx") => {
+const makeModule = (removeAttr?: string) => {
   const templateModule = {
     attributes: {
       extra: "things",
