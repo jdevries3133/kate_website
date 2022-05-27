@@ -12,7 +12,6 @@ const { getSession, commitSession, destroySession } =
         process.env.NODE_ENV === "production" ? "jackdevries.com" : "localhost",
       expires: new Date(Date.now() + 60_000),
       httpOnly: true,
-      maxAge: 600,
       path: "/",
       secrets: [process.env.SECRET_KEY || ""],
       sameSite: "lax",
