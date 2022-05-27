@@ -2,8 +2,9 @@ import { MouseEventHandler } from "react";
 
 export const PrimaryButton: React.FC<{
   onClick: MouseEventHandler<HTMLButtonElement>;
-}> = ({ onClick, children }) => (
+}> = ({ onClick, children, ...rest }) => (
   <button
+    {...rest}
     onClick={onClick}
     className="
                   shadow

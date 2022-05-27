@@ -72,6 +72,11 @@ export const ContactForm = () => {
   if (showForm) return <InnerForm />;
 
   return (
-    <PrimaryButton onClick={() => setShowForm(true)}>Contact Me</PrimaryButton>
+    <PrimaryButton
+      data-testid="contactMeFormOpener"
+      onClick={() => setShowForm(true)}
+    >
+      Contact Me
+    </PrimaryButton>
   );
 };

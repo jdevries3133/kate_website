@@ -18,7 +18,7 @@ export const validateMdxModule = (mod: any): ValidMdxModule => {
       typeof mod?.attributes?.title === "string" &&
       typeof mod?.attributes?.description === "string" &&
       // rough duck typing for the date
-      typeof mod?.attributes?.created.getMonth === "function"
+      typeof mod?.attributes?.created?.getMonth === "function"
     )
   ) {
     throw new Error(

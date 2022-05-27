@@ -103,7 +103,10 @@ export const FinalSection: React.FC<{ actionData: any }> = ({ actionData }) => (
         <div>
           <div className="flex items-center justify-center w-full">
             {actionData?.status === "submitted" ? (
-              <div className="bg-clay-100 rounded-md shadow p-2 m-2">
+              <div
+                data-testid="successIndicator"
+                className="bg-clay-100 rounded-md shadow p-2 m-2"
+              >
                 <h3 className="text-black font-bold">
                   Thanks, {actionData.values.name}!
                 </h3>
