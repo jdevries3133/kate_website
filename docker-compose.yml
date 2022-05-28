@@ -8,6 +8,10 @@ services:
       - "8002:8002"
         # prisma studio, which can be run with `docker exec` when needed
       - "5555:5555"
+        # use port 3000 for the `yarn debug` script
+      - "3000:3000"
+        # node debugger
+      - "9229:9229"
     entrypoint:
       - yarn
       - dev

@@ -7,6 +7,7 @@
     "cypress": "cypress run",
     "cypress:dev": "cypress open",
     "dev": "yarn prisma:deploy && concurrently \"PORT=8000 remix dev\" \"yarn build:tailwind --watch\"",
+    "debug": "node --inspect-brk=0.0.0.0 ./node_modules/.bin/remix dev",
     "production": "yarn prisma:deploy && PORT=8000 remix-serve build",
     "build:all": "yarn build:tailwind && remix build && yarn prisma:generate",
     "build:tailwind": "npx tailwindcss -i styles/tailwind.css -o app/tailwind.css",
