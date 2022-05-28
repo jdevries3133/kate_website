@@ -8,4 +8,7 @@ module.exports = {
   serverBuildDirectory: "build",
   devServerPort: 8002,
   ignoredRouteFiles: [".*"],
+  mdx: async () => ({
+    rehypePlugins: [(await import("rehype-highlight")).default],
+  }),
 };

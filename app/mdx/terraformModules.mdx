@@ -49,7 +49,7 @@ of replication, service load balancing, ingress, and TLS certificate
 generation. Despite the module doing all that, it's extremely simple to use in
 a project:
 
-```hcl
+```
 module "container-deployment" {
   source  = "jdevries3133/container-deployment/kubernetes"
   version = "0.3.0"
@@ -71,7 +71,7 @@ The module support an `extra_env` argument, whose values populate a `ConfigMap`
 and are then injected into the pod environment. So, you can extend the
 configuration for apps that use a 3rd API, for example:
 
-```hcl
+```
 module "container-deployment" {
   ...
   extra_env = {
@@ -100,7 +100,7 @@ The end of the road with all this modularization is very clean and simple IaC.
 and its IaC looks like this
 
 <CodeSample>
-```hcl
+```
 
 # ... terraform state and provider initialization boilerplate is omitted
 

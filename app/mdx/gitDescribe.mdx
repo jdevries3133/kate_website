@@ -26,7 +26,7 @@ echo '{"output": "'"$(git describe --tags)"'"}'
 
 And you can define it in Terraform like this:
 
-```hcl
+```
 data "external" "git_describe" {
   program = ["sh", "scripts/git_describe.sh"]
 }
