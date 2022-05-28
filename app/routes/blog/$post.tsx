@@ -13,8 +13,11 @@ import { action as commentFormAction } from "~/components/commentForm";
 import { CommentSection } from "~/components/commentSection";
 import { getPost, postFromModule, validateSlug } from "~/services/post";
 import { BASE_URL } from "~/config";
+import { isSlugValid } from "~/services/post/validateSlug";
 
 export const meta: MetaFunction = ({ params }) => {
+  if (!isSlugValid(params.post)) return {};
+
   const slug = validateSlug(params.post);
   const post = postFromModule(getPost(slug));
   const validateString = (s: any): string | null =>
@@ -101,6 +104,7 @@ export default function Post() {
 }
 
 export const CatchBoundary: ErrorBoundaryComponent = () => {
+  const params = useParams();
   const caught = useCatch();
   let message: React.ReactNode;
 
@@ -108,7 +112,10 @@ export const CatchBoundary: ErrorBoundaryComponent = () => {
     case 404:
       message = (
         <>
-          <p>That blog post doesn't exist! </p>
+          <p>
+            A post matching <code>"{params.post || "this URL"}"</code> doesn't
+            exist!{" "}
+          </p>
           <Link to="/blog/list">
             <p>See all blog posts</p>
           </Link>
@@ -127,8 +134,20 @@ export const CatchBoundary: ErrorBoundaryComponent = () => {
   }
   return (
     <div className="prose">
-      <h1>Oops!</h1>
-      {message}
+      <div
+        className="
+          p-2
+          bg-clay-200
+          shadow-xl
+          rounded
+          md:p-4
+          md:border-2
+          md:border-primary-200
+        "
+      >
+        <h1>Oops!</h1>
+        {message}
+      </div>
     </div>
   );
 };

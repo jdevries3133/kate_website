@@ -56,8 +56,8 @@ const modulesStartingWith = (s: string) =>
     .filter((k) => k.startsWith(s))
     .map((k) => mockModules[k as keyof typeof mockModules]);
 
-const validModules = modulesStartingWith("valid");
-const invalidModules = modulesStartingWith("invalid");
+export const validModules = modulesStartingWith("valid");
+export const invalidModules = modulesStartingWith("invalid");
 
 describe("validateMdxModule", () => {
   it("passes through all valid modules", () => {
