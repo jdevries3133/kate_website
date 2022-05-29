@@ -2,7 +2,6 @@ name: CI/CD
 
 on:
   push:
-    branches: ["main"]
 
 jobs:
   main:
@@ -21,7 +20,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: make setup
 
-      - name: tests and typechecking
+      - name: make check
         run: make check
 
       - name: login to docker hub
@@ -35,10 +34,10 @@ jobs:
           mkdir ~/.kube
           echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
 
-      - name: push container
+      - name: push container to Docker Hub
         run: make push
 
-      - name: deploy via terraform
+      - name: deploy to Kubernetes with terraform
         env:
           # credentials are used for terraform state bucket
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

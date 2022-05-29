@@ -1,0 +1,16 @@
+services:
+  web:
+    ports:
+      # web socket server that remix uses for development
+      - "8002:8002"
+        # prisma studio, which can be run with `docker exec` when needed
+      - "5555:5555"
+    entrypoint:
+      - yarn
+      - dev
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+
+volumes:
+  node_modules:

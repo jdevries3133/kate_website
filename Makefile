@@ -1,3 +1,5 @@
+SHELL=/bin/bash
+
 DOCKER_ACCOUNT=jdevries3133
 CONTAINER_NAME=jackdevries.com
 
@@ -25,7 +27,18 @@ ifdef CI
 endif
 	yarn typecheck
 	yarn test run
+	make wait
 	yarn cypress
+
+.PHONY: wait
+wait:
+	@while true; do \
+		curl --silent --output /dev/null http://localhost:8000; \
+		[ $$? == 0 ] && break; \
+		sleep 5; \
+		echo "awaiting server readiness"; \
+		docker-compose logs; \
+	done
 
 
 .PHONY: setup
