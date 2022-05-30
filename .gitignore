@@ -14,3 +14,5 @@ db.sqlite*
 terraform.tfstate*
 
 .env
+
+cypress/screenshots
