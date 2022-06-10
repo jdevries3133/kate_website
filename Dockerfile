@@ -11,6 +11,9 @@ COPY . .
 
 RUN yarn build:all
 
+ENV NODE_ENV development
+
+CMD ["yarn", "dev"]
 
 FROM node:16-alpine as prod
 
@@ -28,4 +31,4 @@ COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
 COPY --from=build /app/app/tailwind.css /app/app/tailwind.css
 COPY --from=build /app/node_modules/remix /app/node_modules/remix
 
-ENTRYPOINT ["yarn", "production"]
+CMD ["yarn", "production"]
