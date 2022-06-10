@@ -1,0 +1,77 @@
+---
+title: Auto Update Discord on Mac or Linux
+description: Skip the annoying discord updates every time you open it
+created: 2022-06-10
+---
+
+import { CodeSample } from '../components/codeSample';
+
+# Auto Update Discord on Mac or Linux
+
+I'm an infrequent Discord user, and I feel like I get stuck with endless
+auto-updates every time I open the app. It's very simple to launch apps from
+the command line, though, and therefore also easy to launch
+Discord automatically at whatever frequency you want to keep it up to date with 
+just a little bit of shell scripting.
+
+### The Mac Script
+
+If you have a Mac, this script will open Discord, run it for a set period of
+time, and then close it again.
+
+<CodeSample>
+```bash
+#!/bin/bash
+
+# mac discord updater script. Run discord for $1 seconds, then close it
+
+if [[ $1 == "-h" || $1 == "--help" ]]
+then
+    echo 'mac discord updater script. Run discord for $1 seconds, then close it'
+fi
+
+/Applications/Discord.app/Contents/MacOS/Discord > /dev/null &
+DISCORD_PID=$!
+
+sleep $1
+
+kill $DISCORD_PID
+```
+</CodeSample>
+
+In bash, `$1` is the first argument passed to the script, so you can run this
+program like this:
+
+```bash
+bash ./discord_updater.sh 3
+```
+
+It will run Discord for 3 seconds, then close it.
+
+### Linux Usage
+
+On Linux, everything is the same except the path to the Discord executable. 
+However, it won't be at `/Applications/Discord.app/Contents/MacOS/Discord`. It
+will be somewhere else, and please leave a comment on this post if you figure
+out where that location is.
+
+### cron
+
+Cron is a super helpful tool for running programs on a schedule. If you've
+never heard of it, [here is a good overview.](https://kb.iu.edu/d/afiz)
+This website is also super helpful for [setting cron
+rules.](https://crontab.guru/)
+
+Open up your crontab by running `crontab -e`, then add this line:
+
+
+```
+0 0 * * * bash /path/to/discord_update.sh
+```
+
+This will run the Discord update program every day at midnight. Just save and
+exit to apply the crontab; your computer will also prompt you to allow the
+crontab to be installed, and might ask you for your password. You can confirm
+it worked by running `crontab -l`, which will show your current crontab. You
+can add more jobs by just adding more lines if you think of more programs you'd
+like to run on a schedule.
