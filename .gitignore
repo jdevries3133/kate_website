@@ -16,3 +16,5 @@ terraform.tfstate*
 .env
 
 cypress/screenshots
+
+*.tsbuildinfo

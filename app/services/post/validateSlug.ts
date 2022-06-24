@@ -10,5 +10,5 @@ export const validateSlug = (slug: string | undefined): ValidSlug => {
   if (isSlugValid(slug)) {
     return slug as ValidSlug;
   }
-  throw json("slug is not valid", { status: 404 });
+  throw json("slug is not valid", { status: 404, statusText: "Not Found" });
 };

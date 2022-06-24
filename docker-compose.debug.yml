@@ -1,7 +1,7 @@
 services:
   web:
     ports:
-        # use port 3000 for the `yarn debug` script
+      # use port 3000 for the `yarn debug` script
       - "3000:3000"
         # node debugger
       - "9229:9229"
