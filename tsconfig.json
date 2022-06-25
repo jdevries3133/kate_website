@@ -25,6 +25,5 @@
       "~/*": ["app/*"]
     }
   },
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
-  "noEmit": true
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"]
 }
