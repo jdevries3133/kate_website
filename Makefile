@@ -20,6 +20,23 @@ push:
 	docker buildx build --pull --platform linux/amd64 --push -t $(CONTAINER) .
 
 
+.PHONY: develop
+develop:
+	docker-compose \
+		-f docker-compose.yml \
+		-f docker-compose.dev.yml \
+		up -d
+
+
+.PHONY: debug
+debug:
+	docker-compose \
+		-f docker-compose.yml \
+		-f docker-compose.dev.yml \
+		-f docker-compose.debug.yml \
+		up -d
+
+
 .PHONY: check
 check:
 ifdef CI
@@ -30,14 +47,16 @@ endif
 	make wait
 	yarn cypress
 
+
 .PHONY: wait
 wait:
+	@# wait for the app to startup in docker-compose
 	@while true; do \
 		curl --silent --output /dev/null http://localhost:8000; \
 		[ $$? == 0 ] && break; \
 		sleep 5; \
 		echo "awaiting server readiness"; \
-		docker-compose logs; \
+		docker-compose logs | tail; \
 	done
 
 
