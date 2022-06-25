@@ -3,7 +3,6 @@ import * as clusterApps from "./developingClusterApps.mdx";
 import * as terraformModules from "./terraformModules.mdx";
 import * as gitDescribe from "./gitDescribe.mdx";
 import * as crossCompile from "./rustCrossCompile.mdx";
-import * as updateDiscord from "./discordAutoUpdate.mdx";
 
 /**
  * This is where posts can be published or unpublished. All posts in the array
@@ -11,7 +10,6 @@ import * as updateDiscord from "./discordAutoUpdate.mdx";
  */
 export const allPosts = [
   crossCompile,
-  updateDiscord,
   terraformModules,
   gitDescribe,
   myCluster,
