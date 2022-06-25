@@ -1,3 +1,0 @@
-# typescript source is transformed to javascript and dumped into this directory
-# when integration tests are run
-*.js

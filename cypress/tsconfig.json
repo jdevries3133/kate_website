@@ -3,8 +3,8 @@
     "composite": true,
     "target": "es5",
     "lib": ["es2015", "es5", "dom"],
-    "types": ["cypress"]
+    "types": ["cypress"],
+    "noEmit": true
   },
-  "include": ["**/*.ts"],
-  "noEmit": true
+  "include": ["**/*.ts"]
 }
