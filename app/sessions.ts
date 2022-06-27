@@ -1,12 +1,10 @@
 // app/sessions.js
 import {
-  CookieSerializeOptions,
   createCookieSessionStorage,
-  Session,
 } from "remix";
 import { COOKIE_TIMEOUT } from "./config";
 
-const { getSession, destroySession } = createCookieSessionStorage({
+export const { getSession, commitSession: _commitSessionDefault, destroySession } = createCookieSessionStorage({
   // a Cookie from `createCookie` or the CookieOptions to create one
   cookie: {
     name: "__session",
@@ -20,17 +18,16 @@ const { getSession, destroySession } = createCookieSessionStorage({
   },
 });
 
+
 /**
  * commitSession wrapper that sets an expiration
  */
-export const commitSession = (
-  session: Session,
-  opts: CookieSerializeOptions = {}
-): Promise<string> => {
+export const commitSession: typeof _commitSessionDefault = (
+  session,
+  opts = {}
+) => {
   if (opts.expires === undefined) {
     opts.expires = new Date(Date.now() + COOKIE_TIMEOUT);
   }
-  return commitSession(session, opts);
+  return _commitSessionDefault(session, opts);
 };
-
-export { getSession, destroySession };
