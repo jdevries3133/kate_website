@@ -20,7 +20,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "noEmit": true,
     "paths": {
       "~/*": ["app/*"]
     }

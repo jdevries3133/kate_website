@@ -10,11 +10,8 @@
       "type": "node",
       "sourceMaps": true,
       "outFiles": [
-        "${workspaceFolder}/build/**/*.js",
-        "${workspaceFolder}/public/build/**/*.js"
-      ],
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
+        "${workspaceFolder}/build/*.js",
+        "${workspaceFolder}/pubilc/build/*.js",
         "!**/node_modules/**"
       ]
     }

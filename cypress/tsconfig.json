@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "composite": true,
-    "target": "es5",
     "lib": ["es2015", "es5", "dom"],
-    "types": ["cypress"],
-    "noEmit": true
+    "noEmit": true,
+    "target": "es5",
+    "types": ["cypress"]
   },
   "include": ["**/*.ts"]
 }

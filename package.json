@@ -6,8 +6,8 @@
   "scripts": {
     "cypress": "cypress run",
     "cypress:dev": "cypress open",
-    "dev": "yarn prisma:deploy && concurrently \"PORT=8000 remix dev\" \"yarn build:tailwind --watch\"",
-    "debug": "node --inspect-brk=0.0.0.0 ./node_modules/.bin/remix dev",
+    "dev": "yarn prisma:deploy && concurrently \"PORT=8000 remix dev --sourcemap\" \"yarn build:tailwind --watch\"",
+    "debug": "node --inspect-brk=0.0.0.0 ./node_modules/.bin/remix dev --sourcemap",
     "production": "yarn prisma:deploy && PORT=8000 remix-serve build",
     "build:all": "yarn build:tailwind && yarn prisma:generate && remix build",
     "build:tailwind": "tailwindcss -i styles/tailwind.css -o app/tailwind.css",
