@@ -8,7 +8,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql://app:app@db/app
-      CONTACT_INQUIRY_PASSWORD: pass
+      ADMIN_PASSWORD: pass
     # Prisma is broken on arm; see https://github.com/prisma/prisma/issues/10761
     platform: linux/amd64
   db:

@@ -81,7 +81,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql://app:app@db/app
-      CONTACT_INQUIRY_PASSWORD: pass
+      ADMIN_PASSWORD: pass
   db:
     image: postgres:14
     environment:
@@ -156,7 +156,7 @@ module "basic-deployment" {
   domain    = "jackdevries.com"
 
   extra_env = {
-    CONTACT_INQUIRY_PASSWORD = random_password.contact_inquiry_secret.result
+    ADMIN_PASSWORD = random_password.contact_inquiry_secret.result
   }
 }
 ```

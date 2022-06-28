@@ -29,7 +29,7 @@ provider "helm" {
   }
 }
 
-resource "random_password" "contact_inquiry_secret" {
+resource "random_password" "admin_password" {
   length  = 48
   special = false
 }
@@ -47,6 +47,6 @@ module "basic-deployment" {
   domain    = "jackdevries.com"
 
   extra_env = {
-    CONTACT_INQUIRY_PASSWORD = random_password.contact_inquiry_secret.result
+    ADMIN_PASSWORD = admin_password.result
   }
 }

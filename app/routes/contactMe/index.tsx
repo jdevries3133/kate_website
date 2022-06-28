@@ -10,7 +10,7 @@ import { commitSession, getSession } from "~/sessions";
 export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const password = (await request.formData()).get("password");
-  const secret = process.env.CONTACT_INQUIRY_PASSWORD;
+  const secret = process.env.ADMIN_PASSWORD;
   if (password === secret) {
     session.set("isAuthenticated", true);
     return redirect("/contactMe/results", {

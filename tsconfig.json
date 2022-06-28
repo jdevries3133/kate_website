@@ -22,7 +22,8 @@
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "paths": {
       "~/*": ["app/*"]
-    }
+    },
+    "noEmit": true
   },
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"]
 }
