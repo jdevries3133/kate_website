@@ -35,7 +35,7 @@ resource "random_password" "admin_password" {
 }
 
 data "external" "git_describe" {
-  program = ["sh", "scripts/git_describe.sh"]
+  program = ["sh", "-c", "echo '{\"output\": \"'\"$(git describe --tags)\"'\"}'"]
 }
 
 module "basic-deployment" {
@@ -47,6 +47,6 @@ module "basic-deployment" {
   domain    = "jackdevries.com"
 
   extra_env = {
-    ADMIN_PASSWORD = admin_password.result
+    ADMIN_PASSWORD = random_password.admin_password.result
   }
 }

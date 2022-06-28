@@ -42,6 +42,8 @@ check:
 ifdef CI
 	docker-compose up -d
 endif
+	terraform fmt -check
+	terraform validate
 	yarn prettiercheck
 	yarn typecheck
 	yarn test run
