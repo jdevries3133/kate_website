@@ -5,6 +5,7 @@ describe("homepage", () => {
   });
   it("has contact form", () => {
     cy.visit("/");
+
     cy.get('[data-testid="contactMeFormOpener"]').click();
     cy.get('input[name="name"]').type("john");
     cy.get('input[name="email"]').type("john@john.com");
@@ -15,8 +16,8 @@ describe("homepage", () => {
 });
 
 describe("routes", () => {
-  it("contactMe loads", () => {
-    cy.visit("/contactMe");
+  it("admin loads", () => {
+    cy.visit("/admin");
   });
   it("blog loads", () => {
     cy.visit("/blog");

@@ -1,14 +1,14 @@
 import {
   Form,
-  redirect,
   LoaderFunction,
   useLoaderData,
   ActionFunction,
   useTransition,
 } from "remix";
-import { getSession } from "~/sessions";
 import prisma from "~/prisma.server";
 import { ContactInquiry } from "@prisma/client";
+import { DeleteButton } from "~/components/buttons";
+import { Loading } from "~/components/loading";
 
 export const action: ActionFunction = async ({ request }) => {
   const id = parseInt(((await request.formData()).get("id") || "") as string);
@@ -18,23 +18,19 @@ export const action: ActionFunction = async ({ request }) => {
   return null;
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const session = await getSession(request.headers.get("Cookie"));
-  if (!session.get("isAuthenticated")) {
-    return redirect("/contactMe");
-  }
+export const loader: LoaderFunction = async () => {
   return (await prisma.contactInquiry.findMany()).map((inquiry) => ({
     ...inquiry,
     createdAt: inquiry.createdAt.toLocaleDateString(),
   }));
 };
 
-export default function Results() {
+export default function Contacts() {
   const { state } = useTransition();
   const data = useLoaderData<ContactInquiry[]>();
   return (
     <div className="prose m-4">
-      <h1>Contact Inquiries</h1>
+      <h1>Manage Contact Inquiries</h1>
       <table>
         <thead>
           <tr>
@@ -54,26 +50,11 @@ export default function Results() {
               <td>{message}</td>
               <td>
                 {["submitting", "loading"].includes(state) ? (
-                  <h3>Loading...</h3>
+                  <Loading />
                 ) : (
                   <Form method="post">
                     <input type="hidden" name="id" value={id} />
-                    <button
-                      className="
-                        rounded
-                        shadow
-                        border
-                        p-2
-                        m-2
-                        bg-red-200
-                        hover:bg-red-300
-                        focus:bg-red-300
-                        outline-none
-                        focus:ring-4
-                        focus:ring-red-500"
-                    >
-                      delete
-                    </button>
+                    <DeleteButton>delete</DeleteButton>
                   </Form>
                 )}
               </td>

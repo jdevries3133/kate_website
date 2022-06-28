@@ -3,6 +3,8 @@
     "composite": true,
     "lib": ["es2015", "es5", "dom"],
     "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "target": "es5",
     "types": ["cypress"]
   },

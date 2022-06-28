@@ -42,6 +42,7 @@ check:
 ifdef CI
 	docker-compose up -d
 endif
+	yarn prettiercheck
 	yarn typecheck
 	yarn test run
 	make wait

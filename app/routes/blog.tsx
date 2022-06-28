@@ -1,4 +1,4 @@
-import { LoaderFunction, MetaFunction, Outlet, redirect } from "remix";
+import { LoaderFunction, Outlet, redirect } from "remix";
 import { Header } from "~/components/header";
 import { Footer } from "~/components/footer";
 
