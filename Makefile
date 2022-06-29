@@ -40,6 +40,7 @@ debug:
 .PHONY: check
 check:
 ifdef CI
+	yarn install
 	docker-compose up -d
 endif
 	terraform fmt -check
@@ -68,4 +69,3 @@ setup:
 	@# pulling the last container may grab cached layers
 	docker pull $(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(PREV_TAG) || echo "could not pull $(PREV_TAG)"
 	terraform init -input=false
-	yarn install
