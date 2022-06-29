@@ -12,9 +12,8 @@
       "localRoot": "${workspaceFolder}",
       "remoteRoot": "/app",
       "outFiles": [
-        "${workspaceFolder}/build/*.js",
-        "${workspaceFolder}/pubilc/build/*.js",
-        "!**/node_modules/**"
+        "${workspaceFolder}/build/**/*.js",
+        "${workspaceFolder}/public/build/**/*.js"
       ]
     }
   ]

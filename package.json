@@ -17,7 +17,6 @@
     "prisma:studio": "prisma studio",
     "postinstall": "remix setup node",
     "test": "vitest",
-    "": "TODO: I don't know why `tsc -b` alone doesn't work anymore",
     "typecheck": "tsc -b app && tsc -b cypress",
     "prettiercheck": "prettier --check app cypress",
     "format": "prettier --write app cypress"
