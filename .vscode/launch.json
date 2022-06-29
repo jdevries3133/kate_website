@@ -9,6 +9,8 @@
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
       "sourceMaps": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/app",
       "outFiles": [
         "${workspaceFolder}/build/*.js",
         "${workspaceFolder}/pubilc/build/*.js",
