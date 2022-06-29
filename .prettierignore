@@ -1,1 +1,4 @@
 *.mdx
+app/tailwind.css
+public/build/**
+build/**
