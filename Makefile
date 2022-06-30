@@ -42,6 +42,7 @@ check:
 ifdef CI
 	yarn install
 	docker-compose up -d
+	terraform init -backend=false
 endif
 	terraform fmt -check
 	terraform validate
