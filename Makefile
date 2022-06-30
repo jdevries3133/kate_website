@@ -12,6 +12,9 @@ CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 
 .PHONY: deploy
 deploy:
+ifdef CI
+	terraform init -input=false
+endif
 	terraform apply -auto-approve
 
 
@@ -42,7 +45,7 @@ check:
 ifdef CI
 	yarn install
 	docker-compose up -d
-	terraform init -backend=false
+	terraform init -backend=false -input=false
 endif
 	terraform fmt -check
 	terraform validate
@@ -63,10 +66,3 @@ wait:
 		echo "awaiting server readiness"; \
 		docker-compose logs | tail; \
 	done
-
-
-.PHONY: setup
-setup:
-	@# pulling the last container may grab cached layers
-	docker pull $(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(PREV_TAG) || echo "could not pull $(PREV_TAG)"
-	terraform init -input=false
