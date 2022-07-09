@@ -31,3 +31,22 @@ data "external" "git_describe" {
   program = ["sh", "scripts/git_describe.sh"]
 }
 ```
+
+Or, you can inline the whole program like so
+If you prefer:
+
+```
+data "external" "git_describe" {
+  program = ["sh", "echo '{\"output\": \"'\"$(git describe --tags)\"'\"}'"]
+```
+
+A little messy, to be sure, but a handy one-liner. 
+
+## CI/CD Considerations
+
+Keep in mind that in CI environments, task runners often don't
+pull the full project history by default, and that command will
+fail in the absence of any tags in the git history. Ensure that
+Either, (a) there are some tags in the git history in the CI environment,
+or (b) you add your own workaround to the shell script, like falling back to the
+git hash of the latest commit (`git rev-parse HEAD`). 
