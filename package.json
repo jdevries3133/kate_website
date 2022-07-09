@@ -17,6 +17,7 @@
     "prisma:studio": "prisma studio",
     "postinstall": "remix setup node",
     "test": "vitest",
+    "debug-test": "NO_COLORS=true node --inspect-brk=0.0.0.0 ./node_modules/.bin/vitest --threads=false",
     "typecheck": "tsc -b app && tsc -b cypress",
     "prettiercheck": "prettier --check app cypress",
     "format": "prettier --write app cypress"
@@ -30,6 +31,7 @@
     "@remix-run/serve": "^1.6.1",
     "accept-language-parser": "^1.5.0",
     "concurrently": "^7.0.0",
+    "fuse.js": "^6.6.2",
     "npm-run-all": "^4.1.5",
     "prisma": "^3.9.1",
     "react": "^17.0.2",

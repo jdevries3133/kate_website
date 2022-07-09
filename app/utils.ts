@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const getBaseDir = () => path.resolve(__dirname, "..");
+export const getBaseDir = () => path.resolve(__dirname, "..");
 
 /**
  * Validate the existence of a file in /public/...
