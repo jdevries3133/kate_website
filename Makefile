@@ -64,5 +64,5 @@ wait:
 		[ $$? == 0 ] && break; \
 		sleep 5; \
 		echo "awaiting server readiness"; \
-		docker-compose logs | tail; \
+		docker-compose logs; \
 	done
