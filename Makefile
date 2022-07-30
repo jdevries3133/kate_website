@@ -50,7 +50,6 @@ fmt:
 check:
 ifdef CI
 	yarn install
-	docker-compose up -d
 	terraform init -backend=false -input=false
 endif
 	terraform fmt -check
@@ -58,6 +57,9 @@ endif
 	yarn prettiercheck
 	yarn typecheck
 	yarn test run
+ifdef CI
+	docker-compose up -d
+endif
 	make wait
 	yarn cypress
 
