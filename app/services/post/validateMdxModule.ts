@@ -46,9 +46,29 @@ export const validateMdxModule = (mod: any): ValidMdxModule => {
     );
   }
 
-  // lastMod is created or lastUpdated
-  mod.attributes.lastMod = mod.attributes.lastUpdated || mod.attributes.created;
+  // module is valid, now we'll perform some transformations
+  const newModule = { ...mod };
 
-  // module is valid
-  return mod as ValidMdxModule;
+  // only typed attributes stay in the top-level attributes property
+  const typedKeys = [
+    "created",
+    "lastUpdated",
+    "lastMod",
+    "title",
+    "description",
+    "thumbnail",
+  ];
+  const oldAttributes = { ...mod.attributes };
+  newModule.attributes = {};
+  typedKeys.forEach((key) => (newModule.attributes[key] = mod.attributes[key]));
+  newModule.attributes.extra = {};
+  Object.keys(oldAttributes)
+    .filter((key) => !typedKeys.includes(key))
+    .forEach((key) => (newModule.attributes.extra[key] = mod.attributes[key]));
+
+  // lastMod is created or lastUpdated
+  newModule.attributes.lastMod =
+    mod.attributes.lastUpdated || mod.attributes.created;
+
+  return newModule as ValidMdxModule;
 };

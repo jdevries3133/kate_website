@@ -7,7 +7,7 @@ const makeModule = (removeAttr?: string) => {
   const templateModule = {
     attributes: {
       extra: "things",
-      are: "allowd",
+      are: "allowed",
       created: new Date(2020, 11, 12),
       lastUpdated: new Date(2022, 11, 15),
       title: "My Post",
@@ -60,16 +60,44 @@ export const validModules = modulesStartingWith("valid");
 export const invalidModules = modulesStartingWith("invalid");
 
 describe("validateMdxModule", () => {
-  it("passes through all valid modules", () => {
+
+  it("passes through some parts of all valid modules", () => {
     validModules.forEach((mod) => {
-      expect(validateMdxModule(mod)).toBe(mod);
+      const valid = validateMdxModule(mod);
+      expect(valid.default).toBe(mod.default);
+      expect(valid.filename).toBe(mod.filename);
+      expect(valid.Component).toBe(mod.Component);
+      expect(valid.attributes.thumbnail).toBe(mod.attributes.thumbnail);
+      expect(valid.attributes.created).toBe(mod.attributes.created);
     });
   });
+
+  it("rearranges others", () => {
+    validModules.forEach((mod) => {
+      const valid = validateMdxModule(mod);
+      [
+        "created",
+        "lastUpdated",
+        "lastMod",
+        "title",
+        "description",
+        "extra",
+      ].forEach((key) => {
+        expect(Object.keys(valid.attributes)).toContain(key);
+      });
+      expect(valid.attributes.extra).toEqual({
+        extra: "things",
+        are: "allowed",
+      });
+    });
+  });
+
   it("rejects invalid modules", () => {
     invalidModules.forEach((mod) => {
       expect(() => validateMdxModule(mod)).toThrow();
     });
   });
+
   it("has lastMod property", () => {
     validModules.forEach((mod) => {
       expect(typeof validateMdxModule(mod).attributes.lastMod.getMonth).toEqual(

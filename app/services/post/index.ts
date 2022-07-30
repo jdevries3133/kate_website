@@ -6,6 +6,5 @@
 export { validateMdxModule } from "./validateMdxModule";
 export { validateSlug } from "./validateSlug";
 
-export { postFromModule } from "./transform";
-export { getPost, getDate } from "./getters";
+export { getPost, getSerializableMetaData } from "./getters";
 export { allPosts, postMetadata, moduleNameMapping } from "./collections";
