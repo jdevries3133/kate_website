@@ -40,6 +40,12 @@ debug:
 		up -d
 
 
+.PHONY: fmt
+fmt:
+	yarn format
+	terraform fmt
+
+
 .PHONY: check
 check:
 ifdef CI
