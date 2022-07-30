@@ -1,18 +1,22 @@
 import type { ComponentType } from "react";
 
-// valid type can be gotten by passing a string through `validateSlug`
 export type ValidSlug = string;
 
+type ModuleAttributes = {
+  [key: string]: any;
+  created: Date;
+  lastUpdated?: Date;
+  lastMod: Date;
+  title: string;
+  description: string;
+};
+
 export type ValidMdxModule = {
-  attributes: {
-    [key: string]: any;
-    created: Date;
-    lastUpdated?: Date;
-    title: string;
-    description: string;
-  };
+  attributes: ModuleAttributes;
   filename: string;
   default: ComponentType;
 };
 
-export type PostMetadata = { slug: string; [key: string]: any };
+export type PostMetadata = ModuleAttributes & {
+  slug: string;
+};
