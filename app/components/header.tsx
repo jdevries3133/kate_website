@@ -1,5 +1,4 @@
 import { Link, useLocation } from "remix";
-import { BlogSearch } from "./blogSearch";
 
 const linkStyles = `
   text-primary-300
@@ -17,7 +16,6 @@ export const Header = () => {
         <Link className={linkStyles} to="/">
           home
         </Link>
-        <BlogSearch />
       </header>
     );
   }
@@ -29,7 +27,6 @@ export const Header = () => {
       <Link className={linkStyles} to="/blog/list">
         {pathname.includes("blog") ? "posts" : "blog"}
       </Link>
-      <BlogSearch />
     </header>
   );
 };
