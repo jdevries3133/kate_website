@@ -1,3 +1,4 @@
+import { BASE_URL } from "~/config";
 import { postMetadata } from "~/services/post";
 
 export const loader = () => {
@@ -19,12 +20,12 @@ export const loader = () => {
   const content = `
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
-        <loc>https://jackdevries.com/</loc>
-        <lastmod></lastmod>
+        <loc>${BASE_URL}</loc>
+        <lastmod>2022-05-21t08:36:31-04:00</lastmod>
         <priority>1.0</priority>
       </url>
       <url>
-        <loc>https://jackdevries.com/blog</loc>
+        <loc>${BASE_URL}/blog</loc>
         <lastmod>2022-05-21t08:36:31-04:00</lastmod>
         <priority>1.0</priority>
       </url>
