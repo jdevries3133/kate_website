@@ -5,7 +5,9 @@ import { getSerializableMetaData } from "./getters";
 // import { mdxModToPlainText } from "./toPlainText";
 
 export const allPosts = rawPosts.map((post) => validateMdxModule(post));
-export const postMetadata = allPosts.map((post) => getSerializableMetaData(post));
+export const postMetadata = allPosts.map((post) =>
+  getSerializableMetaData(post)
+);
 
 export const moduleNameMapping: { [key: string]: ValidMdxModule } = {};
 allPosts.forEach((post) => {

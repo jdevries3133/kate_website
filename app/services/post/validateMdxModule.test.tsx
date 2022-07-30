@@ -60,7 +60,6 @@ export const validModules = modulesStartingWith("valid");
 export const invalidModules = modulesStartingWith("invalid");
 
 describe("validateMdxModule", () => {
-
   it("passes through some parts of all valid modules", () => {
     validModules.forEach((mod) => {
       const valid = validateMdxModule(mod);

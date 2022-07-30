@@ -11,7 +11,11 @@ import {
 import prisma from "~/prisma.server";
 import { action as commentFormAction } from "~/components/commentForm";
 import { CommentSection } from "~/components/commentSection";
-import { getPost, getSerializableMetaData, validateSlug } from "~/services/post";
+import {
+  getPost,
+  getSerializableMetaData,
+  validateSlug,
+} from "~/services/post";
 import { BASE_URL } from "~/config";
 import { isSlugValid } from "~/services/post/validateSlug";
 
