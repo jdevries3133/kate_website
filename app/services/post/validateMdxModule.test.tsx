@@ -70,4 +70,9 @@ describe("validateMdxModule", () => {
       expect(() => validateMdxModule(mod)).toThrow();
     });
   });
+  it('has lastMod property', () => {
+    validModules.forEach((mod) => {
+      expect(typeof validateMdxModule(mod).attributes.lastMod.getMonth).toEqual('function');
+    })
+  })
 });

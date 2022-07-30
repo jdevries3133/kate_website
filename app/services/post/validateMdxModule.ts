@@ -45,6 +45,10 @@ export const validateMdxModule = (mod: any): ValidMdxModule => {
       `${mod.filename} is invalid: thumbnail of ${mod.attributes.thumbnail} was provided but it does not exist`
     );
   }
+
+  // lastMod is created or lastUpdated
+  mod.attributes.lastMod = mod.attributes.lastUpdated || mod.attributes.created;
+
   // module is valid
   return mod as ValidMdxModule;
 };
