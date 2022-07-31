@@ -11,27 +11,25 @@ import {
 import prisma from "~/prisma.server";
 import { action as commentFormAction } from "~/components/commentForm";
 import { CommentSection } from "~/components/commentSection";
-import {
-  getPost,
-  getSerializableMetaData,
-  validateSlug,
-} from "~/services/post";
+import { getPost, validateSlug } from "~/services/post";
 import { BASE_URL } from "~/config";
 import { isSlugValid } from "~/services/post/validateSlug";
 
-export const meta: MetaFunction = ({ params }) => {
+export const meta: MetaFunction = ({ params, location }) => {
   if (!isSlugValid(params.post)) return {};
 
   const slug = validateSlug(params.post);
-  const post = getSerializableMetaData(getPost(slug));
-  const validateString = (s: any): string | null =>
-    typeof s === "string" ? s : null;
-  const ret = {
-    title: validateString(post.title) || "Blog Post",
-    description: validateString(post.description) || "Click to read",
-    "og:image": BASE_URL + validateString(post.thumbnail) || "",
+  const { description, title, thumbnail } = getPost(slug).attributes;
+
+  return {
+    title: title,
+    description: description,
+    "og:description": description,
+    "og:title": title,
+    "og:url": BASE_URL + location.pathname,
+    "og:image": BASE_URL + (thumbnail || "/static/defaultThumbnail.webp"),
+    "twitter:card": "summary_large_image",
   };
-  return ret;
 };
 
 export const loader: LoaderFunction = async ({ params }) => {

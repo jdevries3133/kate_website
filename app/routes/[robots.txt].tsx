@@ -3,7 +3,9 @@ import { LoaderFunction } from "remix";
 export const loader: LoaderFunction = () => {
   const content = `
     User-agent: *
-    Disallow: /contactMe
+    Disallow: 
+    Disallow: /admin
+    Sitemap: http://jackdevries.com/sitemap.xml
   `;
   return new Response(content, {
     status: 200,
