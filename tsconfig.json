@@ -10,7 +10,7 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
-    "allowJs": true,
+    "allowJs": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "target": "ES2019",

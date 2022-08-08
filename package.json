@@ -6,7 +6,7 @@
   "scripts": {
     "cypress": "cypress run",
     "cypress:dev": "cypress open",
-    "dev": "retry --retries=5 -- yarn prisma:deploy && concurrently \"PORT=8000 remix dev --sourcemap\" \"yarn build:tailwind --watch\"",
+    "dev": "retry --retries=5 -- yarn prisma:deploy && concurrently --names remix,tailwind \"PORT=8000 remix dev --sourcemap\" \"yarn build:tailwind --watch\"",
     "debug": "node --inspect-brk=0.0.0.0 ./node_modules/.bin/remix dev --sourcemap",
     "production": "retry --retries=5 -- yarn prisma:deploy && PORT=8000 remix-serve build",
     "build:all": "yarn build:tailwind && yarn prisma:generate && remix build",
@@ -23,7 +23,6 @@
     "format": "prettier --write app cypress"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^2.1.1",
     "@prisma/client": "^3.9.1",
     "@remix-run/dev": "^1.6.1",
     "@remix-run/node": "^1.6.1",
@@ -36,12 +35,14 @@
     "prisma": "^3.9.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "rehype-autolink-headings": "^6.1.1",
     "rehype-highlight": "^5.0.2",
+    "rehype-slug": "^5.0.1",
+    "rehype-toc": "^3.0.2",
     "remix": "^1.6.1",
     "retry-cli": "^0.7.0"
   },
   "devDependencies": {
-    "@mdx-js/rollup": "^2.1.1",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.0",
     "@testing-library/jest-dom": "^5.16.4",

@@ -9,6 +9,11 @@ module.exports = {
   devServerPort: 8002,
   ignoredRouteFiles: [".*"],
   mdx: async () => ({
-    rehypePlugins: [(await import("rehype-highlight")).default],
+    rehypePlugins: [
+      (await import("rehype-highlight")).default,
+      (await import("rehype-slug")).default,
+      (await import("rehype-autolink-headings")).default,
+      (await import("rehype-toc")).default,
+    ],
   }),
 };
