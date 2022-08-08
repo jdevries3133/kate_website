@@ -1,0 +1,310 @@
+---
+title: (neo)vim from Scratch
+description: How to become a vim user, from a daily neovim user.
+created: 2022-07-31
+thumbnail: /static/vimLogo.webp
+---
+
+import { Image } from "../components/image";
+
+# Zero to Hero Vim Tutorial
+
+The goal of this post is to be a roadmap that can help someone with effectively
+zero vim or neovim knowledge work up to the full neovim-as-an IDE experience.
+
+I won't try to persuade you to learn (neo)vim, but I'll just say that using
+(neo)vim brings me immeasurable joy each day, and I hope that everyone can
+experience the mind-tool connection that it provides. There are a lot of false
+prophets of vim who say it will make you faster or give you some other
+superhuman benefits. Vim can probably be a pathway to speed and throughput as a
+developer, but it can also be a subject of tinkering which ultimately slows you
+down!
+
+To me, using neovim at its best feels like playing a musical instrument. It
+elicits a flow state and drives my focus through the day, but most of all, it
+just makes me happy. To that end, I hope that this guide helps you join me.
+
+## `vim` vs `neovim`
+
+As a newcomer, which editor to use, which plugins to choose, and the overall
+path from zero to hero are muddy waters. From a user's perspective, neovim is
+almost 100% compatible with vim for all intents and purposes. That assertion
+breaks down once we start looking at plugins, but the overall user experience
+_before_ plugins is comparable. To that end, it doesn't really matter which one
+you start with, although I'm going to introduce vim with a much simpler
+configuration setup as a stepping stone to my IDE-like neovim setup.
+
+Neovim has applied massive architectural changes compared to vim, and
+neovim has added the lua scripting language as a successor to vim script.
+Neovim is also a community-led open source project, whereas vim follows the
+so-called "benevolent dictator for life" model, where vim's founder Bram
+Moolenaar makes final decisions about the future of the project, for
+[better or worse.](https://news.ycombinator.com/item?id=29758549)
+
+In any case, neovim's architectural improvements combined with lua as a
+first-class scripting language have made extremely sophisticated plugins
+easier to develop than ever, and the community is bustling to say the least. At
+this point, popular neovim plugins are polished, consistent, and extremely
+performant. Not only that, but since they're all implemented in neovim-flavored
+lua, they provide APIs for extension, which means that plugin authors can
+collaborate and rely on each others' plugins. It's truly the best of the open
+source ecosystem at work.
+
+I don't want to give plain old vim the cold shoulder, though. One of the
+delightful things about going down the (neo)vim learning journey is that you
+apparently never stop finding features that are both surprising and quirky, and
+in my experience, a lot of these nuggets of gold are inherited from vim. For
+example:
+
+- Did you know that `g?<motion>` will rot13 encode text?
+- Did you know that `gu<motion>` and `gU<motion>`, can convert
+  text to lowercase or uppercase, respectively?
+- Did you know you can open and edit a remote file without leaving vim with `:e
+  scp://<user>@<host>//absolute/path/to/file.txt`
+- Did you know that you can yank (`y`), change (`c`), or delete (`d`) text
+  inside curly braces, parenthesis, or square braces with key sequences like:
+  - `di{`: delete inside curly braces
+  - `ci(`: change inside parenthesis
+  - `yi[`: yank inside square brackets
+  - `p`, intuitively, will paste (or "`put`") that text where the cursor is
+    after yanking
+
+That is a random smattering of functionality, but the idea that there are so
+many random fun things like this to learn, and that they are available on every
+Unix-like terminal you touch is the legacy of vim (and vi that came before).
+I definitely don't sleep on plain-old vim. That being said, neovim has all this
+and more!
+
+## My Configurations
+
+My vim config aims to be minimal and portable. There are some plugins, but
+there is also a single fully-portable `common.vim` file that can be scp'd onto
+to any remote machine to quickly bring a base-level of comfort.
+
+My neovim config, on the other hand, has all the bells and whistles: fuzzy
+finder, live grep, integrated debugger, language support, dynamically inlined
+lint errors, intelligent syntax highlighting and folding, and more.
+
+You can find each, with setup instructions, on my GitHub:
+
+- [my vim config](https://github.com/jdevries3133/vim_config)
+- [my neovim config](https://github.com/jdevries3133/nvim_config)
+
+## Transitioning to (neo)vim
+
+In my view, it's best done as a three step process which I'll now lay out:
+
+1. Use a plugin for your current editor to learn the vim shortcuts
+2. Use vim itself with a minimal config
+3. Optionally, use neovim with an IDE-like config _(if that's your cup of tea)_
+
+## Step 1: Editor Plugin
+
+The thing that killed me about trying to learn vim was trying to figure out how
+to navigate _between_ files while also becoming comfortable with all of the
+many editing commands. I think that doing both of these things at the same time
+is overwhelming, and there's no reason to do that to yourself. Visual Studio
+Code has a [vim
+plugin,](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) and
+so does the whole [jetbrains IDE
+family.](https://plugins.jetbrains.com/plugin/164-ideavim) Whatever editor
+you're comfortable with probably has one too, and it's a great place to start.
+
+Most vim editor plugins will make your IDE modal in the same way that vim is,
+and give you the same keyboard shortcuts for manipulating text and moving
+between editing modes. However, editor plugins stop at the vim-text-editing
+experience (arguably the best part of vim). For all of your other development
+tasks, the IDE is still there for you in all the ways it normally is. This is
+like vim training wheels, and I it's fair to say that you will be much more
+successful with the real thing after the key mappings for regular editing
+become second-nature. To that end, there's no shame in honing your skills in
+this phase for three to six months.
+
+### Configuring Editor Plugins
+
+Most of the benefit of editor plugins is that you can get started without going
+crazy on configuration, but I do have one suggestion.
+
+Some people are bothered by needing to constantly reach for the escape key,
+including myself. If you are interested in mapping escape to some other key or
+key combination, now is a great time to do that. Personally, I map `jk` to
+`<Esc>`. You can achieve that with the VSCode vim plugin like this
+
+```json
+"vim.insertModeKeyBindings": [
+  {
+    "before": ["j", "k"],
+    "after": ["<Esc>"]
+  }
+],
+```
+
+If you want this behavior for vim and neovim, you can use this bash snippet:
+
+```bash
+mkdir -p ~/.config/nvim
+
+config="inoremap jk <Esc>
+tnoremap jk <C-\><C-n>"
+
+echo $config >> ~/.vimrc
+echo $config >> $XDG_CONFIG_HOME/nvim/init.vim
+```
+
+Beyond that, this is your opportunity to learn "the vim way," of editing text.
+Vim is like a programming language for text transformation – try to avoid
+creating excessive mappings unless you're certain that there is no other way.
+Check out my [other post all about editing text in vim](./vimEditing.mdx)
+
+## Step 2: vim
+
+You already know the basics of editing text, but transitioning towards using
+"real" vim means that you're going to learn some more "meta" vim concepts:
+
+- configuration
+- buffers
+- windows
+- tabs
+- terminal emulator
+- file explorer
+
+Each of these concepts support you in navigating codebases and doing getting
+development work done with vim, and go beyond the basic text editing shortcuts.
+
+For now, you're going to have a more text-editor-like experience, and you might
+even prefer to use vim and your previous tool of choice alternatively.
+Certainly, if you make heavy use of language support features or linters, a
+no-nonsense vim setup might not suit your needs excellently, but this is a
+transition period. My neovim configuration, which is the last step of this
+roadmap, includes all that stuff. So, consider skipping ahead if you can't make
+do without linting errors, jump-to-definition, etc.
+
+Just be **warned,** it is surprising how productive plain vim is without all
+those bells and whistles. Programmers were using vim as a professional tool in
+the 1990s, and they built plenty of workflows to solve a programmer's problems
+in the text editor without introducing complexity. You'd be remiss not to learn
+the true "vim" way. Not only that, but you might find that [your problem with
+vim is that you don't grok vi!]( https://stackoverflow.com/a/1220118)
+
+### Configuration
+
+Let's keep it simple: I have a [basic vim config on
+github](https://github.com/jdevries3133/vim_config) which represents a good
+place to start. If you simply [look at the `plugins.vim` file to see which
+plugins are included,](https://github.com/jdevries3133/vim_config/blob/main/plugins.vim)
+you'll see that there are _very_ few, and that is on purpose: keep trying to do
+things the "vim" way, and use plugins when you're sure there isn't another way
+to do what you're trying to do.
+
+Fork my config, follow the directions for how to install it, and it'll have you
+up and running without much bloat.
+
+### Buffers
+
+A buffer in vim represents an open file. By default, vim will close buffers
+anytime you navigate away from a file, and warn you if it's unsaved, but if you
+have `set hidden` in your config, then buffers persist in the background and
+they can persist in an unsaved state. Aside from storing any unsaved changes,
+buffers also keep track of the position of your cursor in the file, so that
+you'll pick up right where you left off.
+
+You can view all the buffers you have open with the `:ls` command. You'll see
+that each buffer has a unique id, and you can go directly to any open buffer
+with `:b <id>`. You can also type the name of the file, and vim will offer
+completion options if you press tab; for example, `:b my_text_file.txt`. This
+comes in handy if you have a terminal open in the background. In vim,
+background terminals have the name of your shell, so the buffer name will often
+be `/bin/bash`. So, you can consistently jump to a background terminal with `:b
+bash<tab>`. Similarly, in neovim, terminals start with `term://...`, so you can
+jump to them with `:b ter<tab>`.
+
+Sometimes, you might have unsaved changes in a hidden buffer, in which case vim
+will try to prevent you from quitting without saving, showing the following
+message:
+
+```text
+E162: No write since last change for buffer "..."
+```
+
+If you want to quit anyway, you can use `:q!`. Or, if you want to write to all
+buffers, including hidden ones, you can use `:wa` (`:wall`).
+
+Vim will keep track of the last buffer you were editing, and you can toggle
+back and forth between two buffers with `C-^` (control + ^).
+
+There are a lot of resources all about vim buffers online that go into more
+detail, but never forget that vim's build-in help can be a great resource for
+information. Just type [`:help
+buffers.`](https://vimhelp.org/windows.txt.html#buffers)
+
+### Windows
+
+`:split` or `:vsplit` can be used to split your vim screen into two windows,
+either horizontally or vertically, respectively. This is super useful because
+you can look at two files side-by-side! I often find myself falling into a
+4-panel layout if I'm really multitasking, which is way more files than I'm
+comfortably able to look at in VS Code – that's the beauty of not having any
+visible user interface!
+
+<Image
+  src="/static/vimWindowExample.webp"
+  alt="image showing vim with multiple windows"
+  caption="This is actually a real world example! I opened up 3 windows to figure out how to use this image component: this post's source is on the left, the import I needed to copy is on the top right, and the previous usage of this component is in the bottom right."
+/>
+
+Windows are key for any sort of serious productivity in vim, and you'll
+certainly interact with them a lot. You'll see some
+[shortcuts in my vim config](https://github.com/jdevries3133/vim_config/blob/5d6b864a644d81eae4f953cabee13b09dd0dcfbf/common.vim#L31-L35):
+to help with vim windows:
+
+```
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-c> <C-w>c
+```
+
+Normally, to interact with windows, you have to type `<C-w>` ("control + w"),
+then the "action" key. These are the default mappings:
+
+- `<C-w>`, then `h` to move left
+- `<C-w>`, then `j` to move down
+- `<C-w>`, then `k` to move up
+- `<C-w>`, then `l` to move right
+- `<C-w>`, then `c` to close the current window
+
+These mappings make it so that you don't need to do so much typing to move
+between windows!
+
+- `<C-h>`: move left
+- `<C-j>`: move down
+- `<C-k>`: move up
+- `<C-l>`: move right
+- `<C-c>`: close the current window
+
+So, to simplify all of that, you can just hold down "control," and then use
+those same fundamental vim movement keys (`h`, `j`, `k`, `l`) to switch between
+windows. Putting everything together, your typical vim-window workflow looks
+like this:
+
+1. use `:vs` or `:sp` to split the current window
+2. use `:e <file>`, or `:b <buffer>`, or some other command to switch to a
+   different file for one of those windows
+
+### Tabs
+### Terminal Emulator
+### File Explorer
+
+
+Explain how to setup my config
+
+## Step 3: neovim
+
+Explain how to setup my config
+
+TODO: consider having three posts:
+
+- how I recommend you learn vim
+- how to setup vim w/my vim config
+- how to setup neovim w/my neovim config
