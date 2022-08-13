@@ -5,8 +5,8 @@ import * as gitDescribe from "./gitDescribe.mdx";
 import * as crossCompile from "./rustCrossCompile.mdx";
 import * as vimTutorial from "./vimTutorial.mdx";
 import * as vimVsNeovim from "./vimVsNeovim.mdx";
-import * as vimMetaConcepts from './vimMetaConcepts.mdx';
-import * as myNeovimConfig from './myNeovimConfig.mdx';
+import * as vimMetaConcepts from "./vimMetaConcepts.mdx";
+import * as myNeovimConfig from "./myNeovimConfig.mdx";
 
 /**
  * This is where posts can be published or unpublished. All posts in the array
