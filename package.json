@@ -23,6 +23,7 @@
     "format": "prettier --write app cypress"
   },
   "dependencies": {
+    "@mdx-js/rollup": "^2.1.2",
     "@prisma/client": "^3.9.1",
     "@remix-run/dev": "^1.6.1",
     "@remix-run/node": "^1.6.1",
