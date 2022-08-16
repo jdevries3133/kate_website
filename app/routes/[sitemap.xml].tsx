@@ -23,7 +23,7 @@ export const loader = () => {
       ${postMetadata.map(
         ({ slug, lastMod }) => `
           <url>
-            <loc>${BASE_URL}/blog/${slug}</loc>
+            <loc>${BASE_URL}/post/${slug}</loc>
               <lastmod>${lastMod.toISOString()}</lastmod>
             <priority>0.8</priority>
           </url>

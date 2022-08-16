@@ -32,7 +32,7 @@ export const HeroSection = () => (
         Hello there!
       </h1>
       <div className="text-center">
-        <Link to="/blog/list">
+        <Link to="/blog">
           <span className="border border-primary-300 p-2 transition rounded inline text-primary-300 hover:text-secondary-700 hover:bg-clay-300">
             Read my Blog
           </span>

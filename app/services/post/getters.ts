@@ -1,3 +1,4 @@
+import { BASE_URL } from "~/config";
 import { moduleNameMapping } from "./collections";
 import type { ValidSlug, ValidMdxModule } from "./types";
 

@@ -21,7 +21,7 @@ describe("routes", () => {
   });
   it("blog loads", () => {
     cy.visit("/blog");
-    cy.visit("/blog/list");
+    cy.visit("/blog");
     cy.document().then((document) => {
       document.querySelectorAll("a").forEach((a) => {
         if ((a.href as string | undefined)?.includes("mailto")) {

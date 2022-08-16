@@ -16,7 +16,7 @@ export const CommentAdminCard: React.FC<{ comment: CommentType }> = ({
           <input type="hidden" name="id" value={comment.id} />
           <DeleteButton>delete</DeleteButton>
         </Form>
-        <Link to={`/blog/${comment.postSlug}`}>
+        <Link to={`/post/${comment.postSlug}`}>
           <Button>view post</Button>
         </Link>
       </div>

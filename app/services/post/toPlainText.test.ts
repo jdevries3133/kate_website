@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { mdxTextToPlainText } from "./toPlainText";
+import { mdxTextToPlainText } from "./toPlainText.server";
 
 vi.mock("~/.mdx");
 

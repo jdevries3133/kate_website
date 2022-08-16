@@ -1,22 +1,40 @@
-import { LoaderFunction, Outlet, redirect } from "remix";
-import { Header } from "~/components/header";
-import { Footer } from "~/components/footer";
+import { ActionFunction, LoaderFunction } from "remix";
+import {
+  searchLoader,
+  LoaderData as SearchLoaderData,
+} from "~/components/search";
+import ListPosts, {
+  LoaderData as PostLoaderData,
+  loader as postLoader,
+} from "~/components/listPosts";
+import { DefaultPageContainer } from "~/components/pageContainer";
+import { searchAction } from "~/components/search/search.server";
 
-export const loader: LoaderFunction = ({ params, request }) => {
-  if (!/\/blog\/list/.test(request.url) && !params.post) {
-    return redirect("/blog/list");
-  }
-  return null;
+export const action: ActionFunction = async (args) => {
+  return {
+    ...(await searchAction(args)),
+  };
+};
+
+type LoaderData = SearchLoaderData & PostLoaderData;
+
+export const loader: LoaderFunction = ({ request }): LoaderData => {
+  const url = new URL(request.url);
+  const postQuery = url.searchParams.get("post");
+  const postSearchResults = postQuery ? searchLoader(postQuery) : [];
+
+  const postsList = postLoader();
+
+  return {
+    posts: postsList,
+    search: postSearchResults,
+  };
 };
 
 export default function Blog() {
   return (
-    <div className="flex sm:items-center flex-col bg-secondary-600 min-h-screen">
-      <Header />
-      <div className="flex-grow">
-        <Outlet />
-      </div>
-      <Footer />
-    </div>
+    <DefaultPageContainer>
+      <ListPosts />
+    </DefaultPageContainer>
   );
 }

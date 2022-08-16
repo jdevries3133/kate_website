@@ -23,6 +23,8 @@
     "format": "prettier --write app cypress"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.6",
+    "@heroicons/react": "^1.0.6",
     "@mdx-js/rollup": "^2.1.2",
     "@prisma/client": "^3.9.1",
     "@remix-run/dev": "^1.6.1",

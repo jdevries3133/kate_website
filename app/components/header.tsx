@@ -1,4 +1,5 @@
 import { Link, useLocation } from "remix";
+import { BlogSearch } from "./search";
 
 const linkStyles = `
   text-primary-300
@@ -10,12 +11,13 @@ const linkStyles = `
 
 export const Header = () => {
   const { pathname } = useLocation();
-  if (pathname === "/blog/list") {
+  if (pathname === "/blog") {
     return (
       <header className="flex items-center gap-2 m-2">
         <Link className={linkStyles} to="/">
           home
         </Link>
+        <BlogSearch />
       </header>
     );
   }
@@ -24,8 +26,8 @@ export const Header = () => {
       <Link className={linkStyles} to="/">
         home
       </Link>
-      <Link className={linkStyles} to="/blog/list">
-        {pathname.includes("blog") ? "posts" : "blog"}
+      <Link className={linkStyles} to="/blog">
+        {pathname.includes("post") ? "posts" : "blog"}
       </Link>
     </header>
   );

@@ -14,6 +14,9 @@ import { CommentSection } from "~/components/commentSection";
 import { getPost, validateSlug } from "~/services/post";
 import { BASE_URL } from "~/config";
 import { isSlugValid } from "~/services/post/validateSlug";
+import { Header } from "~/components/header";
+import { Footer } from "~/components/footer";
+import { DefaultPageContainer } from "~/components/pageContainer";
 
 export const meta: MetaFunction = ({ params, location }) => {
   if (!isSlugValid(params.post)) return {};
@@ -70,7 +73,7 @@ export default function Post() {
     return <p className="text-clay-300">Post matching {postSlug} not found</p>;
   }
   return (
-    <>
+    <DefaultPageContainer>
       <div className="prose break-words">
         <div
           className="
@@ -101,7 +104,7 @@ export default function Post() {
           <CommentSection />
         </div>
       </div>
-    </>
+    </DefaultPageContainer>
   );
 }
 
@@ -118,7 +121,7 @@ export const CatchBoundary: ErrorBoundaryComponent = () => {
             A post matching <code>"{params.post || "this URL"}"</code> doesn't
             exist!{" "}
           </p>
-          <Link to="/blog/list">
+          <Link to="/blog">
             <p>See all blog posts</p>
           </Link>
         </>
@@ -135,21 +138,23 @@ export const CatchBoundary: ErrorBoundaryComponent = () => {
       break;
   }
   return (
-    <div className="prose">
-      <div
-        className="
-          p-2
-          bg-clay-200
-          shadow-xl
-          rounded
-          md:p-4
-          md:border-2
-          md:border-primary-200
-        "
-      >
-        <h1>Oops!</h1>
-        {message}
+    <DefaultPageContainer>
+      <div className="prose">
+        <div
+          className="
+            p-2
+            bg-clay-200
+            shadow-xl
+            rounded
+            md:p-4
+            md:border-2
+            md:border-primary-200
+          "
+        >
+          <h1>Oops!</h1>
+          {message}
+        </div>
       </div>
-    </div>
+    </DefaultPageContainer>
   );
 };

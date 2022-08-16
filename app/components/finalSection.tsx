@@ -116,7 +116,7 @@ export const FinalSection: React.FC<{ actionData: any }> = ({ actionData }) => (
               <ContactForm />
             )}
           </div>
-          <Link className="block text-center" to="/blog/list">
+          <Link className="block text-center" to="/blog">
             <SecondaryButton>Visit Blog</SecondaryButton>
           </Link>
         </div>

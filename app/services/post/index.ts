@@ -8,3 +8,4 @@ export { validateSlug } from "./validateSlug";
 
 export { getPost, getSerializableMetaData } from "./getters";
 export { allPosts, postMetadata, moduleNameMapping } from "./collections";
+export type { ValidSlug } from "./types";
