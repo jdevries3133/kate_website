@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Link, useLoaderData, useSubmit } from "remix";
+import { useLoaderData, useSubmit } from "remix";
 import { useOnClickOutside } from "~/hooks/useOnClickOutside";
 import { PostCard } from "../postCard";
 
@@ -23,12 +23,12 @@ export const SearchResults = () => {
       ref={searchResultsContainer}
     >
       {search.map((post) => (
-        <Link key={post.slug} to={`/post/${post.slug}`}>
-          <PostCard
-            extraClasses={{ container: "bg-clay-400 border-2 border-clay-100" }}
-            {...post}
-          />
-        </Link>
+        <PostCard
+          key={post.slug}
+          linkTo={`/post/${post.slug}`}
+          extraClasses={{ container: "bg-clay-400 border-2 border-clay-100" }}
+          {...post}
+        />
       ))}
     </div>
   );

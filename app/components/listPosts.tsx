@@ -32,13 +32,13 @@ export default function List() {
   return (
     <>
       {posts.map((post) => (
-        <Link key={post.slug} to={`/post/${post.slug}`}>
-          <PostCard
-            title={post.title}
-            description={post.description}
-            created={post.created}
-          />
-        </Link>
+        <PostCard
+          key={post.slug}
+          linkTo={`/post/${post.slug}`}
+          title={post.title}
+          description={post.description}
+          created={post.created}
+        />
       ))}
     </>
   );

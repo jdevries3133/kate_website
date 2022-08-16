@@ -8,7 +8,7 @@ export const BlogSearch: React.FC = () => {
         <input
           name="post"
           aria-label="search blog posts"
-          className="rounded p-1 m-2 w-[20rem]"
+          className="rounded p-1 m-2 w-[80vw] sm:w-60"
           type="text"
           placeholder="search posts"
         />

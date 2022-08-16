@@ -1,13 +1,17 @@
+import { Link } from "remix";
+
 export const PostCard: React.FC<{
   title: string;
   description: string;
   created: string;
+  linkTo: string;
   extraClasses?: {
     container?: string;
   };
-}> = ({ title, description, created, extraClasses }) => (
-  <div
-    className={`
+}> = ({ title, description, created, linkTo, extraClasses }) => (
+  <Link to={linkTo}>
+    <div
+      className={`
       max-w-prose
       p-4
       m-2
@@ -18,9 +22,10 @@ export const PostCard: React.FC<{
       shadow
       ${extraClasses?.container || ""}
    `}
-  >
-    <h3>{title}</h3>
-    <p className="text-sm font-light">{created}</p>
-    <p className="pl-2 border-l-4 border-zinc-200">{description}</p>
-  </div>
+    >
+      <h3>{title}</h3>
+      <p className="text-sm font-light">{created}</p>
+      <p className="pl-2 border-l-4 border-zinc-200">{description}</p>
+    </div>
+  </Link>
 );
