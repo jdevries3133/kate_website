@@ -66,7 +66,8 @@ endif
 
 .PHONY: wait
 wait:
-	@# wait for the app to startup in docker-compose
+	@# wait for the app to startup in docker-compose, as indicated by it
+	@# providing a response on `localhost:8000`.
 	@while true; do \
 		curl --silent --output /dev/null http://localhost:8000; \
 		[ $$? == 0 ] && break; \

@@ -3,6 +3,7 @@ title: My Kubernetes-at-Home Workflow
 description: How I build apps for my own home-grown Kubernetes cluster
 thumbnail: /static/cluster.webp 
 created: 2022-05-19
+lastUpdated: 2022-09-14
 ---
 
 import { CodeSample } from '../components/codeSample';
@@ -16,14 +17,14 @@ import { Image } from '../components/image';
   caption="My humble Kubernetes cluster at home" />
 
 Building a Kubernetes cluster for hobby projects and web apps has been a great
-experience for learning, but the development environment when things are
-working well is the best thing about Kubernetes. You can build an experience
-for yourself that you'd otherwise need to turn to a Platform as a Service
-provider like Heroku for, while also being in full control of the stack and the
-workloads that you run.
+experience for learning. When things are working well, the development
+experience is fantastic. You can build an experience for yourself that you'd
+otherwise need to turn to a Platform as a Service provider like Heroku for,
+while also being in full control of the stack and the workloads that you run.
 
 I already wrote another post about [how I built my cluster,](./myCluster)
-so look there for details on how to get a cluster up and running.
+so look there for details on how to get a cluster up and running. This post is
+about how I develop hobby apps which are deployed to my cluster.
 
 ## Motivations
 
@@ -38,14 +39,18 @@ The goal here is for your source code to swiftly and easily go from:
 Having top-to-bottom ownership of your web apps is a hugely educational
 experience, and speaking from being over the hump of moving my projects and
 workflow to Kubernetes, it was worthwhile. I love not having to do manual
-deployments anymore, and the tools that support my cluster give me peace of
-mind and help me to better understand how my web apps are being used.
+deployments anymore while also controlling the whole system from the hardware
+level.
 
 ### The Reality
 
-Don't dig into this unless you already have a great understanding of Docker,
-are ready to learn a new Infrastructure as Code tool (terraform), and have a
-reason motivating you to put work in to achieving something similar to Heroku.
+Don't dig into this unless you already have a great understanding of containers
+(Docker), are ready to learn a new Infrastructure as Code tool (Terraform), and
+have a reason motivating you to put in work towards achieving something similar
+to Heroku. Overall, it took me months to go from zero knowledge of Kubernetes
+or cloud native application development in general, to the point that I have a
+reliable system that I enjoy using. Plus, it's likely that you'll hit some
+significant pain points along the way.
 
 ## Local Development Workflow
 
@@ -67,7 +72,6 @@ services:
   web:
     build: .
     ports:
-      # http server
       - "8000:8000"
       - "8002:8002"
       - "5555:5555"
@@ -76,18 +80,19 @@ services:
       - dev
     volumes:
       - .:/app
-      - node_modules:/app/node_modules
+      - node_modules:/app/node_modules  # see https://stackoverflow.com/a/38601156
     links:
       - db
     environment:
       DATABASE_URL: postgresql://app:app@db/app
-      ADMIN_PASSWORD: pass
+      ADMIN_PASSWORD: supersecret
   db:
     image: postgres:14
     environment:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: app
       POSTGRES_DB: app
+
 volumes:
   node_modules:
 ```
@@ -98,43 +103,50 @@ of the "secrets" here are truly secret because it's just for development. By
 the way, the node_modules volume trick is a nifty way to [mount everything
 except node_modules (stack overflow).](https://stackoverflow.com/a/38601156)
 
-Obviously, if you're doing microservices, using other services like Redis or
-RabbitMQ, or doing any number of other things with your app, docker-compose can
-easily scale to support that use case. Best of all, I really like that I can
-just run `docker-compose -d` to run the development process in the background,
-and just start developing anytime by changing a file. That is such a better
-workflow than needing to keep track of a terminal to be running my development
-script.
+I really like that I can just run `docker-compose -d` to run the development
+process in the background, and just start developing anytime by changing a
+file.
 
 ## CI/CD
 
 For CI/CD I've enjoyed using Terraform. Terraform is an Infrastructure as Code
 tool that has broad support for multiple cloud providers, and also support for
 Kubernetes. Terraform isn't strictly necessary for use with Kubernetes since
-Kubernetes has a lot of CI/CD tooling options, but I use Terraform. I also use
-GitHub Actions for my pipelines, and then each of my projects usually has a
-Makefile to glue everything together.
+Kubernetes has a lot of CI/CD tooling options, but I use it because I like HCL
+much better than YAML, I like having easily reproducible infrastructure, and I
+like that I can make changes to Kubernetes deployments through code changes and
+let CI/CD take care of the rest. Most of my projects also have a `Makefile` to
+glue together docker, terraform, and application CLIs.
 
 ### Terraform
 
-I like Terraform because it integrates with so many providers. For example,
-yaml manifests are fine until your app needs an S3 bucket for some reason. You
-could create the S3 bucket manually, but with Terraform, you don't need to!
-Just connect your AWS account and let terraform coerce the bucket into
-existence for you, and you can programmatically create the links between your
-app and the bucket, like injecting credentials into your application pods.
+I like Terraform because it integrates with [almost
+everything](https://registry.terraform.io/browse/providers). For example, YAML
+manifests are fine until your app needs an S3 bucket for some reason. You could
+create the S3 bucket manually, but with Terraform, you don't need to! Just
+connect your AWS account and let Terraform coerce the bucket into existence for
+you. Plus, you never _just_ need an S3 bucket. At minimum, you need an IaM user
+to access that bucket, ARN policies to give that user access to the bucket, and
+finally the bucket itself. That's 3 resources needed just for simple cloud
+storage!
 
-Terraform is also nice because you can modularize code. Most of my personal
-projects have two components: a web application container in some language or
-framework, and a database at the backend to store the data. Personally, that
-database is always PostgreSQL, which is another point of repetition ripe for
-automation. With Terraform, I was able to create modules for the use cases that
-are common for me. This allowed me to factor tons of repetitive code out of my
-projects and into these modules, and also means that most of my projects have
-really, really short Terraform files.
+Terraform easily soaks up that complexity by allowing you to define what you
+need just once and then have it be forever repeatable. Plus, if you setup
+Terraform to run in CI/CD, all you need to do is change your Terraform code,
+push a new commit, and Terraform will change the infrastructure for you in CI.
 
-For example, if you remove all the initialization preamble from the IaC for this
-website, this is the whole IaC file:
+Terraform is also nice because you can modularize code. There are so many
+repetitive patterns in cloud native apps like the S3 bucket example from
+before. Most of my personal projects have two components: a web application
+container in some language or framework, and a database at the backend to store
+the data. Personally, I always use PostgreSQL, which is another point of
+repetition ripe for automation. I was able to effectively factor all this
+repetition into Terraform modules that I published on [the Terraform
+registry.](https://registry.terraform.io/) This simplified my apps to the
+extent that the `docker-compose` files for development are shorter than the
+Terraform configuration used in production. For example, if you remove all the
+initialization boilerplate from the IaC for this website, this is the whole IaC
+file:
 
 <CodeSample>
 ```
@@ -144,7 +156,7 @@ resource "random_password" "contact_inquiry_secret" {
 }
 
 data "external" "git_describe" {
-  program = ["sh", "scripts/git_describe.sh"]
+  program = ["sh", "-c", "echo '{\"output\": \"'\"$(git describe --tags)\"'\"}'"]
 }
 
 module "basic-deployment" {
@@ -162,126 +174,102 @@ module "basic-deployment" {
 ```
 </CodeSample>
 
-As you see, I'm using my own `"basic-deployment"` module. Check it out on
+As you see, I'm using my own `"basic-deployment"` module. This module is
+suitable for any Kubernetes cluster, so check it out on
 [github](https://github.com/jdevries3133/terraform-kubernetes-basic-deployment)
 or the [terraform
 registry.](https://registry.terraform.io/modules/jdevries3133/basic-deployment/kubernetes/latest)
 I also have a module for deploying static web app containers without a database
 ([github](https://github.com/jdevries3133/terraform-kubernetes-container-deployment)
-or [terraform registry](https://registry.terraform.io/modules/jdevries3133/container-deployment/kubernetes/latest)).
-
-Overall, the Terraform Kubernetes provider's resources are all structured
-exactly the same as native Kubernetes manifests, just using the syntax of the
-Hashicorp Configuration Language (HCL), which is what you see above. I feel
-that this language is amazing. Per the name, it's obviously purpose built for
-configuration. The fact that HCL can by dynamic and reference variables while
-_also_ being declarative makes it much better than YAML in my opinion. There
-are other YAML solutions that try to solve this through templating; namely Helm
-and Kustomize, but I think that is straight up madness.
-
-There are no variables in the config above, but one of my favorite little
-quirks of Terraform is the fact that you declare variables but don't assign
-them a value until runtime. You can pass the values through a `tfvars` file,
-environment variables, or the command line, and if you run terraform from a
-terminal it'll even kindly prompt you for any values you haven't yet provided.
-I think this part of Terraform's design so nicely guides you towards doing the
-right thing with secrets, and it integrates nicely with whatever workflow you
-want to use Terraform with.
+or [terraform
+registry](https://registry.terraform.io/modules/jdevries3133/container-deployment/kubernetes/latest)).
 
 You will also notice a reference to an external script to get a description of
 the current commit from git. If you tag commits to track versions (you should)
 `git describe --tags` becomes excellent place to derive identifiers for each
 commit. It's more descriptive than just a commit hash because it includes the
 most recent tag, number of commits since then, and a short hash. If you run the
-command on a tagged commit, it just outputs the tag. The `git_describe.sh`
-script referenced before is a simple one-liner:
+command on a tagged commit, it just outputs the tag. However, note that it
+won't work if there are not any tags in version history, like if you do a
+shallow clone.
 
-```
-echo '{"output": "'"$(git describe --tags)"'"}'
-```
-
-Terraform's `external` provider, which can run scripts, will play nice with any
-script that outputs valid JSON.
+Terraform's `external` provider can run any script as long as it outputs JSON.
 
 ### Makefile
 
 A short Makefile is the cherry on top that brings all of this together. In my
-projects, I usually have three rules: `test`, `push`, and `deploy`. `push`
-ships the container, `tests` is hopefully self explanatory, and I like `deploy`
-to be the default rule which will first run tests, then ship the container,
-then deploy it with terraform.
+projects, I usually have three rules: `check`, `push`, and `deploy`.
 
-Again, I'll use this website's Makefile as an example:
-
-<CodeSample>
-```
-DOCKER_ACCOUNT=jdevries3133
-CONTAINER_NAME=jackdevries.com
-
-TAG=$(shell git describe --tags)
-
-CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
-
-.PHONY: deploy
-deploy: push
-ifdef CI
-terraform init -input=false
-endif
-terraform apply -auto-approve
-
-.PHONY: push
-push:
-docker buildx build --platform linux/amd64 --push -t $(CONTAINER) .
-```
-</CodeSample>
+This website is open source, so you can [take a look at its Makefile as an
+example.](https://github.com/jdevries3133/jackdevries.com/blob/main/Makefile)
 
 Notice the pattern of changing behavior based on whether the CI environment
 variable is defined. Several CI/CD solutions set this environment variable when
 code is run in the CI system, so you can hook into that to do initialization or
 run programs in a non-interactive mode.
 
-A version of this Makefile is in most of my projects. Using a Makefile saves
-you from needing to remember these projects, and also alows you to adjust the
-exact procedure for different projects while continuing to use the same generic
-rule names. Plus, it makes the yaml file for your GitHub Action or other CI/CD
-solution shorter and simpler, which I'll discuss next.
-
-#### Test Rule
-
-This site doesn't have any tests yet, but here is an example of a test rule from
-my [fast grader project.](https://classfast.app/)
-
 <CodeSample>
 ```
-.PHONY: test
-test:
+.PHONY: deploy
+deploy:
 ifdef CI
-	docker-compose up -d
-	docker exec django_web_1 pytest
-else
-	@# outside CI, assume the system is already running. Also, attaching an
-	@# interactive terminal causes (1) pytest to give colored output, and (2)
-	@# pdb to pause at breakpoints
-	docker exec -it django_web_1 pytest
+	terraform init -input=false
 endif
+	terraform apply -auto-approve
 ```
 </CodeSample>
 
-In a Django project, for example, tests run against a live database, and you
-can accomplish this in CI easily with Docker compose.
+#### `check` Rule
 
-Once again, we hook into the CI environment variable to do things slightly
-differently for the remote environment versus local development.
+It is nice to have a `check` rule that is higher-level than "test," or "lint,"
+specifically. The only distinction that might be useful is to be able to switch
+between fast checks and slow checks, since integration tests can become very
+slow as they grow. Either way, I find a big point of frustration with CI is
+when the CI server's behavior drifts away from the way I check my code locally.
+For example, maybe it checks formatting but I forget to do that. A `Makefile`
+can create a common interface through which the CI server can check code, and I
+can also check code locally. Keeping the actual CI-specific script as minimal
+as possible and putting all logic into the Makefile means that you never have
+weird CI server behavior that doesn't match what you see locally.
+
+This is the `check` rule for this website:
+
+<CodeSample>
+```
+.PHONY: check
+check:
+ifdef CI
+	yarn install
+	terraform init -backend=false -input=false
+endif
+	terraform fmt -check
+	terraform validate
+	yarn prettiercheck
+	yarn typecheck
+	yarn test run
+ifdef CI
+	# delaying this for CI means we'll get quick feedback if a quicker check
+	# fails
+	docker-compose up -d
+endif
+	make wait  # this just waits for a response on `localhost:8000`
+	yarn cypress
+```
+</CodeSample>
+
 
 ### GitHub Actions
 
 Any CI/CD solution that lets you run these commands in the cloud will make your
 development experience very pleasant. I feel like the moment that my deployment
-process went from a 5-minute process to a zero second process (just push the
-code), my whole Kubernetes journey came together, the fog cleared, and I could
-see it was all worth it.
+process went from a 5-minute local process to a process I didn't need to think
+about (just push the code), the whole Kubernetes learning journey became
+worthwhile.
 
-Here is an example of a GitHub action file for this project:
+Here is an example of a GitHub action file for this project. Again, the goal is
+for it to be a super minimal wrapper around the `Makefile`, just providing
+environment variables where needed & defining the order in which jobs should
+run:
 
 <CodeSample>
 ```yaml
@@ -289,35 +277,65 @@ name: CI/CD
 
 on:
   push:
-    branches: ['main']
+    branch: ['main']
+  pull_request:
 
 jobs:
-  deploy:
 
-    name: deploy code
+  ci:
+    name: continuous integration checks
     runs-on: ubuntu-latest
     environment: Kubernetes
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v2
+      - name: make check
+        run: make check
 
-    - name: login to docker hub
-      uses: docker/login-action@v1
-      with:
-        username: jdevries3133
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+  push_container:
+    name: build and push Docker container
+    # this means that this job only runs for commits that land on the main
+    # branch
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    environment: Kubernetes
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-    - name: setup kubectl
-      run: |
-        mkdir ~/.kube
-        echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+      - name: login to docker hub
+        uses: docker/login-action@v1
+        with:
+          username: jdevries3133
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: run `make all` to push container and deploy via terraform
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: make
+      - name: push container to Docker Hub
+        run: make push
+
+  deploy:
+    name: deploy to Kubernetes with Terraform
+    # this means that this job only runs for commits that land on the main
+    # branch
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    needs: [ci, push_container]
+    environment: Kubernetes
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: setup kubectl
+        run: |
+          mkdir ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+
+      - name: perform deployment
+        env:
+          # credentials are used for terraform state bucket
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: make deploy
 ```
 </CodeSample>
 
@@ -334,30 +352,11 @@ pipeline to fail.
 
 ##### `"${{ secrets.KUBE_CONFIG }}"`
 
-For your Kubernetes config or any yaml file passed as a secret, you need the
+For your Kubernetes config or any YAML file passed as a secret, you need the
 quotes around the secret, otherwise GitHub actions will collapse the whitespace
-and it won't be valid yaml anymore.
+and it won't be valid YAML anymore.
 
 ##### Makefile
 
-The Makefile really helps with the CI stuff. Remember, you can run the Makefile
-on your machine (you can even set the `CI` environment variable to make it
-behave differently), but you can't run the GitHub action locally. Avoid doing
-anything other than setup and calling `make` rules from the GitHub action file.
-Plus, this makes your CI/CD pipeline more portable, since all you're really
-doing is setup and running a make rule.
-
-##### Create & Squash Merge `feat/ci-cd` Branch
-
-I've never gotten one of these pipelines working without between 5 and 30
-garbage commits. Always checkout to a new branch, set your action to run on
-pushes to that branch, get it to work, then squash merge it back into your
-`main` branch for a single clean commit.
-
-```
-# make a new branch
-git checkout -b feat/ci-cd
-# ... do your work, make careless commits
-git checkout main  # (or master)
-git merge --squash feat/ci-cd
-```
+Make is ancient and carries a lot of weird quirks with it. In the future, I'm
+interested in trying out [just](https://just.systems/) instead of make.

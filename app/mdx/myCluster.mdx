@@ -5,6 +5,7 @@ description: |
   development, as a DIY alternative to app platforms like Heroku.
 thumbnail: /static/cluster.webp 
 created: 2022-05-14
+lastUpdated: 2022-09-14
 ---
 
 import { Image } from "../components/image";
@@ -25,16 +26,15 @@ repository on GitHub, which is referenced throughout this guide.
 
 ## Background and Rationale
 
-I have a particular situation that lead me to where I am with my cluster. If
-you come from a similar point of view, then hopefully the guide to follow will
-be helpful!
+As a hobbyist & curious person, brutal efficiency and global horizontal scaling
+weren't my #1 goals through this learning process!
 
 ### What are my motivations?
 
 I like making websites and web apps. I like helping out family and friends, and
 providing free services to communities I care about. I'd like to have the
-potential to spin off my own SaaS solution, or for my apps to scale to many,
-many users. However, my websites currently have fairly low traffic.
+potential to spin off my own SaaS solutions, or for my apps to scale to many,
+many users. However, my websites currently have very low traffic.
 
 At the beginning of my Kubernetes journey, I felt dissatisfied with cloud
 providers like [AWS](https://aws.amazon.com/) and
@@ -47,6 +47,9 @@ providers like [Heroku](https://www.heroku.com/) for a variety of reasons:
 - annoying web UIs and unnecessary complexity for my use case
 - not 100% open source, no ownership over the tech stack
 
+I feel even more validated by [Heroku recently removing its free
+tier](https://techcrunch.com/2022/08/25/heroku-announces-plans-to-eliminate-free-plans-blaming-fraud-and-abuse/).
+
 Throughout the learning journey of creating my own cluster, I've been surprised
 at how much you can build out the benefits of these platforms for yourself just
 by working with open source tools.
@@ -54,28 +57,17 @@ by working with open source tools.
 ### What does this give me?
 
 I have a three-node Kubernetes cluster that includes a nice observability
-stack, some protection against single node failure such that I'm not worried
-about running on old second-hand hardware, automated backup and restore for the
-whole cluster, and a very luxurious experience when it comes time to build and
-deliver my apps.
+stack, some modest protection against single node failure, automated backup and
+restore for the whole cluster, and a very luxurious experience when it comes
+time to build and deliver my apps.
 
 ### What do I leave out?
 
 First and foremost, this guide does not touch Role Based Access Control (RBAC)
 at all. This means that app `A` in my cluster can freely talk to app `B`, and
-that is a major security weakness. However, I wrote all the code running in the
-cluster, and I feel like the overall amount of application code running in the
-cluster is an amount that I can somewhat wrap my head around, so I don't feel
-like this is disastrous for my use case as a solo hobbyist. Plus, (I think)
-Kubernetes makes it easy to use RBAC once you have a cluster up and running as
-this guide will show you. I just haven't gone there yet.
-
-Additionally, the architecture of the network means that one node takes all of
-the ingress load, and failure of that node will cause the cluster to become
-unavailable. Again, this is fine for my use case because I'm not running any
-life or death or business critical workflows. And, like the first point, this
-is something that can be incrementally improved on top of the foundation that
-this guide lays out.
+that is a major security weakness. However, Kubernetes makes it easy to use
+RBAC once you have a cluster up and running as this guide will show you. I just
+haven't gone there yet.
 
 ## "App Developer" versus "Platform Maintainer"
 
@@ -86,8 +78,9 @@ although platform maintainers must do the work of keeping the cluster healthy
 and available, supplying it with enough resources, monitoring it, and keeping
 internal cluster components updated.
 
-This guide focuses on the platform side of the equation. Trust that the dev
-experience is very nice, and a post detailing that is coming next.
+This guide focuses on the platform side of the equation. I also have a post
+about the development experience, which makes all this work worth it. See
+[My Kubernetes-at-Home Workflow.](./developingClusterApps)
 
 ## Hardware
 
@@ -97,43 +90,53 @@ experience is very nice, and a post detailing that is coming next.
   caption="My humble Kubernetes cluster" />
 
 First of all, you're going to need to start with some hardware. I built my
-cluster from three desktop towers, but the specific hardware doesn't really
-matter. The only thing I would recommend is to ensure that all of the computers
-have the same CPU architecture. Containers need to [explicitly support multiple
+cluster from three old & unused desktops, but the specific hardware doesn't
+really matter. The only thing I would recommend is to ensure that all of the
+computers have the same CPU architecture. Containers need to [explicitly
+support multiple
 platforms.](https://www.docker.com/blog/multi-platform-docker-builds/) It's not
 too tricky to ship a docker container that runs on various platforms, but I
 think it's an unnecessary inconvenience that's best avoided.
 
-Next, try to make sure that all machines have similar amounts and speeds of
-storage. I find myself using [Openebs jiva
+Next, try to make sure that all machines have similar amounts of persistent
+storage. I use [Openebs jiva
 volumes](https://openebs.io/docs/user-guides/jiva-guide) for most stateful
-workloads (databases, etc.). These will replicate volumes across all nodes, so
+workloads (mainly databases). These will replicate volumes across all nodes, so
 the overall storage capacity of your cluster will be limited by the storage
 capacity of the smallest node. Similarly, jiva volumes replicate synchronously,
-so you will also be limited by the speed of your slowest drive.
+so replicated volumes will also be limited by the speed of your slowest drive.
 
 ## Operating System
 
 Cannonical's [microk8s](https://microk8s.io/) does a huge amount of the legwork
 for bootstrapping the cluster itself as well as several services that run on
 top of the cluster. The obvious distro choice is therefore Ubuntu; any recent
-version (20, 22) will do.
+version will do.
 
 ## Network
 
 It turns out that the cluster is quite sensitive to network unreliability. On
 my first attempt at creating my cluster, I found that my replicated storage
-volumes kept getting locked into a read only state. This happened to me before
+volumes kept getting locked into a read only state. This happens when
+replicated volume controllers can't communicate with each other and quorum is
+lost. So, either get another router to create an entirely separate network for
+your cluster, or stay away from the restart button on your WiFi router! Cluster
+nodes _really_ want to be able to speak with each other.
+
+Plus, the high availability guarantees of microk8s require at least 3 nodes,
+but in practice that means you really need 4 nodes, since you need to be able
+to let one node die and still have 3 nodes left! I think this might have
+something to do with my read-only volume woes.
+
 I figured out that logging and monitoring was important, but I believe that it
 was caused by network unreliability. On my most recent iteration of the
 cluster, I purchased another router that creates a network for the cluster
 which is totally separate from my regular home network. This layout is also
-known as ["router on a
-stick."](https://en.wikipedia.org/wiki/Router_on_a_stick)
-
-Besides providing a consistent connection between the Kubernetes nodes, this
-infrastructure also isolates the cluster from the rest of my home network,
-which gives me some peace of mind.
+known as Besides providing a consistent connection between the Kubernetes
+nodes, a ["router on a
+stick"](https://en.wikipedia.org/wiki/Router_on_a_stick) network can isolate
+the cluster from the rest of your home network, which is probably for the best
+if you're going to use your cluster as a public-facing web server.
 
 ## Cluster Bootstrapping
 
@@ -143,15 +146,15 @@ and I also use several of the plugins that are included with it. See my
 repo for details. The tl;dr is:
 
 1. Startup the cluster:
-   ```
+   ```bash
    microk8s start
    ```
 2. Add all your machines by following directions output by:
-   ```
-   microk8s add-node
+   ```bash
+   microk8s add-node ...
    ```
 3. Enable plugins
-   ```
+   ```bash
    microk8s enable dns helm3 ingress prometheus openebs fluentd
    ```
 
@@ -191,46 +194,65 @@ I also like it to be possible for me to SSH into any of the nodes from
 anywhere. I do this by forwarding an arbitrary public port to port 22 of a
 certain machine. I can then access each of my machines as follows:
 
-```
+```text
 <public IP>:<machine port>
 ```
 
 Create forwarding rules for as many machines as you have, and they will all be
-accessible on your public IP on different ports.
+accessible on your public IP on different ports. Then you can create a
+`ssh_config` on your local machine so you don't need to remember those details
+to connect to any specific machine.
+
+```
+Host node1
+    HostName 7.7.77.7
+    Port 9000
+    IdentityFile /Users/youruser/.ssh/id_rsa
+
+Host node2
+    HostName 7.7.77.7
+    Port 9001
+    IdentityFile /Users/youruser/.ssh/id_rsa
+
+Host node3
+    HostName 7.7.77.7
+    Port 9002
+    IdentityFile /Users/youruser/.ssh/id_rsa
+```
 
 ### microk8s Self-Signed Certificates
 
-This is an important step if you want the Kubernetes API to be available on
-public IP addresses. You must add your public IP this file:
+This is an important step if you want the Kubernetes API to be available on a
+public IP addresses. As shown in this [stack overflow
+answer,](https://stackoverflow.com/questions/63451290/microk8s-devops-unable-to-connect-to-the-server-x509-certificate-is-valid-f)
+you must add your public IP this file:
 
 ```
 /var/snap/microk8s/certs/csr.conf.template
 ```
 
-...as shown in this
-[stack overflow answer.](https://stackoverflow.com/questions/63451290/microk8s-devops-unable-to-connect-to-the-server-x509-certificate-is-valid-f)
 After doing this, run:
 
 ```
 microk8s refresh-certs
 ```
 
-This will effectively restart the entire cluster. If your public IP changes
-often, I'd recommend running a proxy server on a static IP in a cloud provider,
-and having microk8s self-sign to use that IP, because it will be painful to do
-this again when the cluster is up and running.
+This will restart the entire cluster and regenerate self-signed certificates.
+If your public IP changes often, I'd recommend running a proxy server on a
+static IP in a cloud provider, and having microk8s self-sign to use that IP,
+because it will be painful to do this again when the cluster is up and running.
 
 ### Connecting via `kubectl`
 
-At this point, you can get credentials to connect to the cluster with
-`microk8s config`. Notice that the server IP address in the config will be a
-local IP, but you should be able to change it to your public IP if you setup
-port forwarding and self-signed certificates properly in the last two sections.
-So, replace the local IP in `clusters.cluster.server` with your public IP, and
-copy the config to `~/.kube/config`. At this point, you should be able to
+At this point, you can get credentials to connect to the cluster with `microk8s
+config`. Notice that the server IP address in the config will be a local IP,
+but you should be able to change it to your public IP if you setup port
+forwarding and self-signed certificates properly in the last two sections. So,
+replace the local IP with your public IP, and copy the config to
+`~/.kube/config` on your local machine. At this point, you should be able to
 connect to the cluster using `kubectl`. Give it a try:
 
-```
+```text
 kubectl get all --all-namespaces
 ```
 
@@ -248,10 +270,16 @@ the three machines so that they can find each other by name.
 ### Cloudflare
 
 Word on the street is that sharing your public IP address with the whole world
-and inviting them to hack or DDOS you at any time is not a great idea.
-Cloudflare DNS is free, and allows you to keep your IP address private, so
-consider using it as your DNS provider. Of course, other DNS providers also
-offer a similar service.
+is not a good idea. Cloudflare DNS is free, and allows you to keep your IP
+address private, so consider using it as your DNS provider. Of course, other
+DNS providers also offer a similar service. Plus, enjoy using it to see just
+how few people actually read these posts.
+
+<Image
+  alt="my sad cloudflare usage, with only 50 visitors per day"
+  src="/static/cloudflareUsage.webp"
+  caption="sad_pikachu.jpeg"
+/>
 
 ## The Rest of the Owl
 
@@ -260,10 +288,18 @@ offer a similar service.
 Once the cluster is bootstrapped, plugins are enabled, and you are able to
 connect, I have a terraform module in my
 [homelab_cluster](https://github.com/jdevries3133/homelab_cluster)
-repository that does "the rest."
+repository that does "the rest." Namely:
+
+- setup a SSL certificate issuer with Lets Encrypt for automagical HTTPS
+- annotate your Nginx ingress so that it makes metrics data available to
+  prometheus
+- adding ingress rules for kibana and grafana so that you can view your logging
+  and metrics dashboards
 
 Note that you should change the email in `manifests/clusterissuer.yml` to your
 own email so that Lets Encrypt can reach you in case of any certificate issues.
+
+You should also change the ingress domains to domains you own!
 
 ## Backup and Restore with Velero and Restic
 
@@ -284,8 +320,8 @@ have automated off-site backups just in case. You can use your infrastructure
 from anywhere in the world, easily ship apps to your cluster, automatically
 provision replicated storage or SSL certificates, and much more.
 
-All of my sites are deployed to my cluster, so check them out for examples of
-how you can use the cluster to host websites. The possibilities are really
-endless.
+All of my sites are open source and also deployed to my cluster, so check them
+out for examples of how you can use the cluster to host websites. The
+possibilities are really endless.
 
 <MyRepos />

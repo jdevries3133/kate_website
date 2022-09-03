@@ -1,7 +1,6 @@
 import * as myCluster from "./myCluster.mdx";
 import * as clusterApps from "./developingClusterApps.mdx";
 import * as terraformModules from "./terraformModules.mdx";
-import * as gitDescribe from "./gitDescribe.mdx";
 import * as crossCompile from "./rustCrossCompile.mdx";
 import * as vimTutorial from "./vimTutorial.mdx";
 import * as vimVsNeovim from "./vimVsNeovim.mdx";
@@ -19,7 +18,6 @@ export const allPosts = [
   myNeovimConfig,
   crossCompile,
   terraformModules,
-  gitDescribe,
   myCluster,
   clusterApps,
 ];

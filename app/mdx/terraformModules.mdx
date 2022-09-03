@@ -110,7 +110,7 @@ variable "google_client_secret" {
 }
 
 data "external" "git_describe" {
-  program = ["sh", "scripts/git_describe.sh"]
+  program = ["sh", "-c", "echo '{\"output\": \"'\"$(git describe --tags)\"'\"}'"]
 }
 
 resource "random_password" "django_secret" {
@@ -150,5 +150,3 @@ This IaC yields:
 
 That's a lot of bang for your buck for only 33 lines of infrastructure code if
 you ask me!
-
-<a href="./gitDescribe" className="text-sm italic">By the way, click here to learn about that git_describe.sh script</a>
