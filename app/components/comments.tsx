@@ -5,7 +5,9 @@ export const Comment: React.FC<{ comment: CommentType }> = ({ comment }) => {
   return (
     <div className="prose">
       <p className="text-sm">
-        at {comment.createdAt}, {author} wrote ::
+        <>
+          at {comment.createdAt}, {author} wrote ::
+        </>
       </p>
       <p className="border-l-4 border-l-mineral-400 pl-2">{comment.content}</p>
     </div>

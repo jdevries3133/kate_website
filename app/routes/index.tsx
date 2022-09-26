@@ -1,4 +1,4 @@
-import { MetaFunction } from "@remix-run/react/routeModules";
+import { MetaFunction } from "@remix-run/node";
 
 import { ActionFunction } from "remix";
 import prisma from "~/prisma.server";

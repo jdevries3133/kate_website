@@ -5,10 +5,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "remix";
+} from "@remix-run/react";
+import { LinksFunction } from "@remix-run/node";
 
 import stylesUrl from "./tailwind.css";
-import { LinksFunction } from "@remix-run/react/routeModules";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesUrl }];

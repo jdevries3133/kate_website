@@ -1,10 +1,10 @@
-import { useLoaderData } from "remix";
+import { useLoaderData } from "@remix-run/react";
 import { CommentForm } from "~/components/commentForm";
 import { Comment } from "./comments";
 import { Comment as CommentType } from "@prisma/client";
 
 export const CommentSection = () => {
-  const { comments } = useLoaderData<{ comments: CommentType[] }>();
+  const { comments } = useLoaderData();
   return (
     <div className="bg-clay-400 rounded-b text-mineral-600 p-2">
       <h2 className="text-lg text-inherit">your thoughts?</h2>
@@ -17,7 +17,7 @@ export const CommentSection = () => {
           <h2 className="text-lg text-inherit">
             thoughts of others (enter if you dare)
           </h2>
-          {comments.map((comment) => (
+          {comments.map((comment: any) => (
             <Comment key={comment.id} comment={comment} />
           ))}
         </>

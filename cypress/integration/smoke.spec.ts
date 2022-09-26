@@ -1,17 +1,6 @@
 describe("homepage", () => {
   it("loads", () => {
     cy.visit("/");
-    cy.get("h1").should("contain", "Hello there!");
-  });
-  it("has contact form", () => {
-    cy.visit("/");
-
-    cy.get('[data-testid="contactMeFormOpener"]').click();
-    cy.get('input[name="name"]').type("john");
-    cy.get('input[name="email"]').type("john@john.com");
-    cy.get("textarea").type("hi from john");
-    cy.get('button[type="submit"]').click();
-    cy.get('div[data-testid="successIndicator"] > p').should("be.be.visible");
   });
 });
 

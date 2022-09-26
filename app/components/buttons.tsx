@@ -1,8 +1,10 @@
-import { MouseEventHandler } from "react";
+import { PropsWithChildren, MouseEventHandler } from "react";
 
-export const PrimaryButton: React.FC<{
-  onClick: MouseEventHandler<HTMLButtonElement>;
-}> = ({ onClick, children, ...rest }) => (
+export const PrimaryButton: React.FC<
+  PropsWithChildren<{
+    onClick: MouseEventHandler<HTMLButtonElement>;
+  }>
+> = ({ onClick, children, ...rest }) => (
   <button
     {...rest}
     onClick={onClick}
@@ -28,9 +30,11 @@ export const PrimaryButton: React.FC<{
   </button>
 );
 
-export const SecondaryButton: React.FC<{
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-}> = ({ onClick, children }) => (
+export const SecondaryButton: React.FC<
+  PropsWithChildren<{
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+  }>
+> = ({ onClick, children }) => (
   <button
     onClick={onClick}
     className="
@@ -50,10 +54,12 @@ export const SecondaryButton: React.FC<{
   </button>
 );
 
-const BaseButton: React.FC<{
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-  className: string;
-}> = ({ children, onClick, className }) => (
+const BaseButton: React.FC<
+  PropsWithChildren<{
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+    className: string;
+  }>
+> = ({ children, onClick, className }) => (
   <button
     className={`
       rounded
@@ -78,9 +84,11 @@ const BaseButton: React.FC<{
  * Public button component api only recieves an onClick function and children.
  * Styling and DOM refs are not leaked.
  */
-type ButtonComponent = React.FC<{
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-}>;
+type ButtonComponent = React.FC<
+  PropsWithChildren<{
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+  }>
+>;
 
 export const DeleteButton: ButtonComponent = ({ children, onClick }) => (
   <BaseButton

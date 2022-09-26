@@ -33,7 +33,7 @@ export const loader: LoaderFunction = () => {
 
 export default function Comments() {
   const { state } = useTransition();
-  const comments = useLoaderData<Comment[]>();
+  const comments = useLoaderData();
   return (
     <div className="flex flex-col items-center justify-center">
       {state === "loading" ? (
@@ -41,7 +41,7 @@ export default function Comments() {
       ) : (
         <>
           <h1>Manage Comments</h1>
-          {comments.map((comment) => (
+          {comments.map((comment: any) => (
             <CommentAdminCard key={comment.id} comment={comment} />
           ))}
         </>
