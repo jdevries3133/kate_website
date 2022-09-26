@@ -42,7 +42,7 @@ module "basic-deployment" {
   source  = "jdevries3133/basic-deployment/kubernetes"
   version = "0.2.0"
 
-  app_name  = "jdv"
+  app_name  = "kate"
   container = "jdevries3133/kate_website:${data.external.git_describe.result.output}"
   domain    = "kate.jackdevries.com"
 
