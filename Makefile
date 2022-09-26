@@ -1,13 +1,23 @@
 SHELL=/bin/bash
 
 DOCKER_ACCOUNT=jdevries3133
-CONTAINER_NAME=jackdevries.com
+CONTAINER_NAME=kate_website
 
 TAG?=$(shell git describe --tags)
 PREV_TAG=$(shell git describe --tags $(git rev-list --parents -n 1 HEAD) | tail -n 1)
 
 # assuming the use of Docker hub, these constants need not be changed
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
+
+
+.PHONY: publish
+publish:
+	@# utility rule to make publish code changes as easy as possible for Kate
+	git pull
+	make fmt
+	git add -A
+	git commit -m "publishing content from $(date)"
+	git push
 
 
 .PHONY: deploy
@@ -29,6 +39,11 @@ develop:
 		-f docker-compose.yml \
 		-f docker-compose.dev.yml \
 		up -d
+
+
+.PHONY: logs
+logs:
+	docker-compose logs
 
 
 .PHONY: debug

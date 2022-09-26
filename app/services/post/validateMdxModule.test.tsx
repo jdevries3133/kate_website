@@ -12,7 +12,7 @@ const makeModule = (removeAttr?: string) => {
       lastUpdated: new Date(2022, 11, 15),
       title: "My Post",
       description: "My other post description",
-      thumbnail: "/static/cluster.webp",
+      thumbnail: "/static/cat.webp",
     },
     filename: "file.mdx",
     Component: () => <h1>Hello world from my other post</h1>,

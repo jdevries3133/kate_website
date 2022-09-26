@@ -1,14 +1,10 @@
 import { MetaFunction } from "@remix-run/react/routeModules";
 
-import { HeroSection } from "~/components/heroSection";
-import { ActionFunction, useActionData } from "remix";
+import { ActionFunction } from "remix";
 import prisma from "~/prisma.server";
-import { MainProjects } from "~/components/mainProjects";
-import { OtherProjectsAndBio } from "~/components/otherProjectsAndBio";
-import { FinalSection } from "~/components/finalSection";
 
 export const meta: MetaFunction = () => {
-  return { title: "Jack DeVries" };
+  return { title: "Kate Tell: Author" };
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -47,14 +43,10 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const actionData = useActionData();
-
   return (
     <>
-      <HeroSection />
-      <MainProjects />
-      <OtherProjectsAndBio />
-      <FinalSection actionData={actionData} />
+      <h1>Kate Tell: Author Extrordinaire!!</h1>
+      <p>TODO: create a nice landing page for you :)</p>
     </>
   );
 }

@@ -2,7 +2,7 @@ terraform {
 
   backend "s3" {
     bucket = "my-sites-terraform-remote-state"
-    key    = "jackdevries.com_state"
+    key    = "kate_website_state"
     region = "us-east-2"
   }
 
@@ -43,8 +43,8 @@ module "basic-deployment" {
   version = "0.2.0"
 
   app_name  = "jdv"
-  container = "jdevries3133/jackdevries.com:${data.external.git_describe.result.output}"
-  domain    = "jackdevries.com"
+  container = "jdevries3133/kate_website:${data.external.git_describe.result.output}"
+  domain    = "kate.jackdevries.com"
 
   extra_env = {
     ADMIN_PASSWORD = random_password.admin_password.result

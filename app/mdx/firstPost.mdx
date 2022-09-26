@@ -1,0 +1,62 @@
+---
+title: Your first post
+description: Description of the post
+created: 2022-09-25
+---
+
+import { Image } from '../components/image.tsx';
+import { CodeSample } from '../components/codeSample.tsx';
+
+# Beginning of Content
+
+You can write posts using markdown. It's super easy; there is some simple syntax
+for common text formatting:
+
+# Primary Heading
+
+## Secondary Heading
+
+### Tertiary Heading
+
+#### etc.
+
+Text can be _italic_.
+
+Text can be *bold*.
+
+Text can be `monospaced`.
+
+# Metadata Header (at the top of the file)
+
+Title, description, and "created" fields are required for every post. There
+will be an error if you forget to include them. This metadata is integrated
+into the sitemap, and provided to twitter, facebook, etc. to provide nice link
+previews for your posts.
+
+## Optional Fields
+
+Optionally, you can include a `lastUpdated` or `thumbnail` fields. All of these
+fields are fully integrated with SEO, so their values will appear on Twitter,
+in the little link preview card, and Google will also index the `lastUpdated`
+field if you provide it, which can make your site rank higher. Be careful not
+to "lie" about `lastUpdated`, though. Only update it if you actually change the
+content of the page, or else Google will become sad (and penalize you for
+lying!).
+
+## Other Stuff (imports)
+
+The beauty of this mdx format is that it's super flexible to add dynamic
+components later I can write these components and then it's super easy for you
+to use them! For example, I have this nifty image component:
+
+<Image src="/static/cat.webp" caption="Look at this cute little lad!" />
+
+I also have a component for full-width code samples! Definitely not useful for
+your website, but the sky is the limit when it comes to the components I can
+create to support your blog posts.
+
+<CodeSample>
+```
+I am thiccc
+```
+</CodeSample>

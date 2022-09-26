@@ -5,7 +5,7 @@ export const loader: LoaderFunction = () => {
     User-agent: *
     Disallow: 
     Disallow: /admin
-    Sitemap: http://jackdevries.com/sitemap.xml
+    Sitemap: http://kate.jackdevries.com/sitemap.xml
   `;
   return new Response(content, {
     status: 200,
