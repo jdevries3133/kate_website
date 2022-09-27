@@ -31,11 +31,12 @@ see the list of blog posts.
 
 ## Authoring Content
 
-For authoring posts, look in the `/app/mdx` folder. `firstPost.mdx` is a primer
-on how to create posts. You will also need to slightly update
-`/app/mdx/index.ts` to publish or unpublish posts. I can help you this, I think
-it'll be easy once you get the hang of it. You should start by directly editing
-`firstPost.mdx` (just don't change the file name yet!).
+For authoring posts, look in the `/app/mdx` folder. `firstPost.mdx` is a
+primer on how to create posts.
+
+You will also need to slightly update `/app/mdx/index.ts` to publish or
+unpublish posts. I can help you with this later. For now, `firstPost` is
+already published, so start editing it! Just **don't change the file name!**
 
 Whenever you make a change to a file, changes should appear immediately on the
 local website. If it doesn't, try running `make logs` to see the server's
