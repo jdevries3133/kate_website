@@ -14,16 +14,15 @@ CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 # Utility rules to help Kate author content
 ####
 
-MERGE_ERR="There is a merge conflict that Jack needs to resolve! You can continue\n"
-MERGE_ERR+="working but your changes will not be published."
+MERGE_ERR="There is a merge conflict that Jack needs to resolve! You can continue working but your changes will not be published."
 
 .PHONY: wipe-working-tree
 wipe-working-tree:
 	git stash
-	git checkout -b changes-after-$(git rev-parse HEAD) || git checkout -b changes-as-of-$(date)
+	git checkout -b changes-after-$(shell git rev-parse HEAD) || git checkout -b changes-as-of-$(shell date)
 	git stash pop
 	git add -A
-	git commit -m "working changes as of $(date)"
+	git commit -m "working changes as of $(shell date)"
 	git checkout main
 
 
@@ -31,14 +30,27 @@ wipe-working-tree:
 publish: update
 	make fmt
 	git add app/mdx/*
-	git commit -m "publishing content from $(date)"
+	git commit -m "publishing content from $(shell date)"
 	git push
 	make wipe-working-tree
 
 
 .PHONY: update
 update:
-	git pull --no-edit || git merge --abort && $(error $(MERGE_ERR))
+	git stash
+	git pull --no-edit; \
+		if [[ $$? != 0 ]]; then \
+			git merge --abort; \
+			echo "Something went wrong: can't combine Jack's changes with yours."; \
+			exit 1; \
+		fi
+	git stash pop; \
+		if [[ $$? != 0 ]]; then \
+			echo "Something went wrong: can't combine Jack's changes with yours."; \
+			echo "Do not fret: your change are saved but you can't see them anymore."; \
+			exit 1; \
+		fi
+
 
 
 .PHONY: start
