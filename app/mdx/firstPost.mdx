@@ -9,8 +9,16 @@ import { CodeSample } from '../components/codeSample.tsx';
 
 # Beginning of Content
 
-You can write posts using markdown. It's super easy; there is some simple syntax
-for common text formatting:
+Hey! Everything is set up. Look at the browser, your website is running locally. Just change this file and save, and the changes will be reflected immediately. More detailed directions are in the git repo, which I also left open in your browser.
+
+I also went to the liberty of configuring your text editor for writing. I did the following:
+
+- switched the font to helvetica
+- switched to a light colorscheme
+- removed annoying autocomplete pop-up
+- enabled text wrapping (so you can just type as usual without manually needing to manage putting newlines)
+
+You can write posts using markdown. It's super easy; here is a rundown of the syntax:
 
 # Primary Heading
 
@@ -22,18 +30,53 @@ for common text formatting:
 
 Text can be _italic_.
 
-Text can be *bold*.
+Text can be **bold**.
 
 Text can be `monospaced`.
 
-# Metadata Header (at the top of the file)
+- you
+- can
+- make some
+- bullet point lists
+
+1. Numbered
+2. Lists
+3. Exist
+4. Too
+
+Also, this looks cursed but it renders as a normal list and avoids you needing to renumber numbered lists:
+
+1. First item
+1. Second item; yes, it will display as "2. ..."
+1. You get the idea
+
+Notice that paragraphs are simply separated by two blank lines.
+
+If
+you
+put
+a
+single
+blank
+line,
+markdown
+considers
+that
+a
+continuous
+run
+of
+text
+anyway...
+
+# Notes About Metadata Header (at the top of the file)
 
 Title, description, and "created" fields are required for every post. There
 will be an error if you forget to include them. This metadata is integrated
 into the sitemap, and provided to twitter, facebook, etc. to provide nice link
 previews for your posts.
 
-## Optional Fields
+## Optional Header Fields
 
 Optionally, you can include a `lastUpdated` or `thumbnail` fields. All of these
 fields are fully integrated with SEO, so their values will appear on Twitter,
