@@ -10,14 +10,58 @@ PREV_TAG=$(shell git describe --tags $(git rev-list --parents -n 1 HEAD) | tail 
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
 
 
-.PHONY: publish
-publish:
-	@# utility rule to make publish code changes as easy as possible for Kate
-	git pull
-	make fmt
+####
+# Utility rules to help Kate author content
+####
+
+MERGE_ERR="There is a merge conflict that Jack needs to resolve! You can continue\n"
+MERGE_ERR+="working but your changes will not be published."
+
+.PHONY: wipe-working-tree
+wipe-working-tree:
+	git stash
+	git checkout -b changes-after-$(git rev-parse HEAD) || git checkout -b changes-as-of-$(date)
+	git stash pop
 	git add -A
+	git commit -m "working changes as of $(date)"
+	git checkout main
+
+
+.PHONY: publish
+publish: update
+	make fmt
+	git add app/mdx/*
 	git commit -m "publishing content from $(date)"
 	git push
+	make wipe-working-tree
+
+
+.PHONY: update
+update:
+	git pull --no-edit || git merge --abort && $(error $(MERGE_ERR))
+
+
+.PHONY: start
+start:
+	docker-compose \
+		-f docker-compose.yml \
+		-f docker-compose.dev.yml \
+		up -d
+
+
+.PHONY: stop
+stop:
+	docker-compose down
+
+
+.PHONY: logs
+logs:
+	docker-compose logs
+
+
+####
+# Development and CI Rules
+####
 
 
 .PHONY: deploy
@@ -31,19 +75,6 @@ endif
 .PHONY: push
 push:
 	docker buildx build --pull --platform linux/amd64 --push -t $(CONTAINER) .
-
-
-.PHONY: develop
-develop:
-	docker-compose \
-		-f docker-compose.yml \
-		-f docker-compose.dev.yml \
-		up -d
-
-
-.PHONY: logs
-logs:
-	docker-compose logs
 
 
 .PHONY: debug
@@ -88,5 +119,5 @@ wait:
 		[ $$? == 0 ] && break; \
 		sleep 5; \
 		echo "awaiting server readiness"; \
-		docker-compose logs; \
+		docker-compose logs | tail -n 50; \
 	done

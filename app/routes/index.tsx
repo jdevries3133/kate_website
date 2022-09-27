@@ -1,6 +1,7 @@
 import { MetaFunction } from "@remix-run/node";
 
 import { ActionFunction } from "remix";
+import { Link } from "@remix-run/react";
 import prisma from "~/prisma.server";
 
 export const meta: MetaFunction = () => {
@@ -44,9 +45,10 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Index() {
   return (
-    <>
+    <div className="m-8 prose">
       <h1>Kate Tell: Author Extrordinaire!!</h1>
       <p>TODO: create a nice landing page for you :)</p>
-    </>
+      <Link to="/blog">View blog posts</Link>
+    </div>
   );
 }
