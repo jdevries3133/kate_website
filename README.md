@@ -8,6 +8,7 @@ There are 3 important commands to interact with the code:
 - `make publish`: publish your changes
 - `make update`: update your local code to get the latest changes I've
   created (this also happens when you `publish`)
+- `make unpublish`: unpublish your most recent change
 
 # Development Instructions
 
