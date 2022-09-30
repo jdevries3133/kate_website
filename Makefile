@@ -24,11 +24,13 @@ start:
 		-f docker-compose.yml \
 		-f docker-compose.dev.yml \
 		up -d
+	make ok
 
 
 .PHONY: stop
 stop:
 	docker-compose down
+	make ok
 
 
 .PHONY: logs

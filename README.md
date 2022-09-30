@@ -9,6 +9,15 @@ There are 3 important commands to interact with the code:
 - `make update`: update your local code to get the latest changes I've
   created (this also happens when you `publish`)
 - `make unpublish`: unpublish your most recent change
+- `make stop`: stop the website
+
+Note: you should always see a confirmation message after running these
+commands:
+
+> All good, happy writing 😁
+
+If you don't see that, something went wrong! Save the text that got spewed into
+the terminal, and send it to me.
 
 # Development Instructions
 
