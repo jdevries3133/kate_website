@@ -1,5 +1,7 @@
 # TL;DR
 
+New stuff!
+
 There are 3 important commands to interact with the code:
 
 - `make start`: startup the website on http://localhost:8000/
