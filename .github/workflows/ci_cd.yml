@@ -35,7 +35,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: actions/checkout@v2
       - name: CI Cache
         id: cache
         uses: actions/cache@v3
