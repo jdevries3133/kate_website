@@ -4,10 +4,10 @@ DOCKER_ACCOUNT=jdevries3133
 CONTAINER_NAME=kate_website
 
 TAG?=$(shell git describe --tags)
-PREV_TAG=$(shell git describe --tags $(git rev-list --parents -n 1 HEAD) | tail -n 1)
+PREV_TAG=$(shell git describe --tags HEAD~1)
 
-# assuming the use of Docker hub, these constants need not be changed
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
+PREV_CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(PREV_TAG)
 
 
 ####
@@ -121,7 +121,28 @@ endif
 
 .PHONY: push
 push:
-	docker buildx build --pull --platform linux/amd64 --push -t $(CONTAINER) .
+	docker buildx build \
+		--pull \
+		--cache-from "type=local,src=cache/docker" \
+		--cache-to "type=local,dest=cache/docker_new" \
+		--platform linux/amd64 \
+		--push \
+		--tag $(CONTAINER) \
+		.
+	mv cache/docker_new cache/docker
+
+
+.PHONY: build
+build:
+	docker buildx build \
+		--pull \
+		--cache-from "type=local,src=cache/docker" \
+		--cache-to "type=local,dest=cache/docker_new" \
+		--platform linux/amd64 \
+		--load \
+		--tag $(CONTAINER) \
+		.
+	mv cache/docker_new cache/docker
 
 
 .PHONY: debug
@@ -142,7 +163,8 @@ fmt:
 .PHONY: check
 check:
 ifdef CI
-	yarn install
+	mkdir -p cache/yarn  # not sure if this is necessary...
+	YARN_CACHE_FOLDER=cache/yarn yarn install
 	terraform init -backend=false -input=false
 endif
 	terraform fmt -check
@@ -151,7 +173,8 @@ endif
 	yarn typecheck
 	yarn test run
 ifdef CI
-	docker-compose up -d
+	make build
+	IMAGE=$(CONTAINER) docker-compose -f docker-compose.prebuild.yml up -d
 endif
 	make wait
 	yarn cypress
