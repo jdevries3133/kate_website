@@ -44,7 +44,7 @@ module "basic-deployment" {
 
   app_name  = "kate"
   container = "jdevries3133/kate_website:${data.external.git_describe.result.output}"
-  domain    = "kate.jackdevries.com"
+  domain    = "katetell.com"
 
   extra_env = {
     ADMIN_PASSWORD = random_password.admin_password.result
