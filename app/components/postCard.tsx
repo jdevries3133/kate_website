@@ -16,8 +16,8 @@ export const PostCard: React.FC<{
       p-4
       m-2
       border-primary
-      bg-clay-200
-      text-mineral-700
+      bg-secondary-200
+      text-primary-900
       rounded
       shadow
       ${extraClasses?.container || ""}

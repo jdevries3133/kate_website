@@ -6,7 +6,7 @@ export const Image: React.FC<{
   return (
     <div className="not-prose">
       <img className="w-full" src={src} alt={alt} />
-      <span className="text-clay-800 text-sm">{caption}</span>
+      <span className="text-secondary-800 text-sm">{caption}</span>
     </div>
   );
 };

@@ -58,6 +58,11 @@ export default function Login() {
             Contacts
           </Link>
         </div>
+        <div className="prose">
+          <Link to="/admin/designSystem" className="text-lg font-bold">
+            Design System
+          </Link>
+        </div>
       </div>
       <Outlet />
     </div>

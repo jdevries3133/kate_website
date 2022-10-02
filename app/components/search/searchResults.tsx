@@ -26,7 +26,7 @@ export const SearchResults = () => {
         <PostCard
           key={post.slug}
           linkTo={`/post/${post.slug}`}
-          extraClasses={{ container: "bg-clay-400 border-2 border-clay-100" }}
+          extraClasses={{ container: "bg-secondary-400 border-2 border-clay-100" }}
           {...post}
         />
       ))}
