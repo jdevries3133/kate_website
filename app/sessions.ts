@@ -1,6 +1,6 @@
 // app/sessions.js
 import { createCookieSessionStorage } from "remix";
-import { COOKIE_TIMEOUT, DOMAIN, SECRET_KEY } from "./config";
+import { COOKIE_TIMEOUT, DOMAIN, SECRET_KEY } from "./config.server";
 
 export const {
   getSession,

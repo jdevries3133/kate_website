@@ -12,10 +12,8 @@ import prisma from "~/prisma.server";
 import { action as commentFormAction } from "~/components/commentForm";
 import { CommentSection } from "~/components/commentSection";
 import { getPost, validateSlug } from "~/services/post";
-import { BASE_URL } from "~/config";
+import { BASE_URL } from "~/config.server";
 import { isSlugValid } from "~/services/post/validateSlug";
-import { Header } from "~/components/header";
-import { Footer } from "~/components/footer";
 import { DefaultPageContainer } from "~/components/pageContainer";
 
 export const meta: MetaFunction = ({ params, location }) => {
