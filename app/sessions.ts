@@ -1,6 +1,6 @@
 // app/sessions.js
 import { createCookieSessionStorage } from "remix";
-import { BASE_URL, COOKIE_TIMEOUT } from "./config";
+import { COOKIE_TIMEOUT, DOMAIN, SECRET_KEY } from "./config";
 
 export const {
   getSession,
@@ -9,10 +9,10 @@ export const {
 } = createCookieSessionStorage({
   cookie: {
     name: "__session",
-    domain: process.env.NODE_ENV === "production" ? BASE_URL : "localhost",
+    domain: DOMAIN,
     httpOnly: true,
     path: "/",
-    secrets: [process.env.SECRET_KEY || ""],
+    secrets: [SECRET_KEY],
     sameSite: "strict",
     secure: true,
   },
