@@ -129,6 +129,7 @@ push:
 		--push \
 		--tag $(CONTAINER) \
 		.
+	rm- rf cache/docker
 	mv cache/docker_new cache/docker
 
 
@@ -142,6 +143,7 @@ build:
 		--load \
 		--tag $(CONTAINER) \
 		.
+	rm- rf cache/docker
 	mv cache/docker_new cache/docker
 
 
