@@ -20,7 +20,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: cache
-          key: cache
+          key: cache-${{ github.run_id }}
+          restore-keys:
+            - cache-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: make check
