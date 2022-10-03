@@ -70,7 +70,9 @@ export default function Post() {
 
   const Post = getPost(postSlug);
   if (Post === null) {
-    return <p className="text-secondary-300">Post matching {postSlug} not found</p>;
+    return (
+      <p className="text-secondary-300">Post matching {postSlug} not found</p>
+    );
   }
   return (
     <DefaultPageContainer>

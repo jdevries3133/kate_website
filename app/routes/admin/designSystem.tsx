@@ -18,7 +18,9 @@ export default () => (
     <h4>Quaternary Header</h4>
     <blockquote>Hey there, I am a blockquote!</blockquote>
     <p>A table will look like this</p>
-    <p>And don't forget about <a href="/">inline links!</a></p>
+    <p>
+      And don't forget about <a href="/">inline links!</a>
+    </p>
     <table>
       <thead>
         <tr>
