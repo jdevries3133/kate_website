@@ -21,7 +21,7 @@ export default () => (
     <p>
       And don't forget about <a href="/">inline links!</a>
     </p>
-    <table>
+    <table className="max-w-screen">
       <thead>
         <tr>
           <td>Actor</td>
@@ -45,7 +45,7 @@ export default () => (
     </table>
     <h1>Colors</h1>
     <p>Primary</p>
-    <div className="flex flex-row">
+    <div className="flex flex-row flex-wrap">
       <div className="h-24 w-24 bg-primary-100"></div>
       <div className="h-24 w-24 bg-primary-200"></div>
       <div className="h-24 w-24 bg-primary-300"></div>
@@ -58,27 +58,27 @@ export default () => (
     </div>
     <p>Secondary</p>
     <div className="flex flex-row">
-      <div className="h-24 w-24 bg-secondary-100"></div>
-      <div className="h-24 w-24 bg-secondary-200"></div>
-      <div className="h-24 w-24 bg-secondary-300"></div>
-      <div className="h-24 w-24 bg-secondary-400"></div>
-      <div className="h-24 w-24 bg-secondary-500"></div>
-      <div className="h-24 w-24 bg-secondary-600"></div>
-      <div className="h-24 w-24 bg-secondary-700"></div>
-      <div className="h-24 w-24 bg-secondary-800"></div>
-      <div className="h-24 w-24 bg-secondary-900"></div>
+      <span className="h-24 w-24 bg-secondary-100"></span>
+      <span className="h-24 w-24 bg-secondary-200"></span>
+      <span className="h-24 w-24 bg-secondary-300"></span>
+      <span className="h-24 w-24 bg-secondary-400"></span>
+      <span className="h-24 w-24 bg-secondary-500"></span>
+      <span className="h-24 w-24 bg-secondary-600"></span>
+      <span className="h-24 w-24 bg-secondary-700"></span>
+      <span className="h-24 w-24 bg-secondary-800"></span>
+      <span className="h-24 w-24 bg-secondary-900"></span>
     </div>
     <p>Accent</p>
     <div className="flex flex-row">
-      <div className="h-24 w-24 bg-accent-100"></div>
-      <div className="h-24 w-24 bg-accent-200"></div>
-      <div className="h-24 w-24 bg-accent-300"></div>
-      <div className="h-24 w-24 bg-accent-400"></div>
-      <div className="h-24 w-24 bg-accent-500"></div>
-      <div className="h-24 w-24 bg-accent-600"></div>
-      <div className="h-24 w-24 bg-accent-700"></div>
-      <div className="h-24 w-24 bg-accent-800"></div>
-      <div className="h-24 w-24 bg-accent-900"></div>
+      <span className="h-24 w-24 bg-accent-100"></span>
+      <span className="h-24 w-24 bg-accent-200"></span>
+      <span className="h-24 w-24 bg-accent-300"></span>
+      <span className="h-24 w-24 bg-accent-400"></span>
+      <span className="h-24 w-24 bg-accent-500"></span>
+      <span className="h-24 w-24 bg-accent-600"></span>
+      <span className="h-24 w-24 bg-accent-700"></span>
+      <span className="h-24 w-24 bg-accent-800"></span>
+      <span className="h-24 w-24 bg-accent-900"></span>
     </div>
   </div>
 );
