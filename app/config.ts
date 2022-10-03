@@ -1,6 +1,6 @@
 export const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "https://kate.jackdevries.com/"
+    ? "https://katetell.com/"
     : "http://localhost:8000";
 
 // one year in seconds

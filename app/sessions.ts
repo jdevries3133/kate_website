@@ -7,20 +7,19 @@ export const {
   commitSession: _commitSessionDefault,
   destroySession,
 } = createCookieSessionStorage({
-  // a Cookie from `createCookie` or the CookieOptions to create one
   cookie: {
     name: "__session",
     domain: process.env.NODE_ENV === "production" ? BASE_URL : "localhost",
     httpOnly: true,
     path: "/",
     secrets: [process.env.SECRET_KEY || ""],
-    sameSite: "lax",
+    sameSite: "strict",
     secure: true,
   },
 });
 
 /**
- * commitSession wrapper that sets an expiration
+ * commitSession wrapper that also resets the cookie expiration date
  */
 export const commitSession: typeof _commitSessionDefault = (
   session,
