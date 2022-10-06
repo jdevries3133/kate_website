@@ -42,7 +42,7 @@ jobs:
     name: deploy to Kubernetes with Terraform
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
-    needs: [ci, push_container]
+    needs: [ci]
     environment: Kubernetes
     steps:
       - uses: actions/checkout@v2
