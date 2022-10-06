@@ -1,4 +1,4 @@
-import { BASE_URL } from "~/config";
+import { BASE_URL } from "~/config.server";
 import { postMetadata } from "~/services/post";
 
 export const loader = () => {

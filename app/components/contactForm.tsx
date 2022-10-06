@@ -17,7 +17,7 @@ const InnerForm = () => {
             <p>{actionData.errors.name}</p>
           ) : null}
           <input
-            className="bg-clay-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
+            className="bg-secondary-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
             type="text"
             name="name"
             defaultValue={actionData ? actionData.values.name : undefined}
@@ -29,7 +29,7 @@ const InnerForm = () => {
             <p>{actionData.errors.email}</p>
           ) : null}
           <input
-            className="bg-clay-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
+            className="bg-secondary-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
             type="email"
             name="email"
             defaultValue={actionData ? actionData.values.email : undefined}
@@ -41,7 +41,7 @@ const InnerForm = () => {
             <p>{actionData.errors.message}</p>
           ) : null}
           <textarea
-            className="w-full h-24 bg-clay-200 shadow p-1 rounded focus:bg-white focus:rounded focus:shadow"
+            className="w-full h-24 bg-secondary-200 shadow p-1 rounded focus:bg-white focus:rounded focus:shadow"
             name="message"
           />
         </label>

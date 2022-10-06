@@ -12,10 +12,8 @@ import prisma from "~/prisma.server";
 import { action as commentFormAction } from "~/components/commentForm";
 import { CommentSection } from "~/components/commentSection";
 import { getPost, validateSlug } from "~/services/post";
-import { BASE_URL } from "~/config";
+import { BASE_URL } from "~/config.server";
 import { isSlugValid } from "~/services/post/validateSlug";
-import { Header } from "~/components/header";
-import { Footer } from "~/components/footer";
 import { DefaultPageContainer } from "~/components/pageContainer";
 
 export const meta: MetaFunction = ({ params, location }) => {
@@ -70,7 +68,9 @@ export default function Post() {
 
   const Post = getPost(postSlug);
   if (Post === null) {
-    return <p className="text-clay-300">Post matching {postSlug} not found</p>;
+    return (
+      <p className="text-secondary-300">Post matching {postSlug} not found</p>
+    );
   }
   return (
     <DefaultPageContainer>
@@ -78,7 +78,7 @@ export default function Post() {
         <div
           className="
           p-2
-          bg-clay-200
+          bg-secondary-200
           shadow-xl
           rounded-t
           md:p-4
@@ -91,7 +91,7 @@ export default function Post() {
               <p>
                 Created: {created}
                 {lastUpdated && (
-                  <span className="italic text-mineral-600">
+                  <span className="italic text-primary-600">
                     ; Last Updated {lastUpdated}
                   </span>
                 )}
@@ -143,7 +143,7 @@ export const CatchBoundary: ErrorBoundaryComponent = () => {
         <div
           className="
             p-2
-            bg-clay-200
+            bg-secondary-200
             shadow-xl
             rounded
             md:p-4

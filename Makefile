@@ -4,10 +4,10 @@ DOCKER_ACCOUNT=jdevries3133
 CONTAINER_NAME=kate_website
 
 TAG?=$(shell git describe --tags)
-PREV_TAG=$(shell git describe --tags HEAD~1)
+PREV_TAG=$(shell git describe --tags $(git rev-list --parents -n 1 HEAD) | tail -n 1)
 
+# assuming the use of Docker hub, these constants need not be changed
 CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(TAG)
-PREV_CONTAINER=$(DOCKER_ACCOUNT)/$(CONTAINER_NAME):$(PREV_TAG)
 
 
 ####
@@ -165,8 +165,7 @@ fmt:
 .PHONY: check
 check:
 ifdef CI
-	mkdir -p cache/yarn  # not sure if this is necessary...
-	YARN_CACHE_FOLDER=cache/yarn yarn install
+	yarn install
 	terraform init -backend=false -input=false
 endif
 	terraform fmt -check
@@ -175,8 +174,7 @@ endif
 	yarn typecheck
 	yarn test run
 ifdef CI
-	make build
-	IMAGE=$(CONTAINER) docker-compose -f docker-compose.prebuild.yml up -d
+	docker-compose up -d
 endif
 	make wait
 	yarn cypress

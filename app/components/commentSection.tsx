@@ -6,7 +6,7 @@ import { Comment as CommentType } from "@prisma/client";
 export const CommentSection = () => {
   const { comments } = useLoaderData();
   return (
-    <div className="bg-clay-400 rounded-b text-mineral-600 p-2">
+    <div className="bg-secondary-400 rounded-b text-primary-600 p-2">
       <h2 className="text-lg text-inherit">your thoughts?</h2>
       <CommentForm />
 

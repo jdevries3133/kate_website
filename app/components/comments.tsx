@@ -9,7 +9,7 @@ export const Comment: React.FC<{ comment: CommentType }> = ({ comment }) => {
           at {comment.createdAt}, {author} wrote ::
         </>
       </p>
-      <p className="border-l-4 border-l-mineral-400 pl-2">{comment.content}</p>
+      <p className="border-l-4 border-l-primary-400 pl-2">{comment.content}</p>
     </div>
   );
 };

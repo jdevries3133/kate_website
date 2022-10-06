@@ -1,26 +1,25 @@
 // app/sessions.js
 import { createCookieSessionStorage } from "remix";
-import { BASE_URL, COOKIE_TIMEOUT } from "./config";
+import { COOKIE_TIMEOUT, DOMAIN, SECRET_KEY } from "./config.server";
 
 export const {
   getSession,
   commitSession: _commitSessionDefault,
   destroySession,
 } = createCookieSessionStorage({
-  // a Cookie from `createCookie` or the CookieOptions to create one
   cookie: {
     name: "__session",
-    domain: process.env.NODE_ENV === "production" ? BASE_URL : "localhost",
+    domain: DOMAIN,
     httpOnly: true,
     path: "/",
-    secrets: [process.env.SECRET_KEY || ""],
-    sameSite: "lax",
+    secrets: [SECRET_KEY],
+    sameSite: "strict",
     secure: true,
   },
 });
 
 /**
- * commitSession wrapper that sets an expiration
+ * commitSession wrapper that also resets the cookie expiration date
  */
 export const commitSession: typeof _commitSessionDefault = (
   session,

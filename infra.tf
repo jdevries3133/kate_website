@@ -34,6 +34,11 @@ resource "random_password" "admin_password" {
   special = false
 }
 
+resource "random_password" "secret_key" {
+  length  = 48
+  special = false
+}
+
 data "external" "git_describe" {
   program = ["sh", "-c", "echo '{\"output\": \"'\"$(git describe --tags)\"'\"}'"]
 }
@@ -48,5 +53,6 @@ module "basic-deployment" {
 
   extra_env = {
     ADMIN_PASSWORD = random_password.admin_password.result
+    SECRET_KEY     = random_password.secret_key.result
   }
 }

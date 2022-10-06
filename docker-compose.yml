@@ -9,6 +9,7 @@ services:
     environment:
       DATABASE_URL: postgresql://app:app@db/app
       ADMIN_PASSWORD: pass
+      SECRET_KEY: anything
     # Prisma is broken on arm; see https://github.com/prisma/prisma/issues/10761
     platform: linux/amd64
   db:

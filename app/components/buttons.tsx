@@ -12,7 +12,7 @@ export const PrimaryButton: React.FC<
       shadow
       p-6
       m-6
-      text-clay-200
+      text-secondary-200
       font-bold
       text-lg
       rounded-md
@@ -45,7 +45,7 @@ export const SecondaryButton: React.FC<
       hover:to-primary-300
       hover:font-bold
       transition
-      text-mineral-600
+      text-primary-600
       p-4
       rounded
       shadow"

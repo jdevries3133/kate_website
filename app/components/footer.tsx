@@ -1,7 +1,7 @@
 export const Footer = () => (
-  <footer>
-    <p className="mt-8 text-primary-300">
-      Kate Tell · <a href="mailto:katell.lit@gmail.com">Contact Me</a>
+  <footer className="justify-center bg-accent-100 rounded-lg p-2 m-2">
+    <p className="text-primary-700">
+      Kate Tell · <a href="mailto:ktell.lit@gmail.com">Contact Me</a>
     </p>
   </footer>
 );

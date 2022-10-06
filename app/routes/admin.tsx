@@ -46,7 +46,7 @@ export default function Login() {
   const { isAuthenticated } = useLoaderData();
 
   return isAuthenticated ? (
-    <div className="flex flex-col items-center justify-center">
+    <>
       <div className="flex gap-4">
         <div className="prose">
           <Link to="/admin/comments" className="text-lg font-bold">
@@ -58,9 +58,14 @@ export default function Login() {
             Contacts
           </Link>
         </div>
+        <div className="prose">
+          <Link to="/admin/designSystem" className="text-lg font-bold">
+            Design System
+          </Link>
+        </div>
       </div>
       <Outlet />
-    </div>
+    </>
   ) : (
     <div className="flex items-center justify-center min-h-screen">
       <Form method="post">
