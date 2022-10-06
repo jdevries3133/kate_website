@@ -30,7 +30,7 @@ start:
 .PHONY: stop
 stop:
 	docker-compose down
-	make ok
+	@echo "website stopped; happy writingn't ❌"
 
 
 .PHONY: logs
@@ -92,6 +92,7 @@ unpublish:
 	sh -c 'git revert $$(git rev-parse HEAD) --no-edit'
 	git reset --soft HEAD~1
 	git restore --staged .
+	make ok
 
 
 .PHONY: update
