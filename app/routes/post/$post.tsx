@@ -118,7 +118,7 @@ export const CatchBoundary: ErrorBoundaryComponent = () => {
       message = (
         <>
           <p>
-            A post matching <code>"{params.post || "this URL"}"</code> doesn't
+            A post matching <code>{params.post || "this URL"}</code> doesn't
             exist!{" "}
           </p>
           <Link to="/blog">
