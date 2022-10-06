@@ -39,7 +39,6 @@
     "react-dom": "18",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-slug": "^5.0.1",
-    "rehype-toc": "^3.0.2",
     "remix": "^1.7.2"
   },
   "devDependencies": {

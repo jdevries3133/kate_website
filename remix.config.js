@@ -12,7 +12,6 @@ module.exports = {
     rehypePlugins: [
       (await import("rehype-slug")).default,
       (await import("rehype-autolink-headings")).default,
-      (await import("rehype-toc")).default,
     ],
   }),
 };
