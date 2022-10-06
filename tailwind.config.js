@@ -1,7 +1,3 @@
-// Serif: cantata one, goudy bookletter 1911, italiana
-// sans serif: exo, tenor sans
-
-
 module.exports = {
   content: ["./app/**/*.ts(x)", "./app/**/*.mdx"],
   theme: {
@@ -45,9 +41,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Source Sans Pro", "sans-serif"],
-        serif: ["Source Serif Pro", "serif"],
-        mono: ["Source Code Pro", "monospace"],
+        sans: ["TenorSans", "sans-serif"],
+        serif: ["CantanaOne", "serif"],
       },
       typography: {
         DEFAULT: {

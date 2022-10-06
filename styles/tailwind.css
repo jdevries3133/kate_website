@@ -1,3 +1,13 @@
+@font-face {
+  font-family: TenorSans;
+  src: url("/static/font/tenor_sans.ttf");
+}
+
+@font-face {
+  font-family: CantanaOne;
+  src: url("/static/font/cantana_one.ttf");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
