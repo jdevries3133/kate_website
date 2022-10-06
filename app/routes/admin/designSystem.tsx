@@ -45,7 +45,7 @@ export default () => (
     </table>
     <h1>Colors</h1>
     <p>Primary</p>
-    <div className="flex flex-row flex-wrap">
+    <div className="flex flex-row">
       <div className="h-24 w-24 bg-primary-100"></div>
       <div className="h-24 w-24 bg-primary-200"></div>
       <div className="h-24 w-24 bg-primary-300"></div>

@@ -1,7 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
 import { CommentForm } from "~/components/commentForm";
 import { Comment } from "./comments";
-import { Comment as CommentType } from "@prisma/client";
 
 export const CommentSection = () => {
   const { comments } = useLoaderData();

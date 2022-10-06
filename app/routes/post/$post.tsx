@@ -44,16 +44,14 @@ export const loader: LoaderFunction = async ({ params }) => {
   });
   const comments = rawComments.map((c) => ({
     ...c,
-    // convert date to string server-side
-    createdAt: `${c.createdAt.toLocaleTimeString()} on ${c.createdAt.toLocaleDateString()}`,
+    createdAt: c.createdAt.toISOString()
   }));
 
   const post = getPost(slug);
   return {
     comments,
-    // convert date to string server-side
-    created: post.attributes.created?.toLocaleDateString(),
-    lastUpdated: post.attributes.lastUpdated?.toLocaleDateString(),
+    created: post.attributes.created?.toISOString(),
+    lastUpdated: post.attributes.lastUpdated?.toISOString(),
   };
 };
 
@@ -89,10 +87,10 @@ export default function Post() {
           <div className="not-prose">
             {created && (
               <p>
-                Created: {created}
+                Created: {new Date(created).toLocaleDateString()}
                 {lastUpdated && (
                   <span className="italic text-primary-600">
-                    ; Last Updated {lastUpdated}
+                    ; Last Updated {new Date(lastUpdated).toLocaleDateString()}
                   </span>
                 )}
               </p>
