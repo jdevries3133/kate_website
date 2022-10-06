@@ -44,7 +44,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   });
   const comments = rawComments.map((c) => ({
     ...c,
-    createdAt: c.createdAt.toISOString()
+    createdAt: c.createdAt.toISOString(),
   }));
 
   const post = getPost(slug);

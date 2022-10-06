@@ -5,10 +5,11 @@ export const Image: React.FC<{
 }> = ({ src, alt, caption }) => {
   // this is used in mdx, so we must validate our inputs
   if (!src || !alt || !caption) {
-    let errStr = '';
+    let errStr = "";
     if (!src) errStr.concat("`src` was not provided to image component");
     if (!alt) errStr.concat("`alt` was not provided to image component");
-    if (!caption) errStr.concat("`caption` was not provided to image compoonent");
+    if (!caption)
+      errStr.concat("`caption` was not provided to image compoonent");
     throw new Error(errStr);
   }
   return (
