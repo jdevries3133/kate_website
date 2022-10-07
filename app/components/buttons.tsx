@@ -12,8 +12,8 @@ export const PrimaryButton: React.FC<
       shadow
       p-6
       m-6
-      text-secondary-200
-      font-bold
+      text-secondary-100
+      font-extrabold
       text-lg
       rounded-md
       bg-gradient-to-tr

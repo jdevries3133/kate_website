@@ -4,6 +4,8 @@ import { ActionFunction } from "remix";
 import { Link } from "@remix-run/react";
 import prisma from "~/prisma.server";
 import { ContactForm } from "~/components/contactForm";
+import * as SplashContent from "~/mdx/splashContent.mdx";
+import * as ExtraSplashContent from "~/mdx/extraSplashContent.mdx";
 
 export const meta: MetaFunction = () => {
   return { title: "Kate Tell: Author" };
@@ -46,11 +48,48 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Index() {
   return (
-    <div className="m-8 prose">
-      <h1>Kate Tell: Author Extrordinaire!!</h1>
-      <p>TODO: create a nice landing page for you :)</p>
-      <Link to="/blog">View blog posts</Link>
-      <ContactForm />
-    </div>
+    <>
+      <div className="min-h-screen bg-primary-100">
+        <div>
+          <div className="mx-4 pt-1 flex flex-row items-center">
+            <h1>Kate Tell</h1>
+            <img
+              className="w-48 h-48 border-accent border-8 shadow-sm rounded-full"
+              src="/static/headshot.webp"
+              alt="My Headshot"
+            />
+          </div>
+          <div className="flex flex-col m-8">
+            <SplashContent.default />
+            <div className="hidden md:block">
+              <ExtraSplashContent.default />
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <Link to="/blog">
+              <button
+                className="
+                p-2
+                bg-gradient-to-tr
+                from-secondary-100
+                via-purple-100
+                to-primary-200
+                border-secondary-300
+                border-2
+                rounded-lg
+                shadow
+                hover:shadow-none
+              "
+              >
+                View blog posts
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <ContactForm />
+      </div>
+    </>
   );
 }
