@@ -5,7 +5,7 @@ import { Comment } from "./comments";
 export const CommentSection = () => {
   const { comments } = useLoaderData();
   return (
-    <div className="bg-secondary-400 rounded-b text-primary-600 p-2">
+    <div className="bg-accent-100 rounded-b text-primary-800 p-2">
       <h2 className="text-lg text-inherit">your thoughts?</h2>
       <CommentForm />
 

@@ -3,6 +3,7 @@ import { MetaFunction } from "@remix-run/node";
 import { ActionFunction } from "remix";
 import { Link } from "@remix-run/react";
 import prisma from "~/prisma.server";
+import { ContactForm } from "~/components/contactForm";
 
 export const meta: MetaFunction = () => {
   return { title: "Kate Tell: Author" };
@@ -49,6 +50,7 @@ export default function Index() {
       <h1>Kate Tell: Author Extrordinaire!!</h1>
       <p>TODO: create a nice landing page for you :)</p>
       <Link to="/blog">View blog posts</Link>
+      <ContactForm />
     </div>
   );
 }

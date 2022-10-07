@@ -11,8 +11,7 @@ import { DefaultPageContainer } from "~/components/pageContainer";
 import { searchAction } from "~/components/search/search.server";
 
 export const action: ActionFunction = async (args) => {
-  return searchAction(args)
-  ;
+  return searchAction(args);
 };
 
 type LoaderData = SearchLoaderData & PostLoaderData;
