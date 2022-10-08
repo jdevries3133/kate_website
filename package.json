@@ -35,8 +35,8 @@
     "concurrently": "^7.0.0",
     "fuse.js": "^6.6.2",
     "prisma": "^3.9.1",
-    "react": "18",
-    "react-dom": "18",
+    "react": "^18",
+    "react-dom": "^18",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-slug": "^5.0.1",
     "remix": "^1.7.2"
