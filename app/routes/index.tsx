@@ -71,17 +71,17 @@ export default function Index() {
                 <Link to="/blog">
                   <button
                     className="
-                p-2
-                bg-gradient-to-tr
-                from-secondary-100
-                via-purple-100
-                to-primary-200
-                border-secondary-300
-                border-2
-                rounded-lg
-                shadow
-                hover:shadow-none
-              "
+                      p-2
+                      bg-gradient-to-tr
+                      from-secondary-100
+                      via-purple-100
+                      to-primary-200
+                      border-secondary-300
+                      border-2
+                      rounded-lg
+                      shadow
+                      hover:shadow-none
+                    "
                   >
                     View blog posts
                   </button>
