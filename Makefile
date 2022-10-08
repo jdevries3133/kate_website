@@ -122,30 +122,7 @@ endif
 
 .PHONY: push
 push:
-	docker buildx build \
-		--pull \
-		--cache-from "type=local,src=cache/docker" \
-		--cache-to "type=local,dest=cache/docker_new" \
-		--platform linux/amd64 \
-		--push \
-		--tag $(CONTAINER) \
-		.
-	rm -rf cache/docker
-	mv cache/docker_new cache/docker
-
-
-.PHONY: build
-build:
-	docker buildx build \
-		--pull \
-		--cache-from "type=local,src=cache/docker" \
-		--cache-to "type=local,dest=cache/docker_new" \
-		--platform linux/amd64 \
-		--load \
-		--tag $(CONTAINER) \
-		.
-	rm -rf cache/docker
-	mv cache/docker_new cache/docker
+	docker buildx build --pull --platform linux/amd64 --push -t $(CONTAINER) .
 
 
 .PHONY: debug
