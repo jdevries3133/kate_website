@@ -1,5 +1,6 @@
 services:
   web:
+    image: ${IMAGE}
     build: .
     ports:
       # http server
