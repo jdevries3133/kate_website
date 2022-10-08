@@ -50,25 +50,27 @@ export default function Index() {
   return (
     <>
       <div className="min-h-screen bg-primary-100">
-        <div>
-          <div className="mx-4 pt-1 flex flex-row items-center">
-            <h1>Kate Tell</h1>
-            <img
-              className="w-48 h-48 border-accent border-8 shadow-sm rounded-full"
-              src="/static/headshot.webp"
-              alt="My Headshot"
-            />
-          </div>
-          <div className="flex flex-col m-8">
-            <SplashContent.default />
-            <div className="hidden md:block">
-              <ExtraSplashContent.default />
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <Link to="/blog">
-              <button
-                className="
+        <div className="flex justify-center">
+          <div className="group">
+            <div className="max-w-md sm:shadow sm:bg-accent-100 sm:group-hover:bg-gray-100 sm:group-hover:shadow-none transition sm:rounded-lg sm:p-4 sm:m-2">
+              <div className="mx-4 pt-1 flex flex-row justify-between items-center">
+                <h1>Kate Tell</h1>
+                <img
+                  className="w-48 h-48 border-accent sm:group-hover:border-primary-200 transition border-8 shadow-sm rounded-full"
+                  src="/static/headshot.webp"
+                  alt="My Headshot"
+                />
+              </div>
+              <div className="flex flex-col m-8">
+                <SplashContent.default />
+                <div className="hidden md:block">
+                  <ExtraSplashContent.default />
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <Link to="/blog">
+                  <button
+                    className="
                 p-2
                 bg-gradient-to-tr
                 from-secondary-100
@@ -80,10 +82,12 @@ export default function Index() {
                 shadow
                 hover:shadow-none
               "
-              >
-                View blog posts
-              </button>
-            </Link>
+                  >
+                    View blog posts
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
