@@ -21,6 +21,11 @@ services:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: app
       POSTGRES_DB: app
+    ports:
+      # we're going to expose the db to the host machine for integration
+      # testing, but not use the traditional postgres port to avoid collisions
+      # with existing postgres installations
+      - 4050:5432
 
 volumes:
   pg_data:

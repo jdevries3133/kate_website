@@ -9,7 +9,7 @@ export const PostCard: React.FC<{
     container?: string;
   };
 }> = ({ title, description, created, linkTo, extraClasses }) => (
-  <Link to={linkTo}>
+  <Link data-testid="post-link" to={linkTo}>
     <div
       className={`
       max-w-prose

@@ -70,7 +70,6 @@ export const action = async ({ request, params }: ActionArgs) => {
 export const CommentForm: React.FC = () => {
   const { state } = useTransition();
   const data = useActionData<ReturnType<typeof action>>();
-  console.log(data);
 
   if (state === "submitting") return <Loading />;
   return (

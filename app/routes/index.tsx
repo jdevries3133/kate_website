@@ -31,27 +31,19 @@ export const action = async ({ request }: ActionArgs) => {
   };
 
   // TODO: refactor into profile service
-  const res = await prisma.userProfile.findUnique({
-    select: {
-      id: true,
-    },
+  const { id: profileId } = await prisma.userProfile.upsert({
+    select: { id: true },
     where: {
       email: values.email,
     },
+    update: {
+      name: values.name,
+    },
+    create: {
+      email: values.email,
+      name: values.name,
+    },
   });
-
-  let profileId;
-  if (res) {
-    profileId = res.id;
-  } else {
-    const { id } = await prisma.userProfile.create({
-      data: {
-        email: values.email,
-        name: values.name,
-      },
-    });
-    profileId = id;
-  }
 
   const valuesWithProfile = {
     message: values.message,
