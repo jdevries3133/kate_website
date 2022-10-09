@@ -1,4 +1,4 @@
-import { Link, MetaFunction, useLoaderData } from "remix";
+import { MetaFunction, useLoaderData } from "remix";
 import { PostCard } from "~/components/postCard";
 import { postMetadata } from "~/services/post";
 

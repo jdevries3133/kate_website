@@ -1,4 +1,3 @@
-import { Comment } from "@prisma/client";
 import {
   ActionFunction,
   LoaderFunction,

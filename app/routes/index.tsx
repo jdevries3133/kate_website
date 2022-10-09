@@ -1,6 +1,5 @@
 import { ActionArgs, MetaFunction } from "@remix-run/node";
 
-import { ActionFunction } from "remix";
 import { Link } from "@remix-run/react";
 import prisma from "~/prisma.server";
 import { ContactForm } from "~/components/contactForm";
