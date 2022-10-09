@@ -21,8 +21,8 @@ export const action = async ({ request }: ActionArgs) => {
     email: "",
     name: "",
   };
-  if (!name) errors.name = "Please enter your name";
-  if (!email) errors.email = "Please enter your email";
+  if (!name) errors.name = "Please enter your name.";
+  if (!email) errors.email = "Please enter your email.";
 
   const values = {
     name: (name as string) || "",
