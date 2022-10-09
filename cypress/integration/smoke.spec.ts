@@ -16,6 +16,7 @@ describe("routes", () => {
         if ((a.href as string | undefined)?.includes("mailto")) {
           return;
         }
+        console.log("visiting", a.href);
         cy.visit(a.href);
       });
     });
