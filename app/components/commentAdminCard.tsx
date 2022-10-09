@@ -1,11 +1,11 @@
-import { Comment as CommentType } from "@prisma/client";
+import { Comment as CommentType, UserProfile } from "@prisma/client";
 import { Form, Link } from "remix";
 import { Comment } from "./comments";
 import { Button, DeleteButton } from "./buttons";
 
-export const CommentAdminCard: React.FC<{ comment: CommentType }> = ({
-  comment,
-}) => {
+export const CommentAdminCard: React.FC<{
+  comment: CommentType & { Profile: Pick<UserProfile, "name"> };
+}> = ({ comment }) => {
   return (
     <div className="rounded m-2 p-2 bg-blue-100">
       <div className="flex items-center justify-center">

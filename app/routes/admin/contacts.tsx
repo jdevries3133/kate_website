@@ -1,16 +1,9 @@
-import {
-  Form,
-  LoaderFunction,
-  useLoaderData,
-  ActionFunction,
-  useTransition,
-} from "remix";
+import { ActionArgs, Form, useLoaderData, useTransition } from "remix";
 import prisma from "~/prisma.server";
-import { ContactInquiry } from "@prisma/client";
 import { DeleteButton } from "~/components/buttons";
 import { Loading } from "~/components/loading";
 
-export const action: ActionFunction = async ({ request }) => {
+export const action = async ({ request }: ActionArgs) => {
   const id = parseInt(((await request.formData()).get("id") || "") as string);
   await prisma.contactInquiry.delete({
     where: { id },
@@ -18,8 +11,16 @@ export const action: ActionFunction = async ({ request }) => {
   return null;
 };
 
-export const loader: LoaderFunction = async () => {
-  return (await prisma.contactInquiry.findMany()).map((inquiry) => ({
+export const loader = async () => {
+  return (
+    await prisma.contactInquiry.findMany({
+      include: {
+        Profile: {
+          select: { name: true, email: true },
+        },
+      },
+    })
+  ).map((inquiry) => ({
     ...inquiry,
     createdAt: inquiry.createdAt.toLocaleDateString(),
   }));
@@ -27,7 +28,7 @@ export const loader: LoaderFunction = async () => {
 
 export default function Contacts() {
   const { state } = useTransition();
-  const data = useLoaderData<ContactInquiry[]>();
+  const data = useLoaderData<ReturnType<typeof loader>>();
   return (
     <div className="prose m-4">
       <h1>Manage Contact Inquiries</h1>
@@ -42,24 +43,26 @@ export default function Contacts() {
           </tr>
         </thead>
         <tbody>
-          {data.map(({ name, email, createdAt, message, id }, i) => (
-            <tr key={i}>
-              <td>{name}</td>
-              <td>{email}</td>
-              <td>{createdAt}</td>
-              <td>{message}</td>
-              <td>
-                {["submitting", "loading"].includes(state) ? (
-                  <Loading />
-                ) : (
-                  <Form method="post">
-                    <input type="hidden" name="id" value={id} />
-                    <DeleteButton>delete</DeleteButton>
-                  </Form>
-                )}
-              </td>
-            </tr>
-          ))}
+          {data.map(
+            ({ Profile: { name, email }, createdAt, message, id }, i) => (
+              <tr key={i}>
+                <td>{name}</td>
+                <td>{email}</td>
+                <td>{createdAt}</td>
+                <td>{message}</td>
+                <td>
+                  {["submitting", "loading"].includes(state) ? (
+                    <Loading />
+                  ) : (
+                    <Form method="post">
+                      <input type="hidden" name="id" value={id} />
+                      <DeleteButton>delete</DeleteButton>
+                    </Form>
+                  )}
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </div>

@@ -20,7 +20,7 @@
     "debug-test": "NO_COLORS=true node --inspect-brk=0.0.0.0 ./node_modules/.bin/vitest --threads=false",
     "typecheck": "tsc -b app && tsc -b cypress",
     "prettiercheck": "prettier --check app cypress",
-    "format": "prettier --write app cypress"
+    "format": "prettier --write app cypress && prisma format"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",

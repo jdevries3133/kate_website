@@ -7,19 +7,34 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model UserProfile {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  // TODO: make name optional!!!!!!!!
+  name        String
+  created     DateTime @default(now())
+  lastUpdated DateTime @updatedAt
+
+  ContactInquiries ContactInquiry[]
+  Comments         Comment[]
+}
+
 // landing page contact form submissions
 model ContactInquiry {
   id        Int      @id @default(autoincrement())
+  profileId Int
   createdAt DateTime @default(now())
-  name      String
-  email     String
   message   String
+
+  Profile UserProfile @relation(fields: [profileId], references: [id])
 }
 
 model Comment {
   id        Int      @id @default(autoincrement())
+  profileId Int
   createdAt DateTime @default(now())
-  author    String?
   content   String
   postSlug  String
+
+  Profile UserProfile @relation(fields: [profileId], references: [id])
 }

@@ -1,7 +1,9 @@
 import {
+  ActionArgs,
   ActionFunction,
   ErrorBoundaryComponent,
   Link,
+  LoaderArgs,
   LoaderFunction,
   MetaFunction,
   useCatch,
@@ -33,13 +35,18 @@ export const meta: MetaFunction = ({ params, location }) => {
   };
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader = async ({ params }: LoaderArgs) => {
   // will throw not found for invalid post
   const slug = validateSlug(params.post);
 
   const rawComments = await prisma.comment.findMany({
     where: {
       postSlug: slug,
+    },
+    include: {
+      Profile: {
+        select: { name: true },
+      },
     },
   });
   const comments = rawComments.map((c) => ({
@@ -55,8 +62,8 @@ export const loader: LoaderFunction = async ({ params }) => {
   };
 };
 
-export const action: ActionFunction = async (args) => {
-  return commentFormAction(args);
+export const action = async (args: ActionArgs) => {
+  return await commentFormAction(args);
 };
 
 export default function Post() {

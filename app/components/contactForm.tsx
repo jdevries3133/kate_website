@@ -1,45 +1,57 @@
 import { useState } from "react";
 import { Form, useTransition, useActionData } from "remix";
+import { ActionData } from "~/routes";
 import { PrimaryButton } from "./buttons";
+import { Loading } from "./loading";
 
 const InnerForm = () => {
   const transition = useTransition();
-  const actionData = useActionData();
+  const actionData = useActionData<ActionData>();
+  if (transition.state === "loading") return <Loading />;
   return (
     <fieldset disabled={transition.state === "submitting"}>
       <Form
         method="post"
-        className="border border-coffee bg-secondary-300 p-2 m-3 rounded flex flex-col items-start text-coffee"
+        className="border bg-primary-200 p-2 m-3 rounded-xl md:rounded-full flex flex-col items-start text-primary"
       >
         <label className="block text-left pt-2 pb-1">
           Name{" "}
           {actionData && actionData.errors.name ? (
-            <p>{actionData.errors.name}</p>
+            <p className="bg-red-100 rounded-3xl p-1 my-1">
+              {actionData.errors.name}
+            </p>
           ) : null}
           <input
             className="bg-secondary-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
             type="text"
             name="name"
-            defaultValue={actionData ? actionData.values.name : undefined}
+            defaultValue={
+              typeof actionData?.values?.name === "string"
+                ? actionData.values.name
+                : undefined
+            }
           />
         </label>
         <label className="block text-left pt-2 pb-1">
           Email{" "}
           {actionData && actionData.errors.email ? (
-            <p>{actionData.errors.email}</p>
+            <p className="bg-red-100 rounded-3xl p-1 my-1">
+              {actionData.errors.email}
+            </p>
           ) : null}
           <input
             className="bg-secondary-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
             type="email"
             name="email"
-            defaultValue={actionData ? actionData.values.email : undefined}
+            defaultValue={
+              typeof actionData?.values?.email === "string"
+                ? actionData.values.email
+                : undefined
+            }
           />
         </label>
         <label className="block text-left pt-2 pb-1">
           Message{" "}
-          {actionData && actionData.errors.message ? (
-            <p>{actionData.errors.message}</p>
-          ) : null}
           <textarea
             className="w-full h-24 bg-secondary-200 shadow p-1 rounded focus:bg-white focus:rounded focus:shadow"
             name="message"
@@ -47,17 +59,17 @@ const InnerForm = () => {
         </label>
         <button
           className="
-                bg-primary-300
+                bg-yellow-300
                 rounded
                 p-2
                 mt-2
-                hover:bg-primary-400
+                hover:bg-yellow-400
                 shadow-md
                 hover:shadow-none
                 disabled:bg-gray-200
         "
           type="submit"
-          disabled={transition.state === "loading"}
+          disabled={transition.state === "submitting"}
         >
           Submit
         </button>
@@ -66,7 +78,7 @@ const InnerForm = () => {
   );
 };
 
-export const ContactForm = () => {
+const ContactFormButton = () => {
   const [showForm, setShowForm] = useState(false);
 
   if (showForm) return <InnerForm />;
@@ -78,5 +90,27 @@ export const ContactForm = () => {
     >
       Contact Me
     </PrimaryButton>
+  );
+};
+
+export const ContactForm = () => {
+  const actionData = useActionData<ActionData>();
+
+  return actionData?.status === "submitted" ? (
+    <div
+      data-testid="successIndicator"
+      className="bg-clay-100 rounded-md shadow p-2 m-2"
+    >
+      <h3 className="text-black font-bold">
+        {typeof actionData.values.name === "string" ? (
+          <>Thanks, {actionData.values.name}!</>
+        ) : (
+          "Thanks!"
+        )}
+      </h3>
+      <p>I'll get back to you soon.</p>
+    </div>
+  ) : (
+    <ContactFormButton />
   );
 };

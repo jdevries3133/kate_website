@@ -1,4 +1,4 @@
-import { MetaFunction } from "@remix-run/node";
+import { ActionArgs, MetaFunction } from "@remix-run/node";
 
 import { ActionFunction } from "remix";
 import { Link } from "@remix-run/react";
@@ -11,7 +11,8 @@ export const meta: MetaFunction = () => {
   return { title: "Kate Tell: Author" };
 };
 
-export const action: ActionFunction = async ({ request }) => {
+export type ActionData = ReturnType<typeof action>;
+export const action = async ({ request }: ActionArgs) => {
   const form = await request.formData();
   const name = form.get("name");
   const email = form.get("email");
@@ -30,26 +31,56 @@ export const action: ActionFunction = async ({ request }) => {
     message: (message as string) || "",
   };
 
+  // TODO: refactor into profile service
+  const res = await prisma.userProfile.findUnique({
+    select: {
+      id: true,
+    },
+    where: {
+      email: values.email,
+    },
+  });
+
+  let profileId;
+  if (res) {
+    profileId = res.id;
+  } else {
+    const { id } = await prisma.userProfile.create({
+      data: {
+        email: values.email,
+        name: values.name,
+      },
+    });
+    profileId = id;
+  }
+
+  const valuesWithProfile = {
+    message: values.message,
+    profileId,
+  };
+
   if (!errors.name && !errors.email) {
     await prisma.contactInquiry.create({
-      data: values,
+      data: valuesWithProfile,
     });
     return {
-      values,
+      values: { valuesWithProfile, name, email, message },
       status: "submitted",
+      errors: { name: "", errors: "", email: "" },
     };
   }
 
   return {
     values: values,
     errors,
+    status: "error",
   };
 };
 
 export default function Index() {
   return (
     <>
-      <div className="min-h-screen bg-primary-100">
+      <div className="min-h-screen bg-primary-100 flex flex-col md:flex-row items-center justify-center">
         <div className="flex justify-center">
           <div className="group">
             <div className="max-w-md sm:shadow sm:bg-accent-100 sm:group-hover:bg-gray-100 sm:group-hover:shadow-none transition sm:rounded-lg sm:p-4 sm:m-2">
@@ -90,9 +121,9 @@ export default function Index() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-center">
-        <ContactForm />
+        <div className="flex items-center justify-center">
+          <ContactForm />
+        </div>
       </div>
     </>
   );
