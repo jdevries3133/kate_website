@@ -17,9 +17,11 @@ const InnerForm = () => {
         <label className="block text-left pt-2 pb-1">
           Name{" "}
           {actionData && actionData.errors.name ? (
-            <p className="bg-red-100 rounded-3xl p-1 my-1">
-              {actionData.errors.name}
-            </p>
+            <div>
+              <p className="inline-block text-xs bg-red-100 rounded-3xl p-1 my-1">
+                {actionData.errors.name}
+              </p>
+            </div>
           ) : null}
           <input
             className="bg-secondary-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
@@ -35,9 +37,11 @@ const InnerForm = () => {
         <label className="block text-left pt-2 pb-1">
           Email{" "}
           {actionData && actionData.errors.email ? (
-            <p className="bg-red-100 rounded-3xl p-1 my-1">
-              {actionData.errors.email}
-            </p>
+            <div>
+              <p className="inline-block text-xs bg-red-100 rounded-3xl p-1 my-1">
+                {actionData.errors.email}
+              </p>
+            </div>
           ) : null}
           <input
             className="bg-secondary-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
