@@ -1,4 +1,4 @@
-FROM node:16-alpine as build
+FROM node:18 as build
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ ENV NODE_ENV development
 
 CMD ["yarn", "dev"]
 
-FROM node:16-alpine as prod
+FROM node:18 as prod
 
 ENV NODE_ENV production
 
