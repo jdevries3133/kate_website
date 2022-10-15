@@ -15,6 +15,7 @@ import { getPost, validateSlug } from "~/services/post";
 import { BASE_URL } from "~/config.server";
 import { isSlugValid } from "~/services/post/validateSlug";
 import { DefaultPageContainer } from "~/components/pageContainer";
+import { searchAction, searchLoader } from "~/components/search";
 
 export const meta: MetaFunction = ({ params, location }) => {
   if (!isSlugValid(params.post)) return {};
@@ -33,7 +34,8 @@ export const meta: MetaFunction = ({ params, location }) => {
   };
 };
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = async (args: LoaderArgs) => {
+  const { params, request } = args;
   // will throw not found for invalid post
   const slug = validateSlug(params.post);
 
@@ -57,10 +59,15 @@ export const loader = async ({ params }: LoaderArgs) => {
     comments,
     created: post.attributes.created?.toISOString(),
     lastUpdated: post.attributes.lastUpdated?.toISOString(),
+    search: searchLoader(request)
   };
 };
 
 export const action = async (args: ActionArgs) => {
+
+  const r = await searchAction(args);
+  if (r !== null) return r;
+
   return await commentFormAction(args);
 };
 

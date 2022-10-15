@@ -1,3 +1,3 @@
 export { BlogSearch } from "./search";
-export { searchLoader } from "./search.server";
-export type { LoaderData } from "./search.server";
+export { searchLoader, searchAction } from "./search.server";
+export type { LoaderData, SearchLoader } from "./search.server";

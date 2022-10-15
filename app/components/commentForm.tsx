@@ -7,7 +7,7 @@ export const actionId = "submit comment";
 
 export const action = async ({ request, params }: ActionArgs) => {
   const slug = validateSlug(params.post);
-  const data = await request.formData();
+  const data = await request.clone().formData();
   const authorInput = data.get("author");
   const contentInput = data.get("content");
   const emailInput = data.get("email");

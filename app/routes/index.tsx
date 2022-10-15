@@ -1,17 +1,24 @@
-import { ActionArgs, MetaFunction } from "@remix-run/node";
+import { ActionArgs, LoaderArgs, MetaFunction } from "@remix-run/node";
 
 import { Link } from "@remix-run/react";
 import prisma from "~/prisma.server";
 import { ContactForm } from "~/components/contactForm";
 import * as SplashContent from "~/mdx/splashContent.mdx";
 import * as ExtraSplashContent from "~/mdx/extraSplashContent.mdx";
+import { Header } from "~/components/header";
+import { searchAction, searchLoader, SearchLoader } from "~/components/search";
 
 export const meta: MetaFunction = () => {
   return { title: "Kate Tell: Author" };
 };
 
 export type ActionData = ReturnType<typeof action>;
-export const action = async ({ request }: ActionArgs) => {
+export const action = async (a: ActionArgs) => {
+  const result = await searchAction(a);
+  if (result !== null) return result;
+
+  const { request } = a;
+
   const form = await request.formData();
   const name = form.get("name");
   const email = form.get("email");
@@ -68,9 +75,14 @@ export const action = async ({ request }: ActionArgs) => {
   };
 };
 
+export const loader: SearchLoader = ({ request }: LoaderArgs) => ({
+  search: searchLoader(request),
+});
+
 export default function Index() {
   return (
     <>
+      <Header />
       <div className="min-h-screen bg-primary-100 flex flex-col md:flex-row items-center justify-center">
         <div className="flex justify-center">
           <div className="group">

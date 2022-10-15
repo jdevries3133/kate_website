@@ -1,24 +1,29 @@
 import Fuse from "fuse.js";
-import { ActionFunction, redirect } from "remix";
+import { ActionArgs, LoaderArgs, redirect } from "remix";
 import { allPosts, getSerializableMetaData } from "~/services/post";
 import { mdxModToPlainText } from "~/services/post/toPlainText.server";
 
 export type LoaderData = { search: ReturnType<typeof searchLoader> };
+export type SearchLoader = (arg: LoaderArgs) => LoaderData
 
-export const searchAction: ActionFunction = async ({ request }) => {
-  const data = await request.formData();
+export const searchAction = async ({ request }: ActionArgs) => {
+  const data = await request.clone().formData();
   const action = data.get("action");
   if (action === "clearSearchResults") {
-    return redirect("/blog");
+    const url = new URL(request.url);
+    url.searchParams.delete('post')
+    return redirect(url.toString());
   }
   return null;
 };
 
-export const searchLoader = (query: string) => {
+export const searchLoader = (request: Request) => {
+  const url = new URL(request.url);
+  const query = url.searchParams.get("post");
   if (!query) return [];
 
   type QueryablePost = ReturnType<typeof getSerializableMetaData> & {
-    /* plain text conetnt */
+    /* plain text content */
     content: string;
   };
 

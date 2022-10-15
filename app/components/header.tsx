@@ -9,26 +9,36 @@ const linkStyles = `
   hover:underline
 `;
 
+/* item that will not appear if the current pathname contains its name */
+const NavItem: React.FC<{ name: string; to: string }> = ({ name, to }) => {
+  const { pathname } = useLocation();
+  if (
+    pathname.includes(name) ||
+    (name === "home" && ["/", ""].includes(pathname))
+  )
+    return null;
+  return (
+    <Link to={to} className={linkStyles}>
+      {name}
+    </Link>
+  );
+};
+
 export const Header = () => {
   const { pathname } = useLocation();
-  if (pathname === "/blog") {
-    return (
-      <header className="flex bg-accent-100 rounded p-2 m-2 items-center gap-2">
-        <Link className={linkStyles} to="/">
-          home
-        </Link>
-        <BlogSearch />
-      </header>
-    );
-  }
   return (
-    <header className="flex items-center gap-2 m-2">
-      <Link className={linkStyles} to="/">
-        home
-      </Link>
-      <Link className={linkStyles} to="/blog">
-        {pathname.includes("post") ? "posts" : "blog"}
-      </Link>
+    <header className="flex bg-accent-100 rounded p-2 m-2 items-center">
+      <div className="flex gap-2 flex-shrink">
+        <NavItem name="home" to="/" />
+        <NavItem
+          name={pathname.includes("post") ? "posts" : "blog"}
+          to="/blog"
+        />
+        <NavItem name="socials" to="/socials" />
+      </div>
+      <div className="flex-grow flex justify-end">
+        <BlogSearch />
+      </div>
     </header>
   );
 };

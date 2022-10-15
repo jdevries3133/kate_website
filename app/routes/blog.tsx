@@ -1,4 +1,4 @@
-import { ActionFunction, LoaderFunction } from "remix";
+import { ActionArgs, LoaderFunction } from "remix";
 import {
   searchLoader,
   LoaderData as SearchLoaderData,
@@ -10,24 +10,14 @@ import ListPosts, {
 import { DefaultPageContainer } from "~/components/pageContainer";
 import { searchAction } from "~/components/search/search.server";
 
-export const action: ActionFunction = async (args) => {
-  return searchAction(args);
-};
+export const action = async (a: ActionArgs) => searchAction(a);
 
 type LoaderData = SearchLoaderData & PostLoaderData;
 
-export const loader: LoaderFunction = ({ request }): LoaderData => {
-  const url = new URL(request.url);
-  const postQuery = url.searchParams.get("post");
-  const postSearchResults = postQuery ? searchLoader(postQuery) : [];
-
-  const postsList = postLoader();
-
-  return {
-    posts: postsList,
-    search: postSearchResults,
-  };
-};
+export const loader: LoaderFunction = ({ request }): LoaderData => ({
+  posts: postLoader(),
+  search: searchLoader(request),
+});
 
 export default function Blog() {
   return (
