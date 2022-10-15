@@ -43,7 +43,7 @@ export const ScrollToTopButton: React.FC<{
             border-2
             border-accent-200
             hover:shadow-none
-            ${show ? 'animate-pulse' : ''}
+            ${show ? "animate-pulse" : ""}
             transition
             ease-in-out
             delay-100

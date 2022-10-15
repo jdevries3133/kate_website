@@ -20,13 +20,13 @@ export default function About() {
   // re-render when the element exists. Ultimately, this creates or updates
   // the intersection observer deepeer in the component tree of the scroll
   // to top button
-  const [ twitterEl, setTwitterEl ] = useState<HTMLElement | null>(null);
+  const [twitterEl, setTwitterEl] = useState<HTMLElement | null>(null);
 
   useEffect(twitterScript, []);
 
   return (
     <DefaultPageContainer>
-      <ScrollToTopButton  showIfIntersecting={twitterEl} />
+      <ScrollToTopButton showIfIntersecting={twitterEl} />
       <div className="flex flex-col md:flex-row">
         <div className="prose bg-primary-100 rounded p-2 m-2">
           <AboutMe.default />
