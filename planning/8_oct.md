@@ -1,8 +1,8 @@
-- twitter embed
-- "about" page (includes twitter embed)
-- site-wide search component (can search for only blog posts for now)
-- email notification for new posts
-- ability to "heart" posts
+- [x] twitter embed
+- [x] "about" page (includes twitter embed)
+- [x] site-wide search component (can search for only blog posts for now)
+- [ ] email notification for new posts
+- [ ] ability to "heart" posts
 
 -- 
 

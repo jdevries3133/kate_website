@@ -4,15 +4,15 @@ import { allPosts, getSerializableMetaData } from "~/services/post";
 import { mdxModToPlainText } from "~/services/post/toPlainText.server";
 
 export type LoaderData = { search: ReturnType<typeof searchLoader> };
-export type SearchLoader = (arg: LoaderArgs) => LoaderData
+export type SearchLoader = (arg: LoaderArgs) => LoaderData;
 
 export const searchAction = async ({ request }: ActionArgs) => {
   const data = await request.clone().formData();
   const action = data.get("action");
   if (action === "clearSearchResults") {
     const url = new URL(request.url);
-    url.searchParams.delete('post')
-    return redirect(url.toString());
+    url.searchParams.delete("post");
+    throw redirect(url.toString());
   }
   return null;
 };

@@ -59,15 +59,12 @@ export const loader = async (args: LoaderArgs) => {
     comments,
     created: post.attributes.created?.toISOString(),
     lastUpdated: post.attributes.lastUpdated?.toISOString(),
-    search: searchLoader(request)
+    search: searchLoader(request),
   };
 };
 
 export const action = async (args: ActionArgs) => {
-
-  const r = await searchAction(args);
-  if (r !== null) return r;
-
+  await searchAction(args);
   return await commentFormAction(args);
 };
 

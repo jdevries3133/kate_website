@@ -27,14 +27,14 @@ const NavItem: React.FC<{ name: string; to: string }> = ({ name, to }) => {
 export const Header = () => {
   const { pathname } = useLocation();
   return (
-    <header className="flex bg-accent-100 rounded p-2 m-2 items-center">
+    <header className="flex bg-accent-100 rounded m-2 p-2 items-center">
       <div className="flex gap-2 flex-shrink">
         <NavItem name="home" to="/" />
         <NavItem
           name={pathname.includes("post") ? "posts" : "blog"}
           to="/blog"
         />
-        <NavItem name="socials" to="/socials" />
+        <NavItem name="about" to="/about" />
       </div>
       <div className="flex-grow flex justify-end">
         <BlogSearch />

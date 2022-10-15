@@ -12,10 +12,8 @@ export const meta: MetaFunction = () => {
   return { title: "Kate Tell: Author" };
 };
 
-export type ActionData = ReturnType<typeof action>;
 export const action = async (a: ActionArgs) => {
-  const result = await searchAction(a);
-  if (result !== null) return result;
+  await searchAction(a);
 
   const { request } = a;
 
@@ -82,7 +80,11 @@ export const loader: SearchLoader = ({ request }: LoaderArgs) => ({
 export default function Index() {
   return (
     <>
-      <Header />
+      {/* I have no idea why, but if this thing doesn't have padding, the background
+          doesn't show through */}
+      <div className="py-[0.1px] bg-gradient-to-tr from-blue-200 to-purple-200">
+        <Header />
+      </div>
       <div className="min-h-screen bg-primary-100 flex flex-col md:flex-row items-center justify-center">
         <div className="flex justify-center">
           <div className="group">

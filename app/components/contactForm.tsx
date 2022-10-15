@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Form, useTransition, useActionData } from "remix";
-import { ActionData } from "~/routes";
+import { action } from "~/routes";
 import { PrimaryButton } from "./buttons";
 import { Loading } from "./loading";
 
 const InnerForm = () => {
   const transition = useTransition();
-  const actionData = useActionData<ActionData>();
+  const actionData = useActionData<ReturnType<typeof action>>();
   if (transition.state === "loading") return <Loading />;
   return (
     <fieldset disabled={transition.state === "submitting"}>
@@ -98,7 +98,7 @@ const ContactFormButton = () => {
 };
 
 export const ContactForm = () => {
-  const actionData = useActionData<ActionData>();
+  const actionData = useActionData<typeof action>();
 
   return actionData?.status === "submitted" ? (
     <div

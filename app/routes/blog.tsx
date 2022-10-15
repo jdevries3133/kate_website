@@ -1,4 +1,4 @@
-import { ActionArgs, LoaderFunction } from "remix";
+import { LoaderFunction } from "remix";
 import {
   searchLoader,
   LoaderData as SearchLoaderData,
@@ -10,7 +10,7 @@ import ListPosts, {
 import { DefaultPageContainer } from "~/components/pageContainer";
 import { searchAction } from "~/components/search/search.server";
 
-export const action = async (a: ActionArgs) => searchAction(a);
+export const action = searchAction;
 
 type LoaderData = SearchLoaderData & PostLoaderData;
 
