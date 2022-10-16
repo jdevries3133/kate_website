@@ -10,7 +10,8 @@ services:
     environment:
       DATABASE_URL: postgresql://app:app@db/app
       ADMIN_PASSWORD: pass
-      SECRET_KEY: anything
+      SESSION_SECRET: anything
+      EMAIL_PASSWORD: ${KATE_WEBSITE_EMAIL_PASSWORD:-nopass}
   db:
     image: postgres:14
     volumes:

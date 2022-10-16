@@ -26,3 +26,9 @@ export function doesStaticFileExist(
   const fullpath = path.resolve(getBaseDir(), "public", route);
   return fs.existsSync(fullpath);
 }
+
+export const title = (s: string) =>
+  s
+    .split(" ")
+    .map((t) => `${t[0].toUpperCase()}${t.slice(1)}`)
+    .join(" ");

@@ -2,6 +2,7 @@
  * Admin login route
  */
 
+import { PropsWithChildren } from "react";
 import {
   useActionData,
   Form,
@@ -11,8 +12,12 @@ import {
   useLoaderData,
   json,
   Link,
+  redirect,
 } from "remix";
 import { getSession, commitSession } from "~/sessions";
+
+/* if we are literally at `/admin` and authenticated, redirect to this route */
+const DEFAULT_ROUTE = "/admin/comments";
 
 export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -38,8 +43,24 @@ export const action: ActionFunction = async ({ request }) => {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
-  return { isAuthenticated: session.get("isAuthenticated") };
+  const isAuthenticated = session.get("isAuthenticated");
+  if (isAuthenticated && /\/admin(\/)?$/.test(new URL(request.url).pathname)) {
+    throw redirect(`${DEFAULT_ROUTE}`);
+  }
+  return { isAuthenticated };
 };
+
+const NavItem: React.FC<
+  PropsWithChildren & {
+    relTo: string;
+  }
+> = ({ relTo: to, children }) => (
+  <div className="prose">
+    <Link to={to} className="text-lg font-bold">
+      {children}
+    </Link>
+  </div>
+);
 
 export default function Login() {
   const data = useActionData();
@@ -48,21 +69,10 @@ export default function Login() {
   return isAuthenticated ? (
     <>
       <div className="flex gap-4">
-        <div className="prose">
-          <Link to="/admin/comments" className="text-lg font-bold">
-            Comments
-          </Link>
-        </div>
-        <div className="prose">
-          <Link to="/admin/contacts" className="text-lg font-bold">
-            Contacts
-          </Link>
-        </div>
-        <div className="prose">
-          <Link to="/admin/designSystem" className="text-lg font-bold">
-            Design System
-          </Link>
-        </div>
+        <NavItem relTo="contacts">Contacts</NavItem>
+        <NavItem relTo="comments">Comments</NavItem>
+        <NavItem relTo="designSystem">Design System</NavItem>
+        <NavItem relTo="emailSendTest">Test Email Sending</NavItem>
       </div>
       <Outlet />
     </>

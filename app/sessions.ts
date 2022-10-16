@@ -1,6 +1,6 @@
 // app/sessions.js
 import { createCookieSessionStorage } from "remix";
-import { COOKIE_TIMEOUT, DOMAIN, SECRET_KEY } from "./config.server";
+import { COOKIE_TIMEOUT, DOMAIN, SESSION_SECRET } from "./config.server";
 
 export const {
   getSession,
@@ -12,7 +12,7 @@ export const {
     domain: DOMAIN,
     httpOnly: true,
     path: "/",
-    secrets: [SECRET_KEY],
+    secrets: [SESSION_SECRET],
     sameSite: "strict",
     secure: true,
   },
