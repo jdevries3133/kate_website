@@ -13,7 +13,10 @@ RUN yarn build:all
 
 ENV NODE_ENV development
 
-CMD ["yarn", "dev"]
+# For development, we use a docker volume for node_modules in development.
+# We want to update that before every startup, and need to do that after the container
+# mounts.
+CMD ["sh", "-c", "yarn install && yarn dev"]
 
 FROM node:18 as prod
 
