@@ -5,17 +5,17 @@ import prisma from "~/prisma.server";
 import { ContactForm } from "~/components/contactForm";
 import * as SplashContent from "~/mdx/splashContent.mdx";
 import * as ExtraSplashContent from "~/mdx/extraSplashContent.mdx";
-import { Header } from "~/components/header";
+import { HeaderContent } from "~/components/header";
 import { searchAction, searchLoader, SearchLoader } from "~/components/search";
+import { getSession, jsonAndCommit } from "~/sessions";
+import { ProfileLoader, profileLoader } from "~/services/profile";
 
 export const meta: MetaFunction = () => {
   return { title: "Kate Tell: Author" };
 };
 
-export const action = async (a: ActionArgs) => {
-  await searchAction(a);
-
-  const { request } = a;
+export const action = async ({ request }: ActionArgs) => {
+  await searchAction(request);
 
   const form = await request.formData();
   const name = form.get("name");
@@ -50,6 +50,9 @@ export const action = async (a: ActionArgs) => {
     },
   });
 
+  const session = await getSession(request.headers.get("Cookie"));
+  session.set("profileId", profileId);
+
   const valuesWithProfile = {
     message: values.message,
     profileId,
@@ -59,21 +62,30 @@ export const action = async (a: ActionArgs) => {
     await prisma.contactInquiry.create({
       data: valuesWithProfile,
     });
-    return {
-      values: { valuesWithProfile, name, email, message },
-      status: "submitted",
-      errors: { name: "", errors: "", email: "" },
-    };
+    return jsonAndCommit(
+      {
+        values: { valuesWithProfile, name, email, message },
+        status: "submitted",
+        errors: { name: "", errors: "", email: "" },
+      },
+      session
+    );
   }
 
-  return {
-    values: values,
-    errors,
-    status: "error",
-  };
+  return jsonAndCommit(
+    {
+      values: values,
+      errors,
+      status: "error",
+    },
+    session
+  );
 };
 
-export const loader: SearchLoader = ({ request }: LoaderArgs) => ({
+export const loader: SearchLoader & ProfileLoader = async ({
+  request,
+}: LoaderArgs) => ({
+  profile: await profileLoader(request),
   search: searchLoader(request),
 });
 
@@ -82,8 +94,10 @@ export default function Index() {
     <>
       {/* I have no idea why, but if this thing doesn't have padding, the background
           doesn't show through */}
-      <div className="py-[0.1px] bg-gradient-to-tr from-blue-200 to-purple-200">
-        <Header />
+      <div className="py-[0.1px] bg-gradient-to-tr from-blue-200 to-purple-200 w-full">
+        <header className="flex flex-grow bg-accent-100 rounded m-2 p-2 items-center">
+          <HeaderContent />
+        </header>
       </div>
       <div className="min-h-screen bg-primary-100 flex flex-col md:flex-row items-center justify-center">
         <div className="flex justify-center">

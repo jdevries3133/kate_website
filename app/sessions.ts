@@ -1,5 +1,5 @@
 // app/sessions.js
-import { createCookieSessionStorage } from "remix";
+import { createCookieSessionStorage, json, Session } from "remix";
 import { COOKIE_TIMEOUT, DOMAIN, SESSION_SECRET } from "./config.server";
 
 export const {
@@ -30,3 +30,10 @@ export const commitSession: typeof _commitSessionDefault = (
   }
   return _commitSessionDefault(session, opts);
 };
+
+export const jsonAndCommit = async <T>(data: T, session: Session) =>
+  json<T>(data, {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
+  });

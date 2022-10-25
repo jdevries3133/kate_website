@@ -1,20 +1,14 @@
-import { LoaderFunction } from "remix";
-import {
-  searchLoader,
-  LoaderData as SearchLoaderData,
-} from "~/components/search";
-import ListPosts, {
-  LoaderData as PostLoaderData,
-  loader as postLoader,
-} from "~/components/listPosts";
+import { LoaderArgs, ActionArgs } from "remix";
+import { searchLoader } from "~/components/search";
+import ListPosts, { loader as postLoader } from "~/components/listPosts";
 import { DefaultPageContainer } from "~/components/pageContainer";
 import { searchAction } from "~/components/search/search.server";
+import { profileLoader } from "~/services/profile";
 
-export const action = searchAction;
+export const action = ({ request }: ActionArgs) => searchAction(request);
 
-type LoaderData = SearchLoaderData & PostLoaderData;
-
-export const loader: LoaderFunction = ({ request }): LoaderData => ({
+export const loader = async ({ request }: LoaderArgs) => ({
+  profile: await profileLoader(request),
   posts: postLoader(),
   search: searchLoader(request),
 });

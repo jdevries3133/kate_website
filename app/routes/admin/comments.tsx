@@ -4,7 +4,7 @@ import {
   useLoaderData,
   useTransition,
 } from "remix";
-import { CommentAdminCard } from "~/components/commentAdminCard";
+import { CommentCard } from "~/components/commentCard";
 import { Loading } from "~/components/loading";
 import prisma from "~/prisma.server";
 
@@ -41,7 +41,7 @@ export default function Comments() {
         <>
           <h1>Manage Comments</h1>
           {comments.map((comment: any) => (
-            <CommentAdminCard key={comment.id} comment={comment} />
+            <CommentCard key={comment.id} comment={comment} />
           ))}
         </>
       )}

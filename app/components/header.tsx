@@ -1,5 +1,8 @@
-import { Link, useLocation } from "remix";
+import { Link, useLoaderData, useLocation } from "remix";
 import { BlogSearch } from "./search";
+import { profileLoader, ProfileLoaderData } from "~/services/profile";
+
+export const loader = profileLoader;
 
 const linkStyles = `
   text-primary-700
@@ -24,10 +27,11 @@ const NavItem: React.FC<{ name: string; to: string }> = ({ name, to }) => {
   );
 };
 
-export const Header = () => {
+export const HeaderContent = () => {
   const { pathname } = useLocation();
+  const { profile } = useLoaderData<{ profile: ProfileLoaderData }>();
   return (
-    <header className="flex bg-accent-100 rounded m-2 p-2 items-center">
+    <>
       <div className="flex gap-2 flex-shrink">
         <NavItem name="home" to="/" />
         <NavItem
@@ -36,9 +40,24 @@ export const Header = () => {
         />
         <NavItem name="about" to="/about" />
       </div>
-      <div className="flex-grow flex justify-end">
-        <BlogSearch />
+      <div className="flex-grow flex justify-end items-center">
+        <div className="pr-2 sm:pr-0">
+          <BlogSearch />
+        </div>
+        {profile && !/\/profile/.test(pathname) && (
+          <div className="hidden sm:flex flex-col justify-end text-right">
+            <p>Hey, {profile.name.split(" ")[0]}!</p>
+            <p>
+              <Link
+                to="/profile"
+                className="p-1 hover:bg-primary-100 transition"
+              >
+                View Profile
+              </Link>
+            </p>
+          </div>
+        )}
       </div>
-    </header>
+    </>
   );
 };

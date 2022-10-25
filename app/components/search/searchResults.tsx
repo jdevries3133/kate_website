@@ -3,11 +3,11 @@ import { useLoaderData, useSubmit } from "remix";
 import { useOnClickOutside } from "~/hooks/useOnClickOutside";
 import { PostCard } from "../postCard";
 
-import type { LoaderData } from "./search.server";
+import type { LoaderData as SearchLoaderData } from "./search.server";
 
 export const SearchResults = () => {
   const submit = useSubmit();
-  const { search } = useLoaderData<LoaderData>();
+  const { search } = useLoaderData<{ search: SearchLoaderData }>();
   const searchResultsContainer = useRef(null);
   useOnClickOutside(searchResultsContainer, () => {
     const data = new FormData();

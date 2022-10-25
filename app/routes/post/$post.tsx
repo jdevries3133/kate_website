@@ -16,6 +16,7 @@ import { BASE_URL } from "~/config.server";
 import { isSlugValid } from "~/services/post/validateSlug";
 import { DefaultPageContainer } from "~/components/pageContainer";
 import { searchAction, searchLoader } from "~/components/search";
+import { profileLoader } from "~/services/profile";
 
 export const meta: MetaFunction = ({ params, location }) => {
   if (!isSlugValid(params.post)) return {};
@@ -45,7 +46,7 @@ export const loader = async (args: LoaderArgs) => {
     },
     include: {
       Profile: {
-        select: { name: true },
+        select: { name: true, id: true },
       },
     },
   });
@@ -60,11 +61,12 @@ export const loader = async (args: LoaderArgs) => {
     created: post.attributes.created?.toISOString(),
     lastUpdated: post.attributes.lastUpdated?.toISOString(),
     search: searchLoader(request),
+    profile: await profileLoader(request),
   };
 };
 
 export const action = async (args: ActionArgs) => {
-  await searchAction(args);
+  await searchAction(args.request);
   return await commentFormAction(args);
 };
 
@@ -84,14 +86,14 @@ export default function Post() {
       <div className="prose break-words">
         <div
           className="
-          p-2
-          bg-secondary-200
-          shadow-xl
-          rounded-t
-          md:p-4
-          md:border-2
-          md:border-primary-200
-        "
+            p-2
+            bg-secondary-200
+            shadow-xl
+            rounded-t
+            md:p-4
+            md:border-2
+            md:border-primary-200
+          "
         >
           <div className="not-prose">
             {created && (

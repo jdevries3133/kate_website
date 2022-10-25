@@ -1,12 +1,14 @@
 import Fuse from "fuse.js";
-import { ActionArgs, LoaderArgs, redirect } from "remix";
+import { LoaderArgs, redirect } from "remix";
 import { allPosts, getSerializableMetaData } from "~/services/post";
 import { mdxModToPlainText } from "~/services/post/toPlainText.server";
 
-export type LoaderData = { search: ReturnType<typeof searchLoader> };
-export type SearchLoader = (arg: LoaderArgs) => LoaderData;
+export type LoaderData = ReturnType<typeof searchLoader>;
+export type SearchLoader = (
+  arg: LoaderArgs
+) => { search: LoaderData } | Promise<{ search: LoaderData }>;
 
-export const searchAction = async ({ request }: ActionArgs) => {
+export const searchAction = async (request: Request) => {
   const data = await request.clone().formData();
   const action = data.get("action");
   if (action === "clearSearchResults") {

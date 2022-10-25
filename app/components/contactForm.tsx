@@ -6,7 +6,12 @@ import { Loading } from "./loading";
 
 const InnerForm = () => {
   const transition = useTransition();
-  const actionData = useActionData<ReturnType<typeof action>>();
+  // the typescript magic is a hack to get the type out after it's been passed
+  // through the typescript `json()` helper. This unwraps the type that was
+  // originally passed in
+  const actionData =
+    useActionData<Awaited<ReturnType<typeof action>>["json"]>();
+
   if (transition.state === "loading") return <Loading />;
   return (
     <fieldset disabled={transition.state === "submitting"}>

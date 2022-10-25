@@ -1,9 +1,10 @@
 import { useLoaderData } from "@remix-run/react";
 import { CommentForm } from "~/components/commentForm";
 import { Comment } from "./comments";
+import { loader as postLoader } from "~/routes/post/$post";
 
 export const CommentSection = () => {
-  const { comments } = useLoaderData();
+  const { comments } = useLoaderData<ReturnType<typeof postLoader>>();
   return (
     <div className="bg-accent-100 rounded-b text-primary-800 p-2">
       <h2 className="text-lg text-inherit">your thoughts?</h2>

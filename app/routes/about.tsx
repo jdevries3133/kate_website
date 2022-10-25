@@ -1,3 +1,5 @@
+import { ActionArgs } from "remix";
+
 import { Loading } from "~/components/loading";
 import { DefaultPageContainer } from "~/components/pageContainer";
 import { searchAction, searchLoader, SearchLoader } from "~/components/search";
@@ -8,11 +10,13 @@ import { TWITTER_EMBED_HEIGHT } from "~/config";
 import { twitterScript } from "~/vendor/twitterScript";
 import { useEffect, useState } from "react";
 import { ScrollToTopButton } from "~/components/scrollToTopButton";
+import { profileLoader } from "~/services/profile";
 
-export const action = searchAction;
+export const action = ({ request }: ActionArgs) => searchAction(request);
 
-export const loader: SearchLoader = ({ request }) => ({
+export const loader: SearchLoader = async ({ request }) => ({
   search: searchLoader(request),
+  profile: await profileLoader(request),
 });
 
 export default function About() {
