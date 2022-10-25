@@ -8,6 +8,8 @@ services:
       - "8002:8002"
         # prisma studio, which can be run with `docker exec` when needed
       - "5555:5555"
+        # node debugger
+      - "9229:9229"
     volumes:
       - .:/app
       - node_modules:/app/node_modules

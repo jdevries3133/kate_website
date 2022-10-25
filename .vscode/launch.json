@@ -11,6 +11,9 @@
       "sourceMaps": true,
       "localRoot": "${workspaceFolder}",
       "remoteRoot": "/app",
+      "resolveSourceMapLocations": [
+          "${workspaceFolder}/build/**/*"
+      ],
       "outFiles": [
         "${workspaceFolder}/build/**/*.js",
         "${workspaceFolder}/public/build/**/*.js"
