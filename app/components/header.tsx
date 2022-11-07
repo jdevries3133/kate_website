@@ -46,15 +46,9 @@ export const HeaderContent = () => {
         </div>
         {profile && !/\/profile/.test(pathname) && (
           <div className="hidden sm:flex flex-col justify-end text-right">
-            <p>Hey, {profile.name.split(" ")[0]}!</p>
-            <p>
-              <Link
-                to="/profile"
-                className="p-1 hover:bg-primary-100 transition"
-              >
-                View Profile
-              </Link>
-            </p>
+            <Link to="/profile" className="p-1 hover:bg-primary-100 transition">
+              <p>Welcome, {profile.name.split(" ")[0]}!</p>
+            </Link>
           </div>
         )}
       </div>

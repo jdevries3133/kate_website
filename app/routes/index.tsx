@@ -1,4 +1,4 @@
-import { ActionArgs, LoaderArgs, MetaFunction } from "@remix-run/node";
+import { ActionArgs, MetaFunction } from "@remix-run/node";
 
 import { Link } from "@remix-run/react";
 import prisma from "~/prisma.server";
@@ -8,7 +8,11 @@ import * as ExtraSplashContent from "~/mdx/extraSplashContent.mdx";
 import { HeaderContent } from "~/components/header";
 import { searchAction, searchLoader, SearchLoader } from "~/components/search";
 import { getSession, jsonAndCommit } from "~/sessions";
-import { ProfileLoader, profileLoader } from "~/services/profile";
+import {
+  handlyAnonymousProfileSubmission,
+  ProfileLoader,
+  profileLoader,
+} from "~/services/profile";
 
 export const meta: MetaFunction = () => {
   return { title: "Kate Tell: Author" };
@@ -35,19 +39,9 @@ export const action = async ({ request }: ActionArgs) => {
     message: (message as string) || "",
   };
 
-  // TODO: refactor into profile service
-  const { id: profileId } = await prisma.userProfile.upsert({
-    select: { id: true },
-    where: {
-      email: values.email,
-    },
-    update: {
-      name: values.name,
-    },
-    create: {
-      email: values.email,
-      name: values.name,
-    },
+  const { id: profileId } = await handlyAnonymousProfileSubmission({
+    email: values.email,
+    name: values.name,
   });
 
   const session = await getSession(request.headers.get("Cookie"));
@@ -82,9 +76,7 @@ export const action = async ({ request }: ActionArgs) => {
   );
 };
 
-export const loader: SearchLoader & ProfileLoader = async ({
-  request,
-}: LoaderArgs) => ({
+export const loader: SearchLoader & ProfileLoader = async ({ request }) => ({
   profile: await profileLoader(request),
   search: searchLoader(request),
 });

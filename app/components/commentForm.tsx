@@ -1,6 +1,14 @@
-import { ActionArgs, Form, useActionData, useTransition } from "remix";
+import { useState } from "react";
+import {
+  Form,
+  ActionArgs,
+  useActionData,
+  useLoaderData,
+  useTransition,
+} from "remix";
 import prisma from "~/prisma.server";
 import { validateSlug } from "~/services/post";
+import { ProfileLoaderData } from "~/services/profile";
 import { Loading } from "./loading";
 
 export const actionId = "submit comment";
@@ -68,8 +76,24 @@ export const action = async ({ request, params }: ActionArgs) => {
 };
 
 export const CommentForm: React.FC = () => {
+  // track the initial interactivity with these fields for some UI reactivity
+  const [wasFieldInteracted, onFieldInteraction] = useState({
+    name: false,
+    email: false,
+  });
+  const markInteracted = (fieldName: keyof typeof wasFieldInteracted) => {
+    if (!wasFieldInteracted[fieldName]) {
+      onFieldInteraction({
+        ...wasFieldInteracted,
+        [fieldName]: true,
+      });
+    }
+  };
   const { state } = useTransition();
   const data = useActionData<ReturnType<typeof action>>();
+  const { profile } = useLoaderData<{
+    profile: ProfileLoaderData;
+  }>();
 
   if (state === "submitting") return <Loading />;
   return (
@@ -80,9 +104,13 @@ export const CommentForm: React.FC = () => {
           <p className="text-red-500">{data.errors.author}</p>
         )}
         <input
-          className="block rounded focus:ring-2 focus:ring-primary-200 focus:outline-none"
+          className={`block rounded focus:ring-2 focus:ring-primary-200 focus:outline-none transition delay-100
+            ${profile && !wasFieldInteracted.name ? "bg-gray-200" : ""}
+          `}
           type="text"
           name="author"
+          defaultValue={profile?.name || ""}
+          onChange={() => markInteracted("name")}
         />
       </label>
       <label className="text-sm">
@@ -91,9 +119,13 @@ export const CommentForm: React.FC = () => {
           <p className="text-red-500">{data.errors.email}</p>
         )}
         <input
-          className="block rounded focus:ring-2 focus:ring-primary-200 focus:outline-none"
+          className={`block rounded focus:ring-2 focus:ring-primary-200 focus:outline-none transition delay-100
+            ${profile && !wasFieldInteracted.email ? "bg-gray-200" : ""}
+          `}
           type="text"
           name="email"
+          defaultValue={profile?.email || ""}
+          onChange={() => markInteracted("email")}
         />
       </label>
       <label className="text-sm">

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Form, useTransition, useActionData } from "remix";
+import { Form, useTransition, useActionData, useLoaderData } from "remix";
 import { action } from "~/routes";
+import { ProfileLoaderData } from "~/services/profile";
 import { PrimaryButton } from "./buttons";
 import { Loading } from "./loading";
 
@@ -11,6 +12,17 @@ const InnerForm = () => {
   // originally passed in
   const actionData =
     useActionData<Awaited<ReturnType<typeof action>>["json"]>();
+  const { profile } = useLoaderData<{ profile: ProfileLoaderData }>();
+
+  const defaultName =
+    typeof actionData?.values?.name === "string"
+      ? actionData.values.name
+      : profile ? profile.name : "";
+
+  const defaultEmail =
+    typeof actionData?.values?.email === "string"
+      ? actionData.values.email
+      : profile ? profile.email : "";
 
   if (transition.state === "loading") return <Loading />;
   return (
@@ -32,11 +44,7 @@ const InnerForm = () => {
             className="bg-secondary-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
             type="text"
             name="name"
-            defaultValue={
-              typeof actionData?.values?.name === "string"
-                ? actionData.values.name
-                : undefined
-            }
+            defaultValue={defaultName}
           />
         </label>
         <label className="block text-left pt-2 pb-1">
@@ -52,11 +60,7 @@ const InnerForm = () => {
             className="bg-secondary-200 shadow p-1 rounded w-full focus:bg-white focus:rounded focus:shadow"
             type="email"
             name="email"
-            defaultValue={
-              typeof actionData?.values?.email === "string"
-                ? actionData.values.email
-                : undefined
-            }
+            defaultValue={defaultEmail}
           />
         </label>
         <label className="block text-left pt-2 pb-1">

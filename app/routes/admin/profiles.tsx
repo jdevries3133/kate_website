@@ -6,10 +6,10 @@ export const loader = () => {
     include: {
       _count: {
         select: {
-          Comments: true
-        }
-      }
-    }
+          Comments: true,
+        },
+      },
+    },
   });
 };
 
