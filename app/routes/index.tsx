@@ -87,7 +87,7 @@ export default function Index() {
       {/* I have no idea why, but if this thing doesn't have padding, the background
           doesn't show through */}
       <div className="py-[0.1px] bg-gradient-to-tr from-blue-200 to-purple-200 w-full">
-        <header className="flex flex-grow bg-accent-100 rounded m-2 p-2 items-center">
+        <header className="flex flex-wrap md:flex-nowrap flex-grow bg-accent-100 rounded m-2 p-2 items-center">
           <HeaderContent />
         </header>
       </div>

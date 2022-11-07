@@ -30,7 +30,8 @@ const NavItem: React.FC<{ name: string; to: string }> = ({ name, to }) => {
 export const HeaderContent = () => {
   const { pathname } = useLocation();
   const result = useLoaderData<{ profile: ProfileLoaderData }>();
-  const profile = result ? result.profile : { name: "" };
+  const profile = result?.profile ? result.profile : { name: "" };
+  profile.name = "josephinasmith3";
   return (
     <>
       <div className="flex gap-2 flex-shrink">
@@ -41,18 +42,18 @@ export const HeaderContent = () => {
         />
         <NavItem name="about" to="/about" />
       </div>
-      <div className="flex-grow flex justify-end items-center">
+      <div className="flex-grow sm:flex sm:justify-end sm:items-center">
         <div className="pr-2 sm:pr-0">
           <BlogSearch />
         </div>
-        {profile && !/\/profile/.test(pathname) && (
-          <div className="hidden sm:flex flex-col justify-end text-right">
-            <Link to="/profile" className="p-1 hover:bg-primary-100 transition">
-              <p>Welcome, {profile.name.split(" ")[0]}!</p>
-            </Link>
-          </div>
-        )}
       </div>
+      {profile && !/\/profile/.test(pathname) && (
+        <div className="flex flex-col justify-end text-right">
+          <Link to="/profile" className="p-1 hover:bg-primary-100 transition">
+            <p>Hi, {profile.name.split(" ")[0]}!</p>
+          </Link>
+        </div>
+      )}
     </>
   );
 };
