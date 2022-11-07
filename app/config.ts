@@ -1,1 +1,1 @@
-export const TWITTER_EMBED_HEIGHT = "900";
+export const TWITTER_EMBED_HEIGHT = "1050";
