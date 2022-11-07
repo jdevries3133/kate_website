@@ -71,6 +71,7 @@ export default function Login() {
       <div className="flex gap-4">
         <NavItem relTo="contacts">Contacts</NavItem>
         <NavItem relTo="comments">Comments</NavItem>
+        <NavItem relTo="profiles">User Profiles</NavItem>
         <NavItem relTo="designSystem">Design System</NavItem>
         <NavItem relTo="emailSendTest">Test Email Sending</NavItem>
       </div>

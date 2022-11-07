@@ -31,6 +31,21 @@
   h4 {
     @apply text-lg;
   }
+  table {
+    @apply text-sm text-left text-gray-500;
+  }
+  thead {
+    @apply text-xs text-gray-700 uppercase bg-gray-50;
+  }
+  th {
+    @apply py-3 px-6;
+  }
+  tr {
+    @apply bg-white border-b;
+  }
+  td {
+    @apply py-4 px-6;
+  }
 }
 
 .prose p code {

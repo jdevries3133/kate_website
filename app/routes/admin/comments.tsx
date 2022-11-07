@@ -27,7 +27,11 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export const loader: LoaderFunction = () => {
-  return prisma.comment.findMany();
+  return prisma.comment.findMany({
+    include: {
+      Profile: true,
+    },
+  });
 };
 
 export default function Comments() {
