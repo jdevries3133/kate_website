@@ -17,12 +17,16 @@ const InnerForm = () => {
   const defaultName =
     typeof actionData?.values?.name === "string"
       ? actionData.values.name
-      : profile ? profile.name : "";
+      : profile
+      ? profile.name
+      : "";
 
   const defaultEmail =
     typeof actionData?.values?.email === "string"
       ? actionData.values.email
-      : profile ? profile.email : "";
+      : profile
+      ? profile.email
+      : "";
 
   if (transition.state === "loading") return <Loading />;
   return (

@@ -29,7 +29,8 @@ const NavItem: React.FC<{ name: string; to: string }> = ({ name, to }) => {
 
 export const HeaderContent = () => {
   const { pathname } = useLocation();
-  const { profile } = useLoaderData<{ profile: ProfileLoaderData }>();
+  const result = useLoaderData<{ profile: ProfileLoaderData }>();
+  const profile = result ? result.profile : { name: "" };
   return (
     <>
       <div className="flex gap-2 flex-shrink">

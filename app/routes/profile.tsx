@@ -1,4 +1,4 @@
-import { useLoaderData, LoaderArgs, redirect, Link } from "remix";
+import { useLoaderData, LoaderArgs, Link } from "remix";
 import { profileLoader } from "~/services/profile";
 import prisma from "~/prisma.server";
 import { DefaultPageContainer } from "~/components/pageContainer";
@@ -14,7 +14,11 @@ import { Comment } from "~/components/comments";
 export const loader = async ({ request }: LoaderArgs) => {
   const profile = await profileLoader(request);
 
-  if (!profile) throw redirect("/noProfile");
+  if (!profile)
+    return {
+      profile: null,
+      search: searchLoader(request),
+    };
 
   const comments = (
     await prisma.comment.findMany({
@@ -57,7 +61,7 @@ const ProfilePageContainer: React.FC<PropsWithChildren> = ({ children }) => {
 
 export default function ProfilePage() {
   const data = useLoaderData<ReturnType<typeof loader>>();
-  if (!data) {
+  if (!data.profile) {
     return (
       <ProfilePageContainer>
         <>

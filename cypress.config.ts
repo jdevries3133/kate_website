@@ -7,7 +7,6 @@ export default defineConfig({
   experimentalInteractiveRunEvents: true,
   retries: {
     runMode: 3,
-    openMode: 2
   },
   e2e: {
     setupNodeEvents(on) {
